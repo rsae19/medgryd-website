@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MedGryd — Mission Control for Medical School</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0a0a0f;
+      color: #e2e8f0;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.4); opacity: 0.6; }
+      100% { transform: scale(2.8); opacity: 0; }
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes glow-border {
+      0%, 100% { box-shadow: 0 0 18px rgba(56,189,248,0.15), inset 0 0 18px rgba(56,189,248,0.04); }
+      50%       { box-shadow: 0 0 32px rgba(56,189,248,0.28), inset 0 0 28px rgba(56,189,248,0.08); }
+    }
+    @keyframes heartbeat-trace {
+      0%   { stroke-dashoffset: 900; opacity: 1; }
+      70%  { opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+      50%       { transform: translateX(-50%) translateY(6px); opacity: 1; }
+    }
+    }
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel">
+
+const { useState, useEffect, useRef, useCallback } = React;
+
+/* ─── TWEAKS ─────────────────────────────────────────────── */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#38bdf8",
+  "heroHeadline": "Mission Control for Medical School",
+  "heroSub": "Plan your week. Track your skills. Master your material. All in one place.",
+  "showSocialProof": true,
+  "cardStyle": "glow",
+  "darkFooter": true
+} /*EDITMODE-END*/;
+
+/* ─── ICONS (inline SVG paths) ───────────────────────────── */
+const Icon = ({ name, size = 24, color = "#38bdf8" }) => {
+  const paths = {
+    calendar: "M8 2v3M16 2v3M3 9h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
+    shield: "M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z",
+    brain: "M9.5 2C7 2 5 4 5 6.5c0 .66.14 1.29.4 1.85C3.96 9.13 3 10.7 3 12.5c0 2.8 2.2 5 5 5h8c2.8 0 5-2.2 5-5 0-1.8-.96-3.37-2.4-4.15.26-.56.4-1.19.4-1.85C19 4 17 2 14.5 2c-1.08 0-2.06.37-2.83.98A4.03 4.03 0 0 0 9.5 2z",
+    flask: "M9 2v7L4.5 17A2 2 0 0 0 6.4 20h11.2a2 2 0 0 0 1.9-3L15 9V2M9 2h6M8 12h8",
+    star: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+    layers: "M2 7l10-5 10 5-10 5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
+    zap: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
+    chart: "M3 3v18h18M18 9l-5 5-4-4-3 3",
+    trophy: "M6 9H3.5a2.5 2.5 0 0 1 0-5H6M18 9h2.5a2.5 2.5 0 0 0 0-5H18v5zM6 4h12v8a6 6 0 0 1-12 0V4zM12 20v-4M9 20h6",
+    book: "M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z",
+    activity: "M22 12h-4l-3 9L9 3l-3 9H2",
+    check: "M20 6L9 17l-5-5",
+    arrow: "M5 12h14M12 5l7 7-7 7",
+    stethoscope: "M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3M14 12a6 6 0 0 0 6 6 3 3 0 0 0 0-6",
+    chevron: "M6 9l6 6 6-6"
+  };
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+          <path d={paths[name]} />
+        </svg>);
+
+};
+
+/* ─── CANVAS HERO BG ─────────────────────────────────────── */
+const HeroBg = ({ accent }) => {
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animId;
+    let t = 0;
+
+    const hexToRgb = (hex) => {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      return { r, g, b };
+    };
+    const { r, g, b } = hexToRgb(accent);
+
+    // ── Rocket ships ───────────────────────────────────────
+    const rockets = [];
+    let lastRocket = -8;
+
+    const spawnRocket = () => {
+      const fromLeft = Math.random() < 0.5;
+      const angleDeg = (Math.random() - 0.5) * 44;
+      const angleRad = (angleDeg * Math.PI) / 180;
+      const speed = Math.random() * 2.0 + 1.2;
+      const edgeY = Math.random() * H * 0.82 + H * 0.05;
+      const dir = fromLeft ? 1 : -1;
+      rockets.push({
+        x: fromLeft ? -80 : W + 80,
+        y: edgeY,
+        vx: dir * speed * Math.cos(Math.abs(angleRad)),
+        vy: speed * Math.sin(angleRad) * (Math.random() < 0.5 ? 1 : -1),
+        angle: fromLeft ? angleRad * (Math.random() < 0.5 ? 1 : -1) : Math.PI + angleRad * (Math.random() < 0.5 ? 1 : -1),
+        scale: Math.random() * 0.5 + 0.3,
+        alpha: 0,
+        bodyLen: Math.random() * 12 + 16,
+        bodyW:   Math.random() * 4  + 6,
+        noseLen: Math.random() * 10 + 12,
+        finSz:   Math.random() * 4  + 5,
+        windowR: Math.random() * 1.5 + 2.5,
+        hasStripe: Math.random() < 0.45,
+      });
+    };
+
+    const drawRocketShape = (ctx, rk) => {
+      const { bodyLen: bL, bodyW: bW, noseLen: nL, finSz: fS, hasStripe, windowR: wR } = rk;
+      const ac = (a) => `rgba(${r},${g},${b},${a})`;
+
+      // Body
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(-bL, -bW, bL * 2, bW * 2, bW * 0.35);
+      else { ctx.rect(-bL, -bW, bL * 2, bW * 2); }
+      ctx.fillStyle = ac(0.10); ctx.fill();
+      ctx.strokeStyle = ac(0.55); ctx.lineWidth = 0.8; ctx.stroke();
+
+      // Nose cone — sharp pointed
+      ctx.beginPath();
+      ctx.moveTo(bL, -bW * 0.65);
+      ctx.lineTo(bL + nL, 0);
+      ctx.lineTo(bL, bW * 0.65);
+      ctx.closePath();
+      ctx.fillStyle = ac(0.40); ctx.fill();
+      ctx.strokeStyle = ac(0.65); ctx.lineWidth = 0.7; ctx.stroke();
+
+      // Delta fins
+      [[1], [-1]].forEach(([s]) => {
+        ctx.beginPath();
+        ctx.moveTo(-bL * 0.55, s * bW);
+        ctx.lineTo(-bL * 0.55 - fS * 0.4, s * (bW + fS));
+        ctx.lineTo(-bL * 0.15, s * bW);
+        ctx.closePath();
+        ctx.fillStyle = ac(0.32); ctx.fill();
+        ctx.strokeStyle = ac(0.50); ctx.lineWidth = 0.6; ctx.stroke();
+      });
+
+      // Stripe
+      if (hasStripe) {
+        ctx.beginPath();
+        ctx.moveTo(bL * 0.15, -bW); ctx.lineTo(bL * 0.15, bW);
+        ctx.strokeStyle = ac(0.28); ctx.lineWidth = 1.4; ctx.stroke();
+      }
+
+      // Window
+      ctx.beginPath(); ctx.arc(bL * 0.28, 0, wR, 0, Math.PI * 2);
+      ctx.fillStyle = ac(0.16); ctx.fill();
+      ctx.strokeStyle = ac(0.50); ctx.lineWidth = 0.6; ctx.stroke();
+      // inner glint
+      ctx.beginPath(); ctx.arc(bL * 0.28 - wR * 0.3, -wR * 0.3, wR * 0.35, 0, Math.PI * 2);
+      ctx.fillStyle = ac(0.30); ctx.fill();
+
+      // Exhaust flame
+      const flicker = 0.75 + 0.25 * Math.sin(t * 20 + rk.y * 0.05);
+      const exLen = bL * 0.85 * flicker + 8;
+      const exGrad = ctx.createLinearGradient(-bL, 0, -bL - exLen, 0);
+      exGrad.addColorStop(0,   ac(0.60));
+      exGrad.addColorStop(0.4, ac(0.28));
+      exGrad.addColorStop(1,   ac(0));
+      ctx.beginPath();
+      ctx.moveTo(-bL, -bW * 0.42);
+      ctx.quadraticCurveTo(-bL - exLen * 0.55, 0, -bL - exLen, 0);
+      ctx.quadraticCurveTo(-bL - exLen * 0.55, 0, -bL,  bW * 0.42);
+      ctx.fillStyle = exGrad; ctx.fill();
+
+      // Bright core
+      const cGrad = ctx.createLinearGradient(-bL, 0, -bL - exLen * 0.4, 0);
+      cGrad.addColorStop(0, ac(0.85)); cGrad.addColorStop(1, ac(0));
+      ctx.beginPath();
+      ctx.moveTo(-bL, -bW * 0.16);
+      ctx.quadraticCurveTo(-bL - exLen * 0.32, 0, -bL - exLen * 0.4, 0);
+      ctx.quadraticCurveTo(-bL - exLen * 0.32, 0, -bL,  bW * 0.16);
+      ctx.fillStyle = cGrad; ctx.fill();
+    };
+
+    const drawRockets = () => {
+      if (t - lastRocket > (Math.random() * 7 + 5)) {
+        spawnRocket();
+        lastRocket = t;
+      }
+      for (let i = rockets.length - 1; i >= 0; i--) {
+        const rk = rockets[i];
+        rk.x += rk.vx;
+        rk.y += rk.vy;
+        if (rk.alpha < 1) rk.alpha = Math.min(1, rk.alpha + 0.025);
+        const prog = rk.vx > 0 ? rk.x / W : (W - rk.x) / W;
+        if (prog > 0.82) rk.alpha = Math.max(0, 1 - (prog - 0.82) / 0.18);
+        if (rk.x > W + 130 || rk.x < -130 || rk.y > H + 100 || rk.y < -100) { rockets.splice(i, 1); continue; }
+        ctx.save();
+        ctx.translate(rk.x, rk.y);
+        ctx.rotate(rk.angle);
+        ctx.scale(rk.scale, rk.scale);
+        ctx.globalAlpha = rk.alpha;
+        ctx.shadowColor = `rgba(${r},${g},${b},0.55)`;
+        ctx.shadowBlur = 5;
+        drawRocketShape(ctx, rk);
+        ctx.restore();
+      }
+    };
+
+    // ── Shooting stars ─────────────────────────────────────
+    const shootingStars = [];
+    const spawnShootingStar = () => {
+      shootingStars.push({
+        x: Math.random() * W,
+        y: Math.random() * H * 0.5,
+        len: Math.random() * 120 + 60,
+        speed: Math.random() * 6 + 5,
+        angle: Math.PI / 6 + Math.random() * Math.PI / 3,  // 30–90° varied trajectories
+        alpha: 1,
+        tail: []
+      });
+    };
+    let lastShoot = 0;
+
+    const drawShootingStars = () => {
+      // One shooting star every 5–7 seconds
+      if (t - lastShoot > (Math.random() * 2 + 5)) {
+        spawnShootingStar();
+        lastShoot = t;
+      }
+      for (let i = shootingStars.length - 1; i >= 0; i--) {
+        const s = shootingStars[i];
+        s.x += Math.cos(s.angle) * s.speed;
+        s.y += Math.sin(s.angle) * s.speed;
+        s.alpha -= 0.018;
+        if (s.alpha <= 0 || s.x > W + 50 || s.y > H + 50) {
+          shootingStars.splice(i, 1);
+          continue;
+        }
+        const tailX = s.x - Math.cos(s.angle) * s.len;
+        const tailY = s.y - Math.sin(s.angle) * s.len;
+        const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
+        grad.addColorStop(0, `rgba(${r},${g},${b},0)`);
+        grad.addColorStop(0.7, `rgba(${r},${g},${b},${s.alpha * 0.4})`);
+        grad.addColorStop(1, `rgba(${r},${g},${b},${s.alpha})`);
+        ctx.beginPath();
+        ctx.moveTo(tailX, tailY);
+        ctx.lineTo(s.x, s.y);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.5;
+        ctx.shadowColor = `rgba(${r},${g},${b},${s.alpha * 0.8})`;
+        ctx.shadowBlur = 6;
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+        // bright head dot
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${s.alpha})`;
+        ctx.fill();
+      }
+    };
+
+    // ── Stars ──────────────────────────────────────────────
+    const makeStars = (W, H) => Array.from({ length: 220 }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      radius: Math.random() * 1.2 + 0.2,
+      twinkleSpeed: Math.random() * 2 + 0.5,
+      twinkleOffset: Math.random() * Math.PI * 2,
+      // small fraction are blue-tinted accent stars
+      accent: Math.random() < 0.12
+    }));
+
+    // ── Drifting dust particles ────────────────────────────
+    const makeParticles = (W, H) => Array.from({ length: 38 }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.12,
+      vy: (Math.random() - 0.5) * 0.06,
+      size: Math.random() * 1.8 + 0.4,
+      alpha: Math.random() * 0.4 + 0.1
+    }));
+
+    let W = 0,H = 0,stars = [],particles = [];
+
+    const resize = () => {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      stars = makeStars(W, H);
+      particles = makeParticles(W, H);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    // ── Sparse grid ────────────────────────────────────────
+    const drawGrid = () => {
+      const gs = 64;
+      ctx.strokeStyle = `rgba(${r},${g},${b},0.04)`;
+      ctx.lineWidth = 0.5;
+      for (let x = 0; x < W; x += gs) {
+        ctx.beginPath();ctx.moveTo(x, 0);ctx.lineTo(x, H);ctx.stroke();
+      }
+      for (let y = 0; y < H; y += gs) {
+        ctx.beginPath();ctx.moveTo(0, y);ctx.lineTo(W, y);ctx.stroke();
+      }
+    };
+
+    // ── Star field ─────────────────────────────────────────
+    const drawStars = () => {
+      stars.forEach((s) => {
+        const twinkle = 0.45 + 0.55 * Math.sin(t * s.twinkleSpeed + s.twinkleOffset);
+        const alpha = twinkle * (s.accent ? 0.85 : 0.55);
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+        if (s.accent) {
+          ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
+          // tiny glow for accent stars
+          ctx.shadowColor = `rgba(${r},${g},${b},${alpha * 0.6})`;
+          ctx.shadowBlur = 4;
+        } else {
+          ctx.fillStyle = `rgba(200,220,255,${alpha})`;
+          ctx.shadowBlur = 0;
+        }
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+    };
+
+    // ── Dust / nebula particles ────────────────────────────
+    const drawParticles = () => {
+      particles.forEach((p) => {
+        p.x += p.vx;p.y += p.vy;
+        if (p.x < 0) p.x = W;if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H;if (p.y > H) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha * 0.6})`;
+        ctx.fill();
+      });
+    };
+
+    // ── Nebula glow blobs ──────────────────────────────────
+    const drawNebula = () => {
+      // Two soft nebula clouds — upper-left & lower-right
+      const blobs = [
+      { cx: W * 0.18, cy: H * 0.28, rx: W * 0.28, ry: H * 0.22, alpha: 0.055 },
+      { cx: W * 0.82, cy: H * 0.72, rx: W * 0.24, ry: H * 0.20, alpha: 0.04 }];
+
+      blobs.forEach((blob) => {
+        const grad = ctx.createRadialGradient(blob.cx, blob.cy, 0, blob.cx, blob.cy, Math.max(blob.rx, blob.ry));
+        grad.addColorStop(0, `rgba(${r},${g},${b},${blob.alpha})`);
+        grad.addColorStop(0.5, `rgba(${r},${g},${b},${blob.alpha * 0.4})`);
+        grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        ctx.save();
+        ctx.scale(blob.rx / Math.max(blob.rx, blob.ry), blob.ry / Math.max(blob.rx, blob.ry));
+        ctx.beginPath();
+        ctx.arc(
+          blob.cx * (Math.max(blob.rx, blob.ry) / blob.rx),
+          blob.cy * (Math.max(blob.rx, blob.ry) / blob.ry),
+          Math.max(blob.rx, blob.ry), 0, Math.PI * 2
+        );
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.restore();
+      });
+    };
+
+    // ── Orbit ring (references logo motif) ────────────────
+    const drawOrbit = () => {
+      const cx = W * 0.5,cy = H * 0.5;
+      const rx = W * 0.38,ry = H * 0.10;
+      const spin = t * 0.06;
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(spin);
+      ctx.scale(1, ry / rx);
+      ctx.beginPath();
+      ctx.arc(0, 0, rx, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(${r},${g},${b},0.07)`;
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+      // small dot travelling the orbit
+      const dotAngle = t * 0.5;
+      const dx = rx * Math.cos(dotAngle);
+      const dy = rx * Math.sin(dotAngle);
+      ctx.beginPath();
+      ctx.arc(dx, dy, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},0.55)`;
+      ctx.shadowColor = `rgba(${r},${g},${b},0.8)`;
+      ctx.shadowBlur = 8;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.restore();
+    };
+
+    // ── Pulse rings ────────────────────────────────────────
+    const pulses = [{ phase: 0 }, { phase: 0.4 }, { phase: 0.75 }];
+    const drawPulses = () => {
+      pulses.forEach((p) => {
+        const prog = (t * 0.3 + p.phase) % 1;
+        const maxR = Math.max(W, H) * 0.65;
+        const radius = prog * maxR;
+        const alpha = (1 - prog) * 0.09;
+        ctx.beginPath();
+        ctx.arc(W * 0.5, H * 0.5, radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      });
+    };
+
+    // ── EKG waveform function ──────────────────────────────
+    // Returns y-offset for a given phase [0..1] within one heartbeat cycle
+    const ekgY = (phase) => {
+      // P wave: small bump ~0.10–0.18
+      if (phase > 0.10 && phase < 0.18) {
+        const p = (phase - 0.10) / 0.08;
+        return -10 * Math.sin(p * Math.PI);
+      }
+      // PR segment: flat 0.18–0.26
+      if (phase >= 0.18 && phase < 0.26) return 0;
+      // Q dip: 0.26–0.30
+      if (phase >= 0.26 && phase < 0.30) {
+        const p = (phase - 0.26) / 0.04;
+        return 14 * Math.sin(p * Math.PI);
+      }
+      // R spike up: 0.30–0.36
+      if (phase >= 0.30 && phase < 0.36) {
+        const p = (phase - 0.30) / 0.06;
+        return -78 * Math.sin(p * Math.PI);
+      }
+      // S dip: 0.36–0.42
+      if (phase >= 0.36 && phase < 0.42) {
+        const p = (phase - 0.36) / 0.06;
+        return 28 * Math.sin(p * Math.PI);
+      }
+      // ST segment: flat 0.42–0.52
+      if (phase >= 0.42 && phase < 0.52) return 0;
+      // T wave: broad bump 0.52–0.72
+      if (phase >= 0.52 && phase < 0.72) {
+        const p = (phase - 0.52) / 0.20;
+        return -22 * Math.sin(p * Math.PI);
+      }
+      // baseline
+      return 0;
+    };
+
+    // ── EKG write-head state ───────────────────────────────
+    // writeX: current pixel column of the moving head
+    // yBuffer: stores y-offset for each pixel column
+    let writeX = 0;
+    let yBuffer = [];
+    const EKG_CYCLE_PX = () => W * 0.32; // one heartbeat = 32% of screen width
+    const EKG_CY = () => H * 0.87;
+    const EKG_SPEED = 1.4; // pixels per frame
+
+    const drawEkg = () => {
+      const cy = EKG_CY();
+      const cyc = EKG_CYCLE_PX();
+
+      // Advance write head
+      writeX += EKG_SPEED;
+      if (writeX >= W) {writeX = 0;yBuffer = [];}
+
+      // Fill yBuffer up to writeX
+      while (yBuffer.length <= Math.floor(writeX)) {
+        const px = yBuffer.length;
+        const phase = px / cyc % 1;
+        yBuffer.push(ekgY(phase));
+      }
+
+      // ── Draw the trace ──────────────────────────────────
+      // Split into segments with alpha fade based on distance behind head
+      const TAIL = Math.min(W * 0.85, yBuffer.length - 1);
+      const fadeStart = writeX - TAIL;
+
+      if (yBuffer.length < 2) return;
+
+      // Build gradient along the line
+      const grad = ctx.createLinearGradient(Math.max(0, fadeStart), 0, writeX, 0);
+      grad.addColorStop(0, `rgba(${r},${g},${b},0)`);
+      grad.addColorStop(0.25, `rgba(${r},${g},${b},0.15)`);
+      grad.addColorStop(0.75, `rgba(${r},${g},${b},0.55)`);
+      grad.addColorStop(1, `rgba(${r},${g},${b},0.85)`);
+
+      ctx.beginPath();
+      const startPx = Math.max(0, Math.floor(fadeStart));
+      ctx.moveTo(startPx, cy + (yBuffer[startPx] || 0));
+      for (let px = startPx + 1; px <= Math.floor(writeX) && px < yBuffer.length; px++) {
+        ctx.lineTo(px, cy + yBuffer[px]);
+      }
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.6;
+      ctx.shadowColor = `rgba(${r},${g},${b},0.7)`;
+      ctx.shadowBlur = 7;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      // ── Glowing cursor dot at write head ──────────────
+      const headY = cy + (yBuffer[Math.floor(writeX)] || 0);
+      ctx.beginPath();
+      ctx.arc(writeX, headY, 3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${r},${g},${b},0.95)`;
+      ctx.shadowColor = `rgba(${r},${g},${b},1)`;
+      ctx.shadowBlur = 14;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // ── Black wipe ahead of cursor (monitor sweep look) ─
+      if (writeX < W - 1) {
+        ctx.fillStyle = 'rgba(10,10,15,0.92)';
+        ctx.fillRect(writeX + 1, cy - 110, Math.min(60, W - writeX - 1), 220);
+      }
+    };
+
+    const draw = () => {
+      t += 0.007;
+      ctx.clearRect(0, 0, W, H);
+
+      drawNebula();
+      drawGrid();
+      drawStars();
+      drawShootingStars();
+      drawRockets();
+      drawParticles();
+      drawOrbit();
+      drawPulses();
+      drawEkg();
+
+      animId = requestAnimationFrame(draw);
+    };
+
+    draw();
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', resize);
+    };
+  }, [accent]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.95 }} />);
+
+
+};
+
+/* ─── NAVBAR ─────────────────────────────────────────────── */
+const Navbar = ({ page, setPage, accent }) => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 48);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const navBg = scrolled ?
+  'rgba(10,10,15,0.95)' :
+  'transparent';
+  const navBorder = scrolled ?
+  `1px solid rgba(56,189,248,0.1)` :
+  '1px solid transparent';
+
+  const linkHrefs = { features: 'features.html', pricing: 'pricing.html', about: 'about.html' };
+  const links = ['Features', 'Pricing', 'About'];
+
+  return (
+    <nav style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '0 clamp(20px, 4vw, 60px)',
+      height: 68,
+      background: navBg,
+      borderBottom: navBorder,
+      backdropFilter: scrolled ? 'blur(16px)' : 'none',
+      transition: 'background 0.35s ease, border-color 0.35s ease'
+    }}>
+          {/* Logo */}
+          <div
+        onClick={() => {setPage('home');window.scrollTo({ top: 0 });}}
+        style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', userSelect: 'none' }}>
+        
+            <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 54, display: "block" }} />
+            <span style={{
+          fontFamily: 'Oxanium, sans-serif',
+          fontWeight: 600, fontSize: 26,
+          color: '#e2e8f0',
+          letterSpacing: '0.04em',
+          lineHeight: 1
+        }}>MedGryd</span>
+          </div>
+
+          {/* Desktop nav links — absolutely centered */}
+          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 36 }}>
+            {links.map((l) =>
+        <a
+          key={l}
+          href={linkHrefs[l.toLowerCase()]}
+          style={{
+            fontFamily: 'Oxanium, sans-serif',
+            fontWeight: 400, fontSize: 13,
+            color: 'rgba(226,232,240,0.65)',
+            letterSpacing: '0.12em', textTransform: 'uppercase',
+            textDecoration: 'none',
+            transition: 'color 0.2s',
+            padding: '4px 2px',
+            borderBottom: '1px solid transparent'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#e2e8f0'}
+          onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(226,232,240,0.65)'}>
+          {l}</a>
+        )}
+          </div>
+
+          {/* Launch App */}
+          <a
+        href="https://app.medgryd.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          fontFamily: 'Oxanium, sans-serif',
+          fontWeight: 600, fontSize: 13,
+          letterSpacing: '0.1em', textTransform: 'uppercase',
+          background: accent,
+          color: '#0a0a0f',
+          padding: '9px 22px',
+          borderRadius: 8,
+          textDecoration: 'none',
+          boxShadow: `0 0 18px rgba(56,189,248,0.35)`,
+          transition: 'box-shadow 0.2s, transform 0.15s',
+          display: 'inline-block'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = `0 0 28px rgba(56,189,248,0.55)`;
+          e.currentTarget.style.transform = 'translateY(-1px)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = `0 0 18px rgba(56,189,248,0.35)`;
+          e.currentTarget.style.transform = 'translateY(0)';
+        }}>
+        Launch App</a>
+        </nav>);
+
+};
+
+/* ─── HERO ───────────────────────────────────────────────── */
+const Hero = ({ accent, headline, sub, setPage }) =>
+<section style={{
+  position: 'relative',
+  height: '100vh', minHeight: 640,
+  display: 'flex', alignItems: 'center', justifyContent: 'center',
+  overflow: 'hidden',
+  background: '#0a0a0f'
+}}>
+        <HeroBg accent={accent} />
+
+        {/* Radial vignette */}
+        <div style={{
+    position: 'absolute', inset: 0,
+    background: 'radial-gradient(ellipse 70% 60% at 50% 55%, transparent 30%, #0a0a0f 100%)',
+    pointerEvents: 'none'
+  }} />
+
+        {/* Content */}
+        <div style={{
+    position: 'relative', zIndex: 2,
+    display: 'flex', flexDirection: 'column', alignItems: 'center',
+    textAlign: 'center',
+    padding: '0 clamp(20px, 5vw, 80px)',
+    maxWidth: 860,
+    animation: 'fade-up 0.9s ease both'
+  }}>
+          {/* Badge */}
+          <div style={{
+      display: 'inline-flex', alignItems: 'center', gap: 8,
+      padding: '6px 16px', borderRadius: 100,
+      border: `1px solid rgba(56,189,248,0.25)`,
+      background: 'rgba(56,189,248,0.06)',
+      marginBottom: 28
+    }}>
+            <div style={{ width: 6, height: 6, borderRadius: '50%', background: accent, boxShadow: `0 0 6px ${accent}` }} />
+            <span style={{
+        fontFamily: 'Oxanium, sans-serif',
+        fontSize: 11, fontWeight: 500,
+        letterSpacing: '0.14em', textTransform: 'uppercase',
+        color: accent
+      }}>Now in Beta</span>
+          </div>
+
+          <h1 style={{
+      fontFamily: 'Oxanium, sans-serif',
+      fontWeight: 200,
+      fontSize: 'clamp(38px, 6.5vw, 82px)',
+      lineHeight: 1.08,
+      color: '#f1f5f9',
+      letterSpacing: '-0.01em',
+      marginBottom: 22,
+      textWrap: 'balance'
+    }}>{headline}</h1>
+
+          <p style={{
+      fontSize: 'clamp(16px, 2vw, 20px)',
+      color: '#94a3b8',
+      lineHeight: 1.65,
+      maxWidth: 540,
+      marginBottom: 44,
+      fontWeight: 300
+    }}>{sub}</p>
+
+          <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <a
+        href="https://app.medgryd.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          fontFamily: 'Oxanium, sans-serif',
+          fontWeight: 600, fontSize: 14,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          background: accent,
+          color: '#0a0a0f',
+          padding: '14px 32px',
+          borderRadius: 10,
+          textDecoration: 'none',
+          boxShadow: `0 0 24px rgba(56,189,248,0.4)`,
+          display: 'inline-flex', alignItems: 'center', gap: 8,
+          transition: 'transform 0.15s, box-shadow 0.2s'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.transform = 'translateY(-2px)';
+          e.currentTarget.style.boxShadow = '0 0 36px rgba(56,189,248,0.55)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.transform = '';
+          e.currentTarget.style.boxShadow = '0 0 24px rgba(56,189,248,0.4)';
+        }}>
+        Launch App <Icon name="arrow" size={16} color="#0a0a0f" /></a>
+
+            <a
+        href="features.html"
+        style={{
+          fontFamily: 'Oxanium, sans-serif',
+          fontWeight: 500, fontSize: 14,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          background: 'transparent',
+          color: accent,
+          padding: '14px 32px',
+          borderRadius: 10,
+          border: `1.5px solid rgba(56,189,248,0.4)`,
+          cursor: 'pointer',
+          textDecoration: 'none',
+          display: 'inline-block',
+          transition: 'border-color 0.2s, background 0.2s'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = accent;
+          e.currentTarget.style.background = 'rgba(56,189,248,0.07)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = 'rgba(56,189,248,0.4)';
+          e.currentTarget.style.background = 'transparent';
+        }}>
+        Explore Features</a>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div style={{
+    position: 'absolute', bottom: 32, left: '50%',
+    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+    animation: 'scroll-bounce 2s ease-in-out infinite',
+    opacity: 0.5
+  }}>
+          <span style={{ fontFamily: 'Oxanium', fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#64748b' }}>Scroll</span>
+          <Icon name="chevron" size={18} color="#64748b" />
+        </div>
+      </section>;
+
+
+/* ─── SOCIAL PROOF BAR ───────────────────────────────────── */
+const SocialProofBar = ({ show, accent }) => {
+  if (!show) return null;
+  return (
+    <div style={{
+      padding: '22px clamp(20px,5vw,80px)',
+      borderTop: `1px solid rgba(56,189,248,0.12)`,
+      borderBottom: `1px solid rgba(56,189,248,0.12)`,
+      background: 'rgba(56,189,248,0.03)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14
+    }}>
+          <Icon name="stethoscope" size={18} color="rgba(56,189,248,0.5)" />
+          <span style={{
+        fontFamily: 'Space Grotesk',
+        fontSize: 14, fontWeight: 400,
+        color: '#64748b',
+        letterSpacing: '0.02em'
+      }}>Built for and by medical students</span>
+          <Icon name="stethoscope" size={18} color="rgba(56,189,248,0.5)" />
+        </div>);
+
+};
+
+/* ─── FEATURE CARDS ──────────────────────────────────────── */
+const featureData = [
+{
+  icon: 'calendar',
+  title: 'Weekly Planner',
+  desc: 'Drag-and-drop task management with Canvas & Google Calendar sync, smart overdue tracking, and priority-based workflows.',
+  tag: 'Productivity'
+},
+{
+  icon: 'shield',
+  title: 'Skills Vault',
+  desc: 'Track confidence across 237 OMM techniques and CEPA checklists. Practice with the randomized picker wheel.',
+  tag: 'Clinical'
+},
+{
+  icon: 'brain',
+  title: 'Quiz Mastery',
+  desc: 'AI-powered question banks with topic mastery tracking, weak area identification, and smart review modes.',
+  tag: 'AI-Powered'
+},
+{
+  icon: 'flask',
+  title: 'Research Hub',
+  desc: 'Manage research projects, collaborate with classmates, track deadlines, and organize ideas all in one place.',
+  tag: 'Collaborate'
+},
+{
+  icon: 'chart',
+  title: 'Score Matrix',
+  desc: 'Know exactly where you stand. Handles weighted components, auto-drops lowest scores, and projects what you need on your next exam.',
+  tag: 'Grades'
+},
+{
+  icon: 'trophy',
+  title: 'GrydRank',
+  desc: 'XP, badges, leaderboards, and weekly challenges. Climb through 8 rank tiers and stay motivated all semester long.',
+  tag: 'Gamification'
+},
+{
+  icon: 'book',
+  title: 'Companion Tracker',
+  desc: 'Track Pathoma chapters and Sketchy series videos as you complete them. Visual progress bars keep you on top of your resources.',
+  tag: 'Resources'
+},
+{
+  icon: 'activity',
+  title: 'Stats & Analytics',
+  desc: 'Daily and weekly study breakdowns, Anki stats, task completion graphs, and login streak tracking to optimize your approach.',
+  tag: 'Analytics'
+}];
+
+
+const FeatureCard = ({ icon, title, desc, tag, accent, cardStyle }) => {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: '#111118',
+        border: hovered ?
+        `1px solid rgba(56,189,248,0.45)` :
+        `1px solid rgba(255,255,255,0.07)`,
+        borderRadius: 16,
+        padding: '30px 28px',
+        transition: 'border-color 0.25s, box-shadow 0.25s, transform 0.2s',
+        boxShadow: hovered ?
+        cardStyle === 'glow' ? '0 0 30px rgba(56,189,248,0.13), 0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.4)' :
+        '0 2px 12px rgba(0,0,0,0.3)',
+        transform: hovered ? 'translateY(-4px)' : 'none',
+        cursor: 'default'
+      }}>
+      
+          {/* Icon bg */}
+          <div style={{
+        width: 48, height: 48,
+        borderRadius: 12,
+        background: 'rgba(56,189,248,0.08)',
+        border: `1px solid rgba(56,189,248,0.18)`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        marginBottom: 18
+      }}>
+            <Icon name={icon} size={22} color={accent} />
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+            <h3 style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 17, color: '#f1f5f9' }}>{title}</h3>
+            <span style={{
+          fontFamily: 'Oxanium', fontSize: 10, fontWeight: 500,
+          letterSpacing: '0.1em', textTransform: 'uppercase',
+          color: accent,
+          background: 'rgba(56,189,248,0.08)',
+          border: `1px solid rgba(56,189,248,0.18)`,
+          padding: '3px 8px', borderRadius: 4
+        }}>{tag}</span>
+          </div>
+          <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.7, fontWeight: 300 }}>{desc}</p>
+        </div>);
+
+};
+
+const FeaturesSection = ({ accent, cardStyle }) =>
+<section id="features" style={{ padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px)' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <span style={{
+        fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500,
+        letterSpacing: '0.16em', textTransform: 'uppercase',
+        color: accent, display: 'block', marginBottom: 12
+      }}>Platform</span>
+            <h2 style={{
+        fontFamily: 'Oxanium', fontWeight: 300,
+        fontSize: 'clamp(28px,4vw,46px)',
+        color: '#f1f5f9',
+        letterSpacing: '-0.01em',
+        lineHeight: 1.15
+      }}>Everything you need.<br />Nothing you don't.</h2>
+          </div>
+          <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(4, 1fr)',
+      gap: 20
+    }}>
+            {featureData.map((f) =>
+      <FeatureCard key={f.title} {...f} accent={accent} cardStyle={cardStyle} />
+      )}
+          </div>
+        </div>
+      </section>;
+
+
+/* ─── WHY MEDGRYD ────────────────────────────────────────── */
+const whyData = [
+{
+  icon: 'star',
+  title: 'Built by Med Students',
+  desc: 'Created in the trenches of medical school by students who understand your workflow, your stress, and your goals.'
+},
+{
+  icon: 'layers',
+  title: 'All-in-One Platform',
+  desc: 'Weekly planner, skills tracker, grade calculator, research manager, and more — no more juggling 10 different apps.'
+},
+{
+  icon: 'zap',
+  title: 'Gamified Motivation',
+  desc: 'GrydRank XP system, badges, leaderboards, and weekly challenges keep you engaged and accountable all semester long.'
+}];
+
+
+const WhySection = ({ accent }) =>
+<section style={{
+  padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px)',
+  background: '#0d0d14',
+  position: 'relative'
+}}>
+        {/* subtle top border */}
+        <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: 1, background: 'rgba(56,189,248,0.1)' }} />
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <span style={{
+        fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500,
+        letterSpacing: '0.16em', textTransform: 'uppercase',
+        color: accent, display: 'block', marginBottom: 12
+      }}>Why MedGryd</span>
+            <h2 style={{
+        fontFamily: 'Oxanium', fontWeight: 300,
+        fontSize: 'clamp(28px,4vw,46px)',
+        color: '#f1f5f9',
+        letterSpacing: '-0.01em'
+      }}>Built different. By design.</h2>
+          </div>
+          <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
+      gap: 28
+    }}>
+            {whyData.map((w, i) =>
+      <div key={w.title} style={{
+        padding: '34px 30px',
+        borderRadius: 16,
+        border: '1px solid rgba(255,255,255,0.06)',
+        background: 'rgba(255,255,255,0.02)',
+        position: 'relative',
+        overflow: 'hidden'
+      }}>
+                {/* corner accent */}
+                <div style={{
+          position: 'absolute', top: 0, right: 0,
+          width: 80, height: 80,
+          background: `radial-gradient(circle at top right, rgba(56,189,248,0.1), transparent 70%)`
+        }} />
+                <div style={{
+          fontFamily: 'Oxanium', fontWeight: 700,
+          fontSize: 13, color: 'rgba(56,189,248,0.3)',
+          marginBottom: 16, letterSpacing: '0.06em'
+        }}>0{i + 1}</div>
+                <div style={{ marginBottom: 14 }}>
+                  <Icon name={w.icon} size={26} color={accent} />
+                </div>
+                <h3 style={{
+          fontFamily: 'Oxanium', fontWeight: 600,
+          fontSize: 18, color: '#e2e8f0', marginBottom: 10
+        }}>{w.title}</h3>
+                <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.7, fontWeight: 300 }}>{w.desc}</p>
+              </div>
+      )}
+          </div>
+        </div>
+      </section>;
+
+
+/* ─── CTA BANNER ─────────────────────────────────────────── */
+const CtaBanner = ({ accent }) =>
+<section style={{
+  padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px)'
+}}>
+        <div style={{
+    maxWidth: 900, margin: '0 auto',
+    background: 'linear-gradient(135deg, #0f0f1a 0%, #111120 100%)',
+    borderRadius: 24,
+    padding: 'clamp(40px,6vw,72px)',
+    textAlign: 'center',
+    position: 'relative',
+    border: '1px solid rgba(56,189,248,0.18)',
+    animation: 'glow-border 4s ease-in-out infinite',
+    overflow: 'hidden'
+  }}>
+          {/* Decorative bg glow */}
+          <div style={{
+      position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)',
+      width: '60%', height: '100%',
+      background: 'radial-gradient(ellipse at top, rgba(56,189,248,0.07) 0%, transparent 70%)',
+      pointerEvents: 'none'
+    }} />
+
+          <span style={{
+      fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500,
+      letterSpacing: '0.16em', textTransform: 'uppercase',
+      color: accent, display: 'block', marginBottom: 16
+    }}>Get Started</span>
+
+          <h2 style={{
+      fontFamily: 'Oxanium', fontWeight: 300,
+      fontSize: 'clamp(26px,3.5vw,44px)',
+      color: '#f1f5f9', marginBottom: 14,
+      letterSpacing: '-0.01em'
+    }}>Ready to level up<br />your study game?</h2>
+
+          <p style={{
+      color: '#64748b', fontSize: 15, lineHeight: 1.6,
+      marginBottom: 36, maxWidth: 440, margin: '0 auto 36px'
+    }}>Join medical students who've taken control of their academic journey with MedGryd.</p>
+
+          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+        href="https://app.medgryd.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          fontFamily: 'Oxanium', fontWeight: 600, fontSize: 13,
+          letterSpacing: '0.1em', textTransform: 'uppercase',
+          background: accent, color: '#0a0a0f',
+          padding: '13px 30px', borderRadius: 10,
+          textDecoration: 'none',
+          boxShadow: `0 0 24px rgba(56,189,248,0.4)`,
+          transition: 'transform 0.15s, box-shadow 0.2s',
+          display: 'inline-flex', alignItems: 'center', gap: 8
+        }}
+        onMouseEnter={(e) => {e.currentTarget.style.transform = 'translateY(-2px)';e.currentTarget.style.boxShadow = '0 0 36px rgba(56,189,248,0.6)';}}
+        onMouseLeave={(e) => {e.currentTarget.style.transform = '';e.currentTarget.style.boxShadow = '0 0 24px rgba(56,189,248,0.4)';}}>
+        Launch App <Icon name="arrow" size={15} color="#0a0a0f" /></a>
+
+            <a
+        href="mailto:hello@medgryd.com?subject=Licensing Inquiry"
+        style={{
+          fontFamily: 'Oxanium', fontWeight: 500, fontSize: 13,
+          letterSpacing: '0.1em', textTransform: 'uppercase',
+          background: 'transparent', color: accent,
+          padding: '13px 30px', borderRadius: 10,
+          border: `1.5px solid rgba(56,189,248,0.35)`,
+          textDecoration: 'none',
+          transition: 'border-color 0.2s, background 0.2s',
+          display: 'inline-block'
+        }}
+        onMouseEnter={(e) => {e.currentTarget.style.borderColor = accent;e.currentTarget.style.background = 'rgba(56,189,248,0.07)';}}
+        onMouseLeave={(e) => {e.currentTarget.style.borderColor = 'rgba(56,189,248,0.35)';e.currentTarget.style.background = 'transparent';}}>
+        Contact for Licensing</a>
+          </div>
+        </div>
+      </section>;
+
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+const Footer = ({ setPage, accent, dark }) =>
+<footer style={{
+  background: dark ? '#060609' : '#0a0a0f',
+  borderTop: '1px solid rgba(255,255,255,0.05)',
+  padding: 'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px'
+}}>
+        <div style={{
+    maxWidth: 1100, margin: '0 auto',
+    display: 'flex', flexWrap: 'wrap',
+    justifyContent: 'space-between', gap: 32,
+    paddingBottom: 32,
+    borderBottom: '1px solid rgba(255,255,255,0.05)',
+    marginBottom: 24
+  }}>
+          {/* Brand */}
+          <div style={{ maxWidth: 340 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+              <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 30 }} />
+              <span style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 16, color: '#e2e8f0' }}>MedGryd</span>
+            </div>
+            <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.65 }}>Mission Control for Medical School.
+
+      </p>
+          </div>
+
+          {/* Links */}
+          <div style={{ display: 'flex', gap: 56, flexWrap: 'wrap' }}>
+            <div>
+              <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 14 }}>Platform</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {['Features', 'Pricing', 'About'].map((l) =>
+          <button key={l} onClick={() => setPage(l.toLowerCase())} style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            fontFamily: 'Space Grotesk', fontSize: 13, color: '#64748b',
+            textAlign: 'left', padding: 0,
+            transition: 'color 0.2s'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
+          onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>
+            {l}</button>
+          )}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 14 }}>Contact</div>
+              <a href="mailto:hello@medgryd.com" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', display: 'block', marginBottom: 10, transition: 'color 0.2s' }}
+        onMouseEnter={(e) => e.currentTarget.style.color = accent}
+        onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>
+          hello@medgryd.com</a>
+              <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
+          fontFamily: 'Oxanium', fontSize: 12, fontWeight: 600,
+          color: accent, textDecoration: 'none',
+          letterSpacing: '0.08em', textTransform: 'uppercase'
+        }}>Launch App →</a>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+          <span style={{ fontSize: 12, color: '#334155' }}>© 2026 MedGryd. All rights reserved.</span>
+          <span style={{ fontSize: 12, color: '#1e293b', fontFamily: 'Oxanium' }}>Built with 🩺 for future physicians</span>
+        </div>
+      </footer>;
+
+
+/* ─── SUB-PAGES ──────────────────────────────────────────── */
+const PageShell = ({ title, subtitle, children }) =>
+<div style={{ minHeight: '100vh', paddingTop: 68 }}>
+        <div style={{
+    padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px) 40px',
+    background: 'linear-gradient(180deg, rgba(56,189,248,0.05) 0%, transparent 60%)',
+    textAlign: 'center',
+    borderBottom: '1px solid rgba(56,189,248,0.1)',
+    marginBottom: 48
+  }}>
+          <h1 style={{ fontFamily: 'Oxanium', fontWeight: 200, fontSize: 'clamp(32px,5vw,56px)', color: '#f1f5f9', marginBottom: 14 }}>{title}</h1>
+          <p style={{ color: '#64748b', fontSize: 17, maxWidth: 480, margin: '0 auto' }}>{subtitle}</p>
+        </div>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(20px,5vw,80px) 80px' }}>
+          {children}
+        </div>
+      </div>;
+
+
+const FeaturesPage = ({ accent, cardStyle }) =>
+<PageShell title="Platform Features" subtitle="Everything you need to conquer medical school, in one place.">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))', gap: 20 }}>
+          {featureData.map((f) => <FeatureCard key={f.title} {...f} accent={accent} cardStyle={cardStyle} />)}
+        </div>
+        <div style={{ marginTop: 64 }}>
+          <WhySection accent={accent} />
+        </div>
+      </PageShell>;
+
+
+const PricingPage = ({ accent }) => {
+  const plans = [
+  { name: 'Student', price: 'Free', desc: 'Core tools for individual students', features: ['Weekly Planner', 'Skills Vault (50 skills)', 'Quiz Mastery (100 Q)', 'Research Hub'], cta: 'Get Started' },
+  { name: 'Pro', price: '$9/mo', desc: 'Full access for serious students', features: ['Everything in Student', 'Unlimited Skills Vault', 'AI Quiz Generator', 'GrydRank & Leaderboards', 'Priority Support'], cta: 'Launch App', highlight: true },
+  { name: 'Institution', price: 'Custom', desc: 'Deploy across your medical school', features: ['All Pro features', 'Admin dashboard', 'Custom branding', 'LMS integration', 'Dedicated support'], cta: 'Contact Us' }];
+
+  return (
+    <PageShell title="Simple Pricing" subtitle="Invest in your future physician self. Cancel anytime.">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))', gap: 20, maxWidth: 860, margin: '0 auto' }}>
+            {plans.map((p) =>
+        <div key={p.name} style={{
+          background: p.highlight ? 'rgba(56,189,248,0.06)' : '#111118',
+          border: p.highlight ? `1.5px solid rgba(56,189,248,0.45)` : '1px solid rgba(255,255,255,0.07)',
+          borderRadius: 16, padding: '32px 26px',
+          position: 'relative',
+          boxShadow: p.highlight ? '0 0 30px rgba(56,189,248,0.1)' : 'none'
+        }}>
+                {p.highlight &&
+          <div style={{
+            position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
+            background: accent, color: '#0a0a0f',
+            fontFamily: 'Oxanium', fontSize: 10, fontWeight: 700,
+            letterSpacing: '0.14em', textTransform: 'uppercase',
+            padding: '4px 14px', borderRadius: 100
+          }}>Most Popular</div>
+          }
+                <div style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 18, color: '#e2e8f0', marginBottom: 6 }}>{p.name}</div>
+                <div style={{ fontFamily: 'Oxanium', fontWeight: 200, fontSize: 36, color: p.highlight ? accent : '#e2e8f0', marginBottom: 8 }}>{p.price}</div>
+                <div style={{ color: '#64748b', fontSize: 13, marginBottom: 24 }}>{p.desc}</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
+                  {p.features.map((f) =>
+            <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <Icon name="check" size={14} color={accent} />
+                      <span style={{ fontSize: 13, color: '#94a3b8' }}>{f}</span>
+                    </div>
+            )}
+                </div>
+                <a
+            href={p.cta === 'Contact Us' ? 'mailto:hello@medgryd.com' : 'https://app.medgryd.com'}
+            target={p.cta !== 'Contact Us' ? '_blank' : undefined}
+            rel="noopener noreferrer"
+            style={{
+              display: 'block', textAlign: 'center',
+              fontFamily: 'Oxanium', fontWeight: 600, fontSize: 13,
+              letterSpacing: '0.1em', textTransform: 'uppercase',
+              background: p.highlight ? accent : 'transparent',
+              color: p.highlight ? '#0a0a0f' : accent,
+              padding: '11px 20px', borderRadius: 8,
+              border: p.highlight ? 'none' : `1.5px solid rgba(56,189,248,0.35)`,
+              textDecoration: 'none',
+              transition: 'opacity 0.2s'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
+            onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
+            {p.cta}</a>
+              </div>
+        )}
+          </div>
+        </PageShell>);
+
+};
+
+const AboutPage = ({ accent }) =>
+<PageShell title="About MedGryd" subtitle="The story behind the platform built in the trenches.">
+        <div style={{ maxWidth: 680, margin: '0 auto' }}>
+          {[
+    { heading: 'Origin Story', body: 'MedGryd was born out of frustration. During first-year, our founder was juggling five different apps for studying, scheduling, skills tracking, and research. Nothing talked to each other. Nothing understood the unique demands of medical education. So we built what we wished existed.' },
+    { heading: 'The Mission', body: 'We believe every medical student deserves tools built specifically for their workflow — not adapted from generic productivity apps. MedGryd is purpose-built for the chaos and rigor of medical school, from MS1 through boards prep.' },
+    { heading: 'What\'s Next', body: 'We\'re actively developing AI-powered study recommendations, integration with major QBanks, and an institutional dashboard for program directors. Want to partner or license MedGryd for your institution? Reach out.' }].
+    map((s) =>
+    <div key={s.heading} style={{
+      marginBottom: 40,
+      paddingLeft: 20,
+      borderLeft: `2px solid rgba(56,189,248,0.25)`
+    }}>
+              <h3 style={{ fontFamily: 'Oxanium', fontWeight: 500, fontSize: 20, color: '#e2e8f0', marginBottom: 12 }}>{s.heading}</h3>
+              <p style={{ color: '#64748b', fontSize: 15, lineHeight: 1.8 }}>{s.body}</p>
+            </div>
+    )}
+          <a
+      href="mailto:hello@medgryd.com"
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: 8,
+        fontFamily: 'Oxanium', fontWeight: 600, fontSize: 13,
+        letterSpacing: '0.1em', textTransform: 'uppercase',
+        color: '#0a0a0f', background: accent,
+        padding: '13px 28px', borderRadius: 10,
+        textDecoration: 'none',
+        boxShadow: '0 0 20px rgba(56,189,248,0.35)',
+        marginTop: 12
+      }}>
+      Get in Touch <Icon name="arrow" size={14} color="#0a0a0f" /></a>
+        </div>
+      </PageShell>;
+
+
+/* ─── HOME PAGE ──────────────────────────────────────────── */
+const HomePage = ({ accent, headline, sub, showSocialProof, cardStyle, setPage }) =>
+<>
+        <Hero accent={accent} headline={headline} sub={sub} setPage={setPage} />
+        <SocialProofBar show={showSocialProof} accent={accent} />
+        <FeaturesSection accent={accent} cardStyle={cardStyle} />
+        <WhySection accent={accent} />
+        <CtaBanner accent={accent} />
+      </>;
+
+
+/* ─── ROOT APP ───────────────────────────────────────────── */
+const App = () => {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [page, setPage] = useState('home');
+
+  const { accentColor: accent, heroHeadline, heroSub, showSocialProof, cardStyle, darkFooter } = tweaks;
+
+  const handleSetPage = (p) => {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const renderPage = () => {
+    switch (page) {
+      case 'features':return <FeaturesPage accent={accent} cardStyle={cardStyle} />;
+      case 'pricing':return <PricingPage accent={accent} />;
+      case 'about':return <AboutPage accent={accent} />;
+      default:return (
+          <HomePage
+            accent={accent}
+            headline={heroHeadline}
+            sub={heroSub}
+            showSocialProof={showSocialProof}
+            cardStyle={cardStyle}
+            setPage={handleSetPage} />);
+
+
+    }
+  };
+
+  return (
+    <div>
+          <Navbar page={page} setPage={handleSetPage} accent={accent} />
+          {renderPage()}
+          <Footer setPage={handleSetPage} accent={accent} dark={darkFooter} />
+
+          <TweaksPanel>
+            <TweakSection label="Brand">
+              <TweakColor id="accentColor" label="Accent Color" value={accent} onChange={(v) => setTweak('accentColor', v)} />
+            </TweakSection>
+            <TweakSection label="Hero">
+              <TweakText id="heroHeadline" label="Headline" value={heroHeadline} onChange={(v) => setTweak('heroHeadline', v)} />
+              <TweakText id="heroSub" label="Subheadline" value={heroSub} onChange={(v) => setTweak('heroSub', v)} />
+              <TweakToggle id="showSocialProof" label="Social Proof Bar" value={showSocialProof} onChange={(v) => setTweak('showSocialProof', v)} />
+            </TweakSection>
+            <TweakSection label="Cards">
+              <TweakRadio id="cardStyle" label="Hover Effect" value={cardStyle} options={['glow', 'flat']} onChange={(v) => setTweak('cardStyle', v)} />
+            </TweakSection>
+            <TweakSection label="Footer">
+              <TweakToggle id="darkFooter" label="Extra Dark Footer" value={darkFooter} onChange={(v) => setTweak('darkFooter', v)} />
+            </TweakSection>
+          </TweaksPanel>
+        </div>);
+
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

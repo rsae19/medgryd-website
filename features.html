@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — MedGryd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
+    @keyframes fade-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes glow-border { 0%,100% { box-shadow: 0 0 18px rgba(56,189,248,0.15); } 50% { box-shadow: 0 0 32px rgba(56,189,248,0.28); } }
+    @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+/* ── ICON ─────────────────────────────────────────────────── */
+const PATHS = {
+  calendar: "M8 2v3M16 2v3M3 9h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
+  shield:   "M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z",
+  brain:    "M9.5 2C7 2 5 4 5 6.5c0 .66.14 1.29.4 1.85C3.96 9.13 3 10.7 3 12.5c0 2.8 2.2 5 5 5h8c2.8 0 5-2.2 5-5 0-1.8-.96-3.37-2.4-4.15.26-.56.4-1.19.4-1.85C19 4 17 2 14.5 2c-1.08 0-2.06.37-2.83.98A4.03 4.03 0 0 0 9.5 2z",
+  flask:    "M9 2v7L4.5 17A2 2 0 0 0 6.4 20h11.2a2 2 0 0 0 1.9-3L15 9V2M9 2h6M8 12h8",
+  chart:    "M3 3v18h18M18 9l-5 5-4-4-3 3",
+  trophy:   "M6 9H3.5a2.5 2.5 0 0 1 0-5H6M18 9h2.5a2.5 2.5 0 0 0 0-5H18v5zM6 4h12v8a6 6 0 0 1-12 0V4zM12 20v-4M9 20h6",
+  book:     "M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z",
+  activity: "M22 12h-4l-3 9L9 3l-3 9H2",
+  zap:      "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
+  pencil:   "M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z",
+  arrow:    "M5 12h14M12 5l7 7-7 7",
+  check:    "M20 6L9 17l-5-5",
+};
+const Icon = ({ name, size = 22, color = "#38bdf8" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <path d={PATHS[name] || PATHS.zap} />
+  </svg>
+);
+
+/* ── NAVBAR ───────────────────────────────────────────────── */
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 48);
+    window.addEventListener('scroll', h, { passive: true });
+    return () => window.removeEventListener('scroll', h);
+  }, []);
+  const links = [
+    { label: 'Features', href: 'features.html' },
+    { label: 'Pricing',  href: 'pricing.html'  },
+    { label: 'About',    href: 'about.html'    },
+  ];
+  return (
+    <nav style={{
+      position:'fixed', top:0, left:0, right:0, zIndex:100,
+      display:'flex', alignItems:'center', justifyContent:'space-between',
+      padding:'0 clamp(20px,4vw,60px)', height:68,
+      background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
+      borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
+      backdropFilter: scrolled ? 'blur(16px)' : 'none',
+      transition: 'background 0.35s, border-color 0.35s',
+    }}>
+      <a href="index.html" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none' }}>
+        <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 54, display: "block" }} />
+        <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize:26, color:'#e2e8f0', letterSpacing:'0.04em', lineHeight:1 }}>MedGryd</span>
+      </a>
+      <div style={{ display:'flex', alignItems:'center', gap:32 }}>
+        {links.map(l => (
+          <a key={l.label} href={l.href} style={{
+            fontFamily:'Oxanium', fontWeight:400, fontSize:13,
+            color: l.href === 'features.html' ? '#38bdf8' : 'rgba(226,232,240,0.6)',
+            letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none',
+            borderBottom: l.href === 'features.html' ? '1px solid #38bdf8' : '1px solid transparent',
+            paddingBottom:2, transition:'color 0.2s',
+          }}>{l.label}</a>
+        ))}
+      </div>
+      <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
+        fontFamily:'Oxanium', fontWeight:600, fontSize:13,
+        letterSpacing:'0.1em', textTransform:'uppercase',
+        background:'#38bdf8', color:'#0a0a0f',
+        padding:'9px 22px', borderRadius:8, textDecoration:'none',
+        boxShadow:'0 0 18px rgba(56,189,248,0.35)',
+        transition:'box-shadow 0.2s, transform 0.15s',
+      }}
+      onMouseEnter={e=>{e.currentTarget.style.boxShadow='0 0 28px rgba(56,189,248,0.55)';e.currentTarget.style.transform='translateY(-1px)';}}
+      onMouseLeave={e=>{e.currentTarget.style.boxShadow='0 0 18px rgba(56,189,248,0.35)';e.currentTarget.style.transform='';}}>Launch App</a>
+    </nav>
+  );
+};
+
+/* ── DOTS BG (header) ─────────────────────────────────────── */
+const DotsBg = () => {
+  const ref = useRef(null);
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animId, t = 0;
+    let dots = [];
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      dots = Array.from({ length: 60 }, () => ({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.4,
+        vx: (Math.random()-0.5)*0.18, vy: (Math.random()-0.5)*0.12,
+        phase: Math.random()*Math.PI*2,
+      }));
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    const draw = () => {
+      t += 0.012;
+      const { width: W, height: H } = canvas;
+      ctx.clearRect(0,0,W,H);
+      // grid
+      ctx.strokeStyle = 'rgba(56,189,248,0.04)'; ctx.lineWidth = 0.5;
+      for (let x=0;x<W;x+=60){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+      for (let y=0;y<H;y+=60){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+      // dots
+      dots.forEach(d => {
+        d.x += d.vx; d.y += d.vy;
+        if (d.x<0) d.x=W; if (d.x>W) d.x=0;
+        if (d.y<0) d.y=H; if (d.y>H) d.y=0;
+        const alpha = 0.3 + 0.25*Math.sin(t*1.2 + d.phase);
+        ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(56,189,248,${alpha})`; ctx.fill();
+      });
+      animId = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => { cancelAnimationFrame(animId); window.removeEventListener('resize',resize); };
+  }, []);
+  return <canvas ref={ref} style={{ position:'absolute', inset:0, width:'100%', height:'100%', opacity:0.8 }} />;
+};
+
+/* ── SCREENSHOT PLACEHOLDER ───────────────────────────────── */
+const ScreenshotPlaceholder = ({ label, aspect = '16/9' }) => (
+  <div style={{
+    aspectRatio: aspect,
+    background: '#0d0d16',
+    border: '1px solid rgba(56,189,248,0.15)',
+    borderRadius: 16,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex', alignItems: 'center', justifyContent: 'center',
+    flexDirection: 'column', gap: 10,
+    animation: 'float 6s ease-in-out infinite',
+    boxShadow: '0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(56,189,248,0.08)',
+  }}>
+    {/* Striped pattern */}
+    <div style={{
+      position:'absolute', inset:0,
+      backgroundImage: 'repeating-linear-gradient(135deg, rgba(56,189,248,0.025) 0px, rgba(56,189,248,0.025) 1px, transparent 1px, transparent 28px)',
+    }} />
+    {/* Corner accent */}
+    <div style={{ position:'absolute', top:0, left:0, width:60, height:60, background:'radial-gradient(circle at top left, rgba(56,189,248,0.12), transparent 70%)' }} />
+    <div style={{ position:'absolute', bottom:0, right:0, width:80, height:80, background:'radial-gradient(circle at bottom right, rgba(56,189,248,0.08), transparent 70%)' }} />
+    {/* Top bar chrome */}
+    <div style={{ position:'absolute', top:0, left:0, right:0, height: 54, background:'rgba(56,189,248,0.04)', borderBottom:'1px solid rgba(56,189,248,0.08)', display:'flex', alignItems:'center', padding:'0 14px', gap:6 }}>
+      {[1,2,3].map(i => <div key={i} style={{ width:8, height:8, borderRadius:'50%', background:'rgba(56,189,248,0.2)' }} />)}
+    </div>
+    <div style={{ position:'relative', zIndex:1, textAlign:'center' }}>
+      <div style={{ fontFamily:'Oxanium', fontSize:11, color:'rgba(56,189,248,0.5)', letterSpacing:'0.14em', textTransform:'uppercase', marginBottom:4 }}>Screenshot</div>
+      <div style={{ fontFamily:'Space Grotesk', fontSize:13, color:'rgba(226,232,240,0.3)' }}>{label}</div>
+    </div>
+  </div>
+);
+
+/* ── FEATURE DATA ─────────────────────────────────────────── */
+const features = [
+  {
+    icon: 'calendar', tag: 'Planner', color: '#38bdf8',
+    title: 'Weekly Planner',
+    desc: 'Your command center for the week. A 7-day grid with drag-and-drop task management, automatic Canvas iCal and Google Calendar sync, triple-state task tracking (pending / done / skipped), smart overdue aging with color-coded urgency, task notes, priority levels, and Good Enough Mode for managing low-priority items without guilt.',
+    bullets: ['Drag-and-drop task grid', 'Canvas & Google Calendar sync', 'Smart overdue color-coding', 'Good Enough Mode'],
+    screenshot: 'Weekly Planner view',
+  },
+  {
+    icon: 'shield', tag: 'Clinical', color: '#38bdf8',
+    title: 'Skills Vault',
+    desc: 'Track your clinical confidence across 237 OMM techniques spanning 4 semesters and 18 CEPA General Skills checklists. Rate your confidence with dot-based scoring, add practice notes, use the built-in timer for hands-on practice, and spin the Picker Wheel for randomized technique review with no-repeat mode.',
+    bullets: ['237 OMM techniques across 4 semesters', 'Dot-based confidence scoring', 'Built-in practice timer', 'Randomized Picker Wheel'],
+    screenshot: 'Skills Vault confidence grid',
+  },
+  {
+    icon: 'brain', tag: 'AI-Powered', color: '#38bdf8',
+    title: 'Quiz Mastery',
+    desc: 'Import question banks and let the AI-powered engine identify your weak topics. Track mastery across every concept with confidence tagging, review missed questions with targeted review modes, and watch your understanding deepen over time with detailed topic analytics.',
+    bullets: ['AI weak-topic identification', 'Confidence tagging per question', 'Targeted missed-question review', 'Topic mastery analytics'],
+    screenshot: 'Quiz session with mastery bars',
+  },
+  {
+    icon: 'flask', tag: 'Research', color: '#38bdf8',
+    title: 'Research Hub',
+    desc: 'Manage your research projects from idea to publication. Capture ideas, promote them to active projects, track tasks with due dates and assignees, share projects with collaborators via invite codes, and monitor upcoming deadlines across all your work.',
+    bullets: ['Idea → project pipeline', 'Task tracking with due dates', 'Collaborator invite codes', 'Deadline dashboard'],
+    screenshot: 'Research project board',
+  },
+  {
+    icon: 'chart', tag: 'Grades', color: '#38bdf8',
+    title: 'Score Matrix',
+    desc: 'Know exactly where you stand. The grade calculator handles complex weighted components, auto-drops your lowest scores, and tells you exactly what you need on your next exam to hit your target grade — for every grade tier.',
+    bullets: ['Weighted component calculator', 'Auto-drop lowest scores', '"What do I need?" projections', 'Multi-tier grade targets'],
+    screenshot: 'Grade calculator with projections',
+  },
+  {
+    icon: 'trophy', tag: 'Gamification', color: '#38bdf8',
+    title: 'GrydRank',
+    desc: 'Stay motivated with XP, levels, badges, and friendly competition. Earn points for completing tasks, study sessions, and technique practice. Climb through 8 rank tiers, compete on the school-wide leaderboard, create custom groups, and tackle weekly challenges.',
+    bullets: ['8 rank tiers with XP system', 'Badges for achievements', 'School-wide leaderboard', 'Weekly challenges'],
+    screenshot: 'GrydRank leaderboard',
+  },
+  {
+    icon: 'book', tag: 'Resources', color: '#38bdf8',
+    title: 'Companion Tracker',
+    desc: 'Check off Pathoma chapters, SketchyPharm, and SketchyMicro videos as you complete them. A simple, satisfying way to track your progress through the resources every med student uses.',
+    bullets: ['Pathoma chapter tracking', 'Sketchy series progress', 'Visual completion bars', 'Satisfying check-off UX'],
+    screenshot: 'Resource completion checklist',
+  },
+  {
+    icon: 'activity', tag: 'Analytics', color: '#38bdf8',
+    title: 'Stats & Analytics',
+    desc: 'See your study patterns at a glance. Daily and weekly study time breakdowns, Anki integration stats, task completion graphs, and login streak tracking give you the data to optimize your approach.',
+    bullets: ['Daily & weekly study time', 'Anki integration stats', 'Task completion graphs', 'Login streak calendar'],
+    screenshot: 'Study analytics dashboard',
+  },
+  {
+    icon: 'pencil', tag: 'Notes', color: '#38bdf8',
+    title: 'Quick Jot',
+    desc: 'Capture thoughts instantly without leaving your workflow. Multi-section rich text notes with named tabs, always one click away from your planner.',
+    bullets: ['Multi-tab note sections', 'Rich text formatting', 'Always-accessible from planner', 'Persistent across sessions'],
+    screenshot: 'Quick Jot side panel',
+  },
+  {
+    icon: 'zap', tag: 'Clinical', color: '#38bdf8',
+    title: 'OSCE Tracker',
+    desc: 'Practice makes perfect. Track your OSCE station practice with built-in SOAP note templates, per-station notes, scoring, and confidence levels.',
+    bullets: ['SOAP note templates', 'Per-station notes & scoring', 'Confidence level tracking', 'Station history log'],
+    screenshot: 'OSCE station practice view',
+  },
+];
+
+/* ── FEATURE SECTION ──────────────────────────────────────── */
+const FeatureSection = ({ feature, index, accentColor }) => {
+  const isEven = index % 2 === 0;
+  const [visible, setVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold: 0.12 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const altBg = index % 2 === 1;
+
+  return (
+    <section
+      ref={sectionRef}
+      data-screen-label={`Feature ${String(index+1).padStart(2,'0')} ${feature.title}`}
+      style={{
+        background: altBg ? '#0d0d14' : '#0a0a0f',
+        padding: 'clamp(64px,8vw,104px) clamp(20px,5vw,80px)',
+        position: 'relative',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'none' : 'translateY(24px)',
+        transition: 'opacity 0.6s ease, transform 0.6s ease',
+      }}
+    >
+      {/* Top rule */}
+      <div style={{ position:'absolute', top:0, left:'8%', right:'8%', height:1, background:'rgba(56,189,248,0.07)' }} />
+
+      <div style={{
+        maxWidth: 1100, margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 'clamp(40px,6vw,80px)',
+        alignItems: 'center',
+        direction: isEven ? 'ltr' : 'rtl',
+      }}>
+        {/* Text */}
+        <div style={{ direction:'ltr' }}>
+          <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:18 }}>
+            <div style={{
+              width:40, height:40, borderRadius:10,
+              background:'rgba(56,189,248,0.08)',
+              border:'1px solid rgba(56,189,248,0.18)',
+              display:'flex', alignItems:'center', justifyContent:'center',
+              flexShrink: 0,
+            }}>
+              <Icon name={feature.icon} size={18} color={accentColor} />
+            </div>
+            <span style={{
+              fontFamily:'Oxanium', fontSize:11, fontWeight:500,
+              letterSpacing:'0.16em', textTransform:'uppercase',
+              color: accentColor,
+              background:'rgba(56,189,248,0.07)',
+              border:'1px solid rgba(56,189,248,0.18)',
+              padding:'4px 10px', borderRadius:4,
+            }}>{feature.tag}</span>
+          </div>
+
+          <h2 style={{
+            fontFamily:'Oxanium', fontWeight:400,
+            fontSize:'clamp(24px,3vw,38px)',
+            color:'#f1f5f9', marginBottom:16,
+            letterSpacing:'-0.01em', lineHeight:1.2,
+          }}>{feature.title}</h2>
+
+          <p style={{ color:'#64748b', fontSize:15, lineHeight:1.8, marginBottom:24, fontWeight:300 }}>{feature.desc}</p>
+
+          <div style={{ display:'flex', flexDirection:'column', gap:9 }}>
+            {feature.bullets.map(b => (
+              <div key={b} style={{ display:'flex', alignItems:'center', gap:10 }}>
+                <div style={{ width:18, height:18, borderRadius:'50%', background:'rgba(56,189,248,0.1)', border:'1px solid rgba(56,189,248,0.25)', display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+                  <Icon name="check" size={10} color={accentColor} />
+                </div>
+                <span style={{ fontSize:14, color:'#94a3b8' }}>{b}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Screenshot */}
+        <div style={{ direction:'ltr' }}>
+          <ScreenshotPlaceholder label={feature.screenshot} />
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+const Footer = () => (
+  <footer style={{ background:'#060609', borderTop:'1px solid rgba(255,255,255,0.05)', padding:'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px' }}>
+    <div style={{ maxWidth:1100, margin:'0 auto', display:'flex', flexWrap:'wrap', justifyContent:'space-between', gap:32, paddingBottom:28, borderBottom:'1px solid rgba(255,255,255,0.05)', marginBottom:20 }}>
+      <div style={{ maxWidth:340 }}>
+        <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
+          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:28 }} />
+          <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize:16, color:'#e2e8f0' }}>MedGryd</span>
+        </div>
+        <p style={{ color:'#475569', fontSize:13, lineHeight:1.6 }}>Mission Control for Medical School.</p>
+      </div>
+      <div style={{ display:'flex', gap:48, flexWrap:'wrap' }}>
+        <div>
+          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:12 }}>Platform</div>
+          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
+            {[['Features','features.html'],['Pricing','pricing.html'],['About','about.html']].map(([l,h]) => (
+              <a key={l} href={h} style={{ fontSize:13, color:'#64748b', textDecoration:'none', transition:'color 0.2s' }}
+                onMouseEnter={e=>e.currentTarget.style.color='#94a3b8'}
+                onMouseLeave={e=>e.currentTarget.style.color='#64748b'}
+              >{l}</a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:12 }}>Contact</div>
+          <a href="mailto:hello@medgryd.com" style={{ fontSize:13, color:'#64748b', textDecoration:'none', display:'block', marginBottom:8 }}>hello@medgryd.com</a>
+          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily:'Oxanium', fontSize:12, fontWeight:600, color:'#38bdf8', textDecoration:'none', letterSpacing:'0.08em', textTransform:'uppercase' }}>Launch App →</a>
+        </div>
+      </div>
+    </div>
+    <div style={{ maxWidth:1100, margin:'0 auto', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12 }}>
+      <span style={{ fontSize:12, color:'#334155' }}>© 2026 MedGryd. All rights reserved.</span>
+      <span style={{ fontSize:12, color:'#1e293b', fontFamily:'Oxanium' }}>Built with 🩺 for future physicians</span>
+    </div>
+  </footer>
+);
+
+/* ── PAGE HEADER ──────────────────────────────────────────── */
+const PageHeader = () => (
+  <header style={{ position:'relative', paddingTop:68, overflow:'hidden', background:'#0a0a0f' }}>
+    <DotsBg />
+    <div style={{ position:'absolute', inset:0, background:'radial-gradient(ellipse 70% 80% at 50% 100%, transparent 40%, #0a0a0f 100%)', pointerEvents:'none' }} />
+    <div style={{
+      position:'relative', zIndex:1,
+      padding:'clamp(60px,8vw,96px) clamp(20px,5vw,80px) clamp(48px,6vw,72px)',
+      textAlign:'center', maxWidth:700, margin:'0 auto',
+      animation:'fade-up 0.8s ease both',
+    }}>
+      <div style={{ display:'inline-flex', alignItems:'center', gap:8, padding:'6px 16px', borderRadius:100, border:'1px solid rgba(56,189,248,0.25)', background:'rgba(56,189,248,0.06)', marginBottom:24 }}>
+        <div style={{ width:6, height:6, borderRadius:'50%', background:'#38bdf8', boxShadow:'0 0 6px #38bdf8' }} />
+        <span style={{ fontFamily:'Oxanium', fontSize:11, fontWeight:500, letterSpacing:'0.14em', textTransform:'uppercase', color:'#38bdf8' }}>10 Core Tools</span>
+      </div>
+      <h1 style={{ fontFamily:'Oxanium', fontWeight:200, fontSize:'clamp(30px,5vw,58px)', color:'#f1f5f9', lineHeight:1.1, marginBottom:16, letterSpacing:'-0.01em', textWrap:'balance' }}>
+        Everything You Need to<br />Succeed in Medical School
+      </h1>
+      <p style={{ fontSize:'clamp(15px,2vw,18px)', color:'#94a3b8', fontWeight:300 }}>One platform. Every tool.</p>
+    </div>
+    {/* Feature count pills */}
+    <div style={{ position:'relative', zIndex:1, display:'flex', flexWrap:'wrap', justifyContent:'center', gap:10, padding:'0 clamp(20px,5vw,80px) clamp(40px,5vw,56px)' }}>
+      {features.map((f,i) => (
+        <a key={f.title} href={`#feature-${i}`} style={{
+          fontFamily:'Oxanium', fontSize:11, fontWeight:500,
+          letterSpacing:'0.1em', textTransform:'uppercase',
+          color:'rgba(56,189,248,0.7)',
+          background:'rgba(56,189,248,0.06)',
+          border:'1px solid rgba(56,189,248,0.15)',
+          padding:'6px 14px', borderRadius:100, textDecoration:'none',
+          transition:'background 0.2s, color 0.2s',
+        }}
+        onMouseEnter={e=>{e.currentTarget.style.background='rgba(56,189,248,0.12)';e.currentTarget.style.color='#38bdf8';}}
+        onMouseLeave={e=>{e.currentTarget.style.background='rgba(56,189,248,0.06)';e.currentTarget.style.color='rgba(56,189,248,0.7)';}}
+        >{f.title}</a>
+      ))}
+    </div>
+  </header>
+);
+
+/* ── CTA SECTION ──────────────────────────────────────────── */
+const CtaSection = () => (
+  <section style={{ padding:'clamp(60px,8vw,100px) clamp(20px,5vw,80px)', background:'#0a0a0f' }}>
+    <div style={{
+      maxWidth:800, margin:'0 auto',
+      background:'linear-gradient(135deg, #0f0f1a, #111120)',
+      borderRadius:24, padding:'clamp(40px,6vw,72px)',
+      textAlign:'center',
+      border:'1px solid rgba(56,189,248,0.18)',
+      animation:'glow-border 4s ease-in-out infinite',
+      position:'relative', overflow:'hidden',
+    }}>
+      <div style={{ position:'absolute', top:'-20%', left:'50%', transform:'translateX(-50%)', width:'60%', height:'100%', background:'radial-gradient(ellipse at top, rgba(56,189,248,0.07) 0%, transparent 70%)', pointerEvents:'none' }} />
+      <span style={{ fontFamily:'Oxanium', fontSize:11, fontWeight:500, letterSpacing:'0.16em', textTransform:'uppercase', color:'#38bdf8', display:'block', marginBottom:14 }}>Get Started Today</span>
+      <h2 style={{ fontFamily:'Oxanium', fontWeight:300, fontSize:'clamp(24px,3.5vw,42px)', color:'#f1f5f9', marginBottom:12, letterSpacing:'-0.01em' }}>
+        Start Using MedGryd Today
+      </h2>
+      <p style={{ color:'#64748b', fontSize:15, lineHeight:1.6, maxWidth:420, margin:'0 auto 32px' }}>
+        Join medical students who've taken control of their academic journey.
+      </p>
+      <div style={{ display:'flex', gap:12, justifyContent:'center', flexWrap:'wrap' }}>
+        <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
+          fontFamily:'Oxanium', fontWeight:600, fontSize:13, letterSpacing:'0.1em', textTransform:'uppercase',
+          background:'#38bdf8', color:'#0a0a0f',
+          padding:'13px 30px', borderRadius:10, textDecoration:'none',
+          boxShadow:'0 0 24px rgba(56,189,248,0.4)',
+          display:'inline-flex', alignItems:'center', gap:8,
+          transition:'transform 0.15s, box-shadow 0.2s',
+        }}
+        onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-2px)';e.currentTarget.style.boxShadow='0 0 36px rgba(56,189,248,0.6)';}}
+        onMouseLeave={e=>{e.currentTarget.style.transform='';e.currentTarget.style.boxShadow='0 0 24px rgba(56,189,248,0.4)';}}>
+          Launch App
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="mailto:hello@medgryd.com?subject=Licensing Inquiry" style={{
+          fontFamily:'Oxanium', fontWeight:500, fontSize:13, letterSpacing:'0.1em', textTransform:'uppercase',
+          background:'transparent', color:'#38bdf8',
+          padding:'13px 30px', borderRadius:10,
+          border:'1.5px solid rgba(56,189,248,0.35)', textDecoration:'none',
+          transition:'border-color 0.2s, background 0.2s',
+        }}
+        onMouseEnter={e=>{e.currentTarget.style.borderColor='#38bdf8';e.currentTarget.style.background='rgba(56,189,248,0.07)';}}
+        onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.35)';e.currentTarget.style.background='transparent';}}>
+          Contact for Licensing
+        </a>
+      </div>
+    </div>
+  </section>
+);
+
+/* ── APP ──────────────────────────────────────────────────── */
+const App = () => {
+  const [t, setTweak] = useTweaks(/*EDITMODE-BEGIN*/{"accentColor":"#38bdf8"}/*EDITMODE-END*/);
+  return (
+    <div>
+      <Navbar />
+      <PageHeader />
+      {features.map((f, i) => (
+        <div id={`feature-${i}`} key={f.title}>
+          <FeatureSection feature={f} index={i} accentColor={t.accentColor} />
+        </div>
+      ))}
+      <CtaSection />
+      <Footer />
+      <TweaksPanel>
+        <TweakSection label="Brand">
+          <TweakColor id="accentColor" label="Accent Color" value={t.accentColor} onChange={v => setTweak('accentColor', v)} />
+        </TweakSection>
+      </TweaksPanel>
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
