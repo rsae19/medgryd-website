@@ -88,7 +88,7 @@ const Navbar = () => {
     window.addEventListener('scroll', h, { passive: true });
     return () => window.removeEventListener('scroll', h);
   }, []);
-  const links = [['Features', 'features.html'], ['Pricing', 'pricing.html'], ['About', 'about.html'], ['Showcase', 'https://showcase.medgryd.com']];
+  const links = [['Features', 'features.html'], ['Pricing', 'pricing.html'], ['About', 'about.html'], ['Showcase', 'https://showcase.medgryd.com'], ['Contact', 'contact.html']];
   return (
     <nav style={{
       position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
@@ -354,91 +354,6 @@ const VisionSection = () =>
   </section>;
 
 
-/* ── CONTACT SECTION ─────────────────────────────────────── */
-const ContactSection = () => {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [sent, setSent] = useState(false);
-  const [focused, setFocused] = useState(null);
-
-  const inputStyle = (id) => ({
-    width: '100%', background: '#0f0f18',
-    border: `1px solid ${focused === id ? 'rgba(56,189,248,0.45)' : 'rgba(255,255,255,0.08)'}`,
-    borderRadius: 10, padding: '13px 16px',
-    color: '#e2e8f0', fontSize: 14, fontFamily: 'Space Grotesk',
-    outline: 'none', transition: 'border-color 0.2s',
-    boxShadow: focused === id ? '0 0 0 3px rgba(56,189,248,0.06)' : 'none'
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    window.location.href = `mailto:hello@medgryd.com?subject=Message from ${encodeURIComponent(form.name)}&body=${encodeURIComponent(form.message)}%0A%0AFrom: ${encodeURIComponent(form.email)}`;
-    setSent(true);
-  };
-
-  return (
-    <section style={{ background: '#0a0a0f', padding: 'clamp(64px,8vw,96px) clamp(20px,5vw,80px)' }}>
-      <div style={{ maxWidth: 640, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <span style={{ fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#38bdf8', display: 'block', marginBottom: 12 }}>Contact</span>
-          <h2 style={{ fontFamily: 'Oxanium', fontWeight: 300, fontSize: 'clamp(26px,4vw,42px)', color: '#f1f5f9', marginBottom: 12, letterSpacing: '-0.01em' }}>Get in Touch</h2>
-          <p style={{ fontSize: 15, color: '#64748b', fontWeight: 300 }}>Questions, feedback, partnerships — we read every message.</p>
-          <a href="mailto:hello@medgryd.com" style={{ display: 'inline-block', marginTop: 10, fontFamily: 'Oxanium', fontSize: 13, color: '#38bdf8', textDecoration: 'none', letterSpacing: '0.06em' }}>hello@medgryd.com</a>
-        </div>
-
-        {sent ?
-        <div style={{ textAlign: 'center', padding: '48px 32px', borderRadius: 16, background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.2)' }}>
-            <div style={{ fontFamily: 'Oxanium', fontWeight: 400, fontSize: 20, color: '#f1f5f9', marginBottom: 8 }}>Message sent ✓</div>
-            <p style={{ color: '#64748b', fontSize: 14 }}>Your email client should have opened. We'll get back to you soon.</p>
-          </div> :
-
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <label style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569' }}>Name</label>
-                <input
-                type="text" placeholder="Your name" required
-                value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-                onFocus={() => setFocused('name')} onBlur={() => setFocused(null)}
-                style={inputStyle('name')} />
-              
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <label style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569' }}>Email</label>
-                <input
-                type="email" placeholder="you@example.com" required
-                value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                onFocus={() => setFocused('email')} onBlur={() => setFocused(null)}
-                style={inputStyle('email')} />
-              
-              </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <label style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569' }}>Message</label>
-              <textarea
-              placeholder="Tell us what's on your mind..." required rows={5}
-              value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
-              onFocus={() => setFocused('message')} onBlur={() => setFocused(null)}
-              style={{ ...inputStyle('message'), resize: 'vertical', minHeight: 120 }} />
-            
-            </div>
-            <button type="submit" style={{
-            fontFamily: 'Oxanium', fontWeight: 600, fontSize: 13,
-            letterSpacing: '0.1em', textTransform: 'uppercase',
-            background: '#38bdf8', color: '#0a0a0f',
-            padding: '14px 32px', borderRadius: 10, border: 'none', cursor: 'pointer',
-            boxShadow: '0 0 24px rgba(56,189,248,0.35)',
-            transition: 'box-shadow 0.2s, transform 0.15s',
-            alignSelf: 'flex-start'
-          }}
-          onMouseEnter={(e) => {e.currentTarget.style.boxShadow = '0 0 36px rgba(56,189,248,0.55)';e.currentTarget.style.transform = 'translateY(-1px)';}}
-          onMouseLeave={(e) => {e.currentTarget.style.boxShadow = '0 0 24px rgba(56,189,248,0.35)';e.currentTarget.style.transform = '';}}>Send Message</button>
-          </form>
-        }
-      </div>
-    </section>);
-
-};
-
 /* ── FOOTER ─────────────────────────────────────────────── */
 const Footer = () =>
 <footer style={{ background: '#060609', borderTop: '1px solid rgba(255,255,255,0.05)', padding: 'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px' }}>
@@ -454,7 +369,7 @@ const Footer = () =>
         <div>
           <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 12 }}>Platform</div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[['Features', 'features.html'], ['Pricing', 'pricing.html'], ['About', 'about.html']].map(([l, h]) =>
+            {[['Features', 'features.html'], ['Pricing', 'pricing.html'], ['About', 'about.html'], ['Contact', 'contact.html']].map(([l, h]) =>
           <a key={l} href={h} style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
           onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
           onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>{l}</a>
@@ -486,7 +401,6 @@ const App = () => {
       <MissionSection />
       <TeamSection />
       <VisionSection />
-      <ContactSection />
       <Footer />
     </div>);
 
