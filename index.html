@@ -592,8 +592,8 @@ const Navbar = ({ page, setPage, accent }) => {
   `1px solid rgba(56,189,248,0.1)` :
   '1px solid transparent';
 
-  const linkHrefs = { features: 'features.html', pricing: 'pricing.html', about: 'about.html' };
-  const links = ['Features', 'Pricing', 'About'];
+  const linkHrefs = { features: 'features.html', pricing: 'pricing.html', about: 'about.html', showcase: 'https://showcase.medgryd.com' };
+  const links = ['Features', 'Pricing', 'About', 'Showcase'];
 
   return (
     <nav style={{
@@ -627,6 +627,8 @@ const Navbar = ({ page, setPage, accent }) => {
         <a
           key={l}
           href={linkHrefs[l.toLowerCase()]}
+          target={l === 'Showcase' ? '_blank' : undefined}
+          rel={l === 'Showcase' ? 'noopener noreferrer' : undefined}
           style={{
             fontFamily: 'Oxanium, sans-serif',
             fontWeight: 400, fontSize: 13,

@@ -62,6 +62,7 @@ const Navbar = () => {
     { label: 'Features', href: 'features.html' },
     { label: 'Pricing',  href: 'pricing.html'  },
     { label: 'About',    href: 'about.html'    },
+    { label: 'Showcase', href: 'https://showcase.medgryd.com' },
   ];
   return (
     <nav style={{
@@ -79,7 +80,7 @@ const Navbar = () => {
       </a>
       <div style={{ display:'flex', alignItems:'center', gap:32 }}>
         {links.map(l => (
-          <a key={l.label} href={l.href} style={{
+          <a key={l.label} href={l.href} target={l.href.startsWith('http') ? '_blank' : undefined} rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined} style={{
             fontFamily:'Oxanium', fontWeight:400, fontSize:13,
             color: l.href === 'features.html' ? '#38bdf8' : 'rgba(226,232,240,0.6)',
             letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none',
