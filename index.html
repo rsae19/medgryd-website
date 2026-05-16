@@ -9,6 +9,73 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://medgryd.com/" />
 
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://medgryd.com/#website",
+        "url": "https://medgryd.com",
+        "name": "MedGryd",
+        "description": "Mission Control for Medical School",
+        "publisher": { "@id": "https://medgryd.com/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://medgryd.com/#organization",
+        "name": "MedGryd",
+        "url": "https://medgryd.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://medgryd.com/uploads/logo-blue.png"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "hello@medgryd.com",
+          "contactType": "customer service"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/medgryd",
+          "https://instagram.com/medgryd"
+        ]
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://medgryd.com/#app",
+        "name": "MedGryd",
+        "url": "https://app.medgryd.com",
+        "description": "The all-in-one study operating system for medical students. Weekly planner, skills tracker, quiz mastery, grade calculator, research hub, and gamified motivation.",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Student (Free)",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          {
+            "@type": "Offer",
+            "name": "Pro",
+            "price": "9",
+            "priceCurrency": "USD",
+            "billingIncrement": "1",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "9",
+              "priceCurrency": "USD",
+              "unitCode": "MON"
+            }
+          }
+        ],
+        "publisher": { "@id": "https://medgryd.com/#organization" }
+      }
+    ]
+  }
+  </script>
+
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://medgryd.com/" />

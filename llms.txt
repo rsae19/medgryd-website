@@ -1,0 +1,31 @@
+# MedGryd
+
+> Mission Control for Medical School — the all-in-one study operating system for medical students.
+
+MedGryd is a web application built by OMS-1 medical students at Noorda College of Osteopathic Medicine. It unifies weekly planning, clinical skills tracking, quiz mastery, research management, grade calculation, and gamified motivation into a single platform purpose-built for the demands of medical education.
+
+## Core Features
+
+- **Weekly Planner** — Drag-and-drop task management with Canvas LMS and Google Calendar sync, smart overdue tracking, and priority workflows
+- **Skills Vault** — Confidence tracking across 237 OMM (Osteopathic Manipulative Medicine) techniques and CEPA clinical checklists, with a randomized practice picker wheel
+- **Quiz Mastery** — AI-powered question banks with per-topic mastery tracking, weak area identification, and smart review scheduling
+- **Research Hub** — Project management for academic research, deadline tracking, collaborator invites, and idea-to-project pipeline
+- **Score Matrix** — Weighted grade calculator with auto-drop rules and target-score projections for upcoming exams
+- **GrydRank** — XP system, badges, rank tiers, school-wide leaderboards, and weekly challenges for sustained motivation
+- **Companion Tracker** — Progress tracking for Pathoma and Sketchy video series
+- **Stats & Analytics** — Study time breakdowns, Anki card history, task completion graphs, and login streaks
+
+## Target Users
+
+First- and second-year medical students (MS1/MS2) at osteopathic (DO) and allopathic (MD) medical schools in the United States.
+
+## Access
+
+- Marketing site: https://medgryd.com
+- Web application: https://app.medgryd.com
+- Contact: hello@medgryd.com
+- LinkedIn: https://www.linkedin.com/company/medgryd
+
+## Institutional Licensing
+
+MedGryd is available for licensing by medical schools and health professions programs. Contact hello@medgryd.com for institutional pricing and integration details.
