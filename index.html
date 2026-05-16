@@ -51,6 +51,12 @@
       0%   { background-position: -400px 0; }
       100% { background-position: 400px 0; }
     }
+
+    @media (max-width: 767px) {
+      html, body { overflow-x: hidden; }
+      * { -webkit-tap-highlight-color: transparent; }
+      a, button { touch-action: manipulation; }
+    }
   </style>
 </head>
 <body>
@@ -59,6 +65,16 @@
   <script type="text/babel">
 
 const { useState, useEffect, useRef, useCallback } = React;
+const useWindowWidth = () => {
+  const [w, setW] = useState(window.innerWidth);
+  useEffect(() => {
+    const h = () => setW(window.innerWidth);
+    window.addEventListener('resize', h, { passive: true });
+    return () => window.removeEventListener('resize', h);
+  }, []);
+  return w;
+};
+
 
 /* ─── TWEAKS ─────────────────────────────────────────────── */
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -578,102 +594,148 @@ const HeroBg = ({ accent }) => {
 const Navbar = ({ page, setPage, accent }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isMobile = useWindowWidth() < 768;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  const navBg = scrolled ?
-  'rgba(10,10,15,0.95)' :
-  'transparent';
-  const navBorder = scrolled ?
-  `1px solid rgba(56,189,248,0.1)` :
-  '1px solid transparent';
+  useEffect(() => { if (!isMobile) setMobileOpen(false); }, [isMobile]);
 
   const linkHrefs = { features: 'features.html', pricing: 'pricing.html', about: 'about.html', contact: 'contact.html' };
   const links = ['Features', 'Pricing', 'About', 'Contact'];
 
   return (
-    <nav style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: '0 clamp(20px, 4vw, 60px)',
-      height: 68,
-      background: navBg,
-      borderBottom: navBorder,
-      backdropFilter: scrolled ? 'blur(16px)' : 'none',
-      transition: 'background 0.35s ease, border-color 0.35s ease'
-    }}>
-          {/* Logo */}
-          <div
-        onClick={() => {setPage('home');window.scrollTo({ top: 0 });}}
-        style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', userSelect: 'none' }}>
-        
-            <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 54, display: "block" }} />
-            <span style={{
-          fontFamily: 'Oxanium, sans-serif',
-          fontWeight: 600, fontSize: 26,
-          color: '#e2e8f0',
-          letterSpacing: '0.04em',
-          lineHeight: 1
-        }}>MedGryd</span>
-          </div>
+    <React.Fragment>
+      <nav style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 clamp(20px, 4vw, 60px)',
+        height: 68,
+        background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        transition: 'background 0.35s ease, border-color 0.35s ease'
+      }}>
+        {/* Logo */}
+        <div
+          onClick={() => { setPage('home'); window.scrollTo({ top: 0 }); }}
+          style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', userSelect: 'none' }}>
+          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 44, display: 'block' }} />
+          <span style={{
+            fontFamily: 'Oxanium, sans-serif',
+            fontWeight: 600, fontSize: isMobile ? 20 : 26,
+            color: '#e2e8f0', letterSpacing: '0.04em', lineHeight: 1
+          }}>MedGryd</span>
+        </div>
 
-          {/* Desktop nav links — absolutely centered */}
+        {/* Desktop nav links — centered */}
+        {!isMobile && (
           <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 36 }}>
             {links.map((l) =>
-        <a
-          key={l}
-          href={linkHrefs[l.toLowerCase()]}
-          target={l === 'Showcase' ? '_blank' : undefined}
-          rel={l === 'Showcase' ? 'noopener noreferrer' : undefined}
-          style={{
-            fontFamily: 'Oxanium, sans-serif',
-            fontWeight: 400, fontSize: 13,
-            color: 'rgba(226,232,240,0.65)',
-            letterSpacing: '0.12em', textTransform: 'uppercase',
-            textDecoration: 'none',
-            transition: 'color 0.2s',
-            padding: '4px 2px',
-            borderBottom: '1px solid transparent'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#e2e8f0'}
-          onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(226,232,240,0.65)'}>
-          {l}</a>
-        )}
+              <a
+                key={l}
+                href={linkHrefs[l.toLowerCase()]}
+                style={{
+                  fontFamily: 'Oxanium, sans-serif',
+                  fontWeight: 400, fontSize: 13,
+                  color: 'rgba(226,232,240,0.65)',
+                  letterSpacing: '0.12em', textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  transition: 'color 0.2s',
+                  padding: '4px 2px',
+                  borderBottom: '1px solid transparent'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#e2e8f0'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(226,232,240,0.65)'}>
+                {l}
+              </a>
+            )}
           </div>
+        )}
 
-          {/* Launch App */}
+        {/* Right: Launch App (desktop) or hamburger (mobile) */}
+        {isMobile ? (
+          <button
+            onClick={() => setMobileOpen(o => !o)}
+            aria-label="Toggle menu"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ display: 'block', width: 22, height: 2, background: '#e2e8f0', borderRadius: 2, transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition: 'transform 0.25s' }} />
+            <span style={{ display: 'block', width: 22, height: 2, background: '#e2e8f0', borderRadius: 2, opacity: mobileOpen ? 0 : 1, transition: 'opacity 0.2s' }} />
+            <span style={{ display: 'block', width: 22, height: 2, background: '#e2e8f0', borderRadius: 2, transform: mobileOpen ? 'translateY(-7px) rotate(-45deg)' : 'none', transition: 'transform 0.25s' }} />
+          </button>
+        ) : (
           <a
-        href="https://app.medgryd.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          fontFamily: 'Oxanium, sans-serif',
-          fontWeight: 600, fontSize: 13,
-          letterSpacing: '0.1em', textTransform: 'uppercase',
-          background: accent,
-          color: '#0a0a0f',
-          padding: '9px 22px',
-          borderRadius: 8,
-          textDecoration: 'none',
-          boxShadow: `0 0 18px rgba(56,189,248,0.35)`,
-          transition: 'box-shadow 0.2s, transform 0.15s',
-          display: 'inline-block'
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = `0 0 28px rgba(56,189,248,0.55)`;
-          e.currentTarget.style.transform = 'translateY(-1px)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = `0 0 18px rgba(56,189,248,0.35)`;
-          e.currentTarget.style.transform = 'translateY(0)';
-        }}>
-        Launch App</a>
-        </nav>);
+            href="https://app.medgryd.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: 'Oxanium, sans-serif',
+              fontWeight: 600, fontSize: 13,
+              letterSpacing: '0.1em', textTransform: 'uppercase',
+              background: accent,
+              color: '#0a0a0f',
+              padding: '9px 22px',
+              borderRadius: 8,
+              textDecoration: 'none',
+              boxShadow: '0 0 18px rgba(56,189,248,0.35)',
+              transition: 'box-shadow 0.2s, transform 0.15s',
+              display: 'inline-block'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 28px rgba(56,189,248,0.55)';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 18px rgba(56,189,248,0.35)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}>
+            Launch App
+          </a>
+        )}
+      </nav>
 
+      {/* Mobile menu overlay */}
+      {isMobile && mobileOpen && (
+        <div style={{
+          position: 'fixed', top: 68, left: 0, right: 0, zIndex: 99,
+          background: 'rgba(10,10,15,0.97)',
+          borderBottom: '1px solid rgba(56,189,248,0.12)',
+          backdropFilter: 'blur(16px)',
+          padding: '12px 24px 24px',
+          display: 'flex', flexDirection: 'column', gap: 0,
+        }}>
+          {links.map((l) => (
+            <a
+              key={l}
+              href={linkHrefs[l.toLowerCase()]}
+              onClick={() => setMobileOpen(false)}
+              style={{
+                fontFamily: 'Oxanium, sans-serif', fontWeight: 400, fontSize: 15,
+                color: 'rgba(226,232,240,0.8)',
+                letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none',
+                padding: '14px 0',
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                display: 'block',
+              }}>{l}</a>
+          ))}
+          <a
+            href="https://app.medgryd.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: 'Oxanium, sans-serif', fontWeight: 600, fontSize: 13,
+              letterSpacing: '0.1em', textTransform: 'uppercase',
+              background: accent, color: '#0a0a0f',
+              padding: '13px 22px', borderRadius: 8, textDecoration: 'none',
+              textAlign: 'center', marginTop: 12, display: 'block',
+              boxShadow: '0 0 18px rgba(56,189,248,0.35)',
+            }}>Launch App</a>
+        </div>
+      )}
+    </React.Fragment>
+  );
 };
 
 /* ─── HERO ───────────────────────────────────────────────── */
@@ -934,7 +996,10 @@ const FeatureCard = ({ icon, title, desc, tag, accent, cardStyle }) => {
 
 };
 
-const FeaturesSection = ({ accent, cardStyle }) =>
+const FeaturesSection = ({ accent, cardStyle }) => {
+  const w = useWindowWidth();
+  const cols = w < 600 ? '1fr' : w < 960 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)';
+  return (
 <section id="features" style={{ padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
@@ -953,7 +1018,7 @@ const FeaturesSection = ({ accent, cardStyle }) =>
           </div>
           <div style={{
       display: 'grid',
-      gridTemplateColumns: 'repeat(4, 1fr)',
+      gridTemplateColumns: cols,
       gap: 20
     }}>
             {featureData.map((f) =>
@@ -961,7 +1026,9 @@ const FeaturesSection = ({ accent, cardStyle }) =>
       )}
           </div>
         </div>
-      </section>;
+      </section>
+  );
+};
 
 
 /* ─── WHY MEDGRYD ────────────────────────────────────────── */

@@ -21,6 +21,12 @@
     @keyframes fade-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
     @keyframes glow-pulse { 0%,100% { box-shadow: 0 0 28px rgba(56,189,248,0.18), 0 0 0 1px rgba(56,189,248,0.35); } 50% { box-shadow: 0 0 48px rgba(56,189,248,0.28), 0 0 0 1px rgba(56,189,248,0.55); } }
     @keyframes shimmer-line { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+    @media (max-width: 767px) {
+      html, body { overflow-x: hidden; }
+      * { -webkit-tap-highlight-color: transparent; }
+      a, button { touch-action: manipulation; }
+    }
   </style>
 </head>
 <body>
@@ -28,6 +34,16 @@
 <script type="text/babel" src="tweaks-panel.jsx"></script>
 <script type="text/babel">
 const { useState, useEffect, useRef } = React;
+const useWindowWidth = () => {
+  const [w, setW] = React.useState(window.innerWidth);
+  React.useEffect(() => {
+    const h = () => setW(window.innerWidth);
+    window.addEventListener('resize', h, { passive: true });
+    return () => window.removeEventListener('resize', h);
+  }, []);
+  return w;
+};
+
 
 /* ── STARS BG ───────────────────────────────────────────── */
 const StarsBg = () => {
@@ -82,46 +98,98 @@ const StarsBg = () => {
 
 /* ── NAVBAR ─────────────────────────────────────────────── */
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
+  const [scrolled, setScrolled] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const isMobile = useWindowWidth() < 768;
+  React.useEffect(() => {
     const h = () => setScrolled(window.scrollY > 48);
     window.addEventListener('scroll', h, { passive: true });
     return () => window.removeEventListener('scroll', h);
   }, []);
+  React.useEffect(() => { if (!isMobile) setMobileOpen(false); }, [isMobile]);
   const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
   return (
-    <nav style={{
-      position:'fixed', top:0, left:0, right:0, zIndex:100,
-      display:'flex', alignItems:'center', justifyContent:'space-between',
-      padding:'0 clamp(20px,4vw,60px)', height:68,
-      background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
-      borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
-      backdropFilter: scrolled ? 'blur(16px)' : 'none',
-      transition:'background 0.35s, border-color 0.35s',
-    }}>
-      <a href="index.html" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none' }}>
-        <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 54, display: "block" }} />
-        <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize:26, color:'#e2e8f0', letterSpacing:'0.04em', lineHeight:1 }}>MedGryd</span>
-      </a>
-      <div style={{ display:'flex', alignItems:'center', gap:32 }}>
-        {links.map(([l,h]) => (
-          <a key={l} href={h} target={h.startsWith('http') ? '_blank' : undefined} rel={h.startsWith('http') ? 'noopener noreferrer' : undefined} style={{
-            fontFamily:'Oxanium', fontWeight:400, fontSize:13,
-            color: h === 'pricing.html' ? '#38bdf8' : 'rgba(226,232,240,0.6)',
-            letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none',
-            borderBottom: h === 'pricing.html' ? '1px solid #38bdf8' : '1px solid transparent',
-            paddingBottom:2, transition:'color 0.2s',
-          }}>{l}</a>
-        ))}
-      </div>
-      <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
-        fontFamily:'Oxanium', fontWeight:600, fontSize:13, letterSpacing:'0.1em', textTransform:'uppercase',
-        background:'#38bdf8', color:'#0a0a0f', padding:'9px 22px', borderRadius:8, textDecoration:'none',
-        boxShadow:'0 0 18px rgba(56,189,248,0.35)', transition:'box-shadow 0.2s, transform 0.15s',
-      }}
-      onMouseEnter={e=>{e.currentTarget.style.boxShadow='0 0 28px rgba(56,189,248,0.55)';e.currentTarget.style.transform='translateY(-1px)';}}
-      onMouseLeave={e=>{e.currentTarget.style.boxShadow='0 0 18px rgba(56,189,248,0.35)';e.currentTarget.style.transform='';}}>Launch App</a>
-    </nav>
+    <React.Fragment>
+      <nav style={{
+        position:'fixed', top:0, left:0, right:0, zIndex:100,
+        display:'flex', alignItems:'center', justifyContent:'space-between',
+        padding:'0 clamp(20px,4vw,60px)', height:68,
+        background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        transition: 'background 0.35s, border-color 0.35s',
+      }}>
+        <a href="index.html" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none' }}>
+          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:44, display:'block' }} />
+          <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize: isMobile ? 20 : 26, color:'#e2e8f0', letterSpacing:'0.04em', lineHeight:1 }}>MedGryd</span>
+        </a>
+        {!isMobile && (
+          <div style={{ display:'flex', alignItems:'center', gap:32 }}>
+            {links.map(([l,h]) => (
+              <a key={l} href={h} style={{
+                fontFamily:'Oxanium', fontWeight:400, fontSize:13,
+                color: h === 'pricing.html' ? '#38bdf8' : 'rgba(226,232,240,0.6)',
+                letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none',
+                borderBottom: h === 'pricing.html' ? '1px solid #38bdf8' : '1px solid transparent',
+                paddingBottom:2, transition:'color 0.2s',
+              }}>{l}</a>
+            ))}
+          </div>
+        )}
+        {isMobile ? (
+          <button onClick={() => setMobileOpen(o => !o)} aria-label="Toggle menu" style={{
+            background:'none', border:'none', cursor:'pointer', padding:'8px',
+            display:'flex', flexDirection:'column', gap:5, alignItems:'center', justifyContent:'center',
+          }}>
+            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition:'transform 0.25s' }} />
+            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, opacity: mobileOpen ? 0 : 1, transition:'opacity 0.2s' }} />
+            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(-7px) rotate(-45deg)' : 'none', transition:'transform 0.25s' }} />
+          </button>
+        ) : (
+          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
+            fontFamily:'Oxanium', fontWeight:600, fontSize:13,
+            letterSpacing:'0.1em', textTransform:'uppercase',
+            background:'#38bdf8', color:'#0a0a0f',
+            padding:'9px 22px', borderRadius:8, textDecoration:'none',
+            boxShadow:'0 0 18px rgba(56,189,248,0.35)',
+            transition:'box-shadow 0.2s, transform 0.15s',
+          }}
+          onMouseEnter={e=>{e.currentTarget.style.boxShadow='0 0 28px rgba(56,189,248,0.55)';e.currentTarget.style.transform='translateY(-1px)';}}
+          onMouseLeave={e=>{e.currentTarget.style.boxShadow='0 0 18px rgba(56,189,248,0.35)';e.currentTarget.style.transform='';}}>
+            Launch App
+          </a>
+        )}
+      </nav>
+      {isMobile && mobileOpen && (
+        <div style={{
+          position:'fixed', top:68, left:0, right:0, zIndex:99,
+          background:'rgba(10,10,15,0.97)',
+          borderBottom:'1px solid rgba(56,189,248,0.12)',
+          backdropFilter:'blur(16px)',
+          padding:'12px 24px 24px',
+          display:'flex', flexDirection:'column', gap:0,
+        }}>
+          {links.map(([l,h]) => (
+            <a key={l} href={h} style={{
+              fontFamily:'Oxanium', fontWeight:400, fontSize:15,
+              color:'rgba(226,232,240,0.8)',
+              letterSpacing:'0.08em', textTransform:'uppercase', textDecoration:'none',
+              padding:'14px 0',
+              borderBottom:'1px solid rgba(255,255,255,0.05)',
+              display:'block',
+            }}>{l}</a>
+          ))}
+          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
+            fontFamily:'Oxanium', fontWeight:600, fontSize:13,
+            letterSpacing:'0.1em', textTransform:'uppercase',
+            background:'#38bdf8', color:'#0a0a0f',
+            padding:'13px 22px', borderRadius:8, textDecoration:'none',
+            textAlign:'center', marginTop:12, display:'block',
+            boxShadow:'0 0 18px rgba(56,189,248,0.35)',
+          }}>Launch App</a>
+        </div>
+      )}
+    </React.Fragment>
   );
 };
 
