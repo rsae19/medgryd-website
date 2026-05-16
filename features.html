@@ -477,19 +477,82 @@ const CtaSection = () => (
   </section>
 );
 
+/* ── FEATURE NAV BAR ──────────────────────────────────────── */
+const FEATURE_SLIDES = [
+  { label: 'Weekly Planner',     index: 1  },
+  { label: 'Semester View',      index: 3  },
+  { label: 'Skills Vault',       index: 4  },
+  { label: 'OSCE Tracker',       index: 7  },
+  { label: 'Score Matrix',       index: 8  },
+  { label: 'GrydRank',           index: 9  },
+  { label: 'Research Hub',       index: 11 },
+  { label: 'Companion Tracker',  index: 13 },
+  { label: 'Focus Mode',         index: 14 },
+  { label: 'Stats',              index: 15 },
+  { label: 'Quiz Mastery',       index: 17 },
+  { label: 'Mobile App',         index: 19 },
+];
+
+const FeatureNav = ({ activeIndex, onSelect }) => (
+  <div style={{
+    flexShrink: 0,
+    background: 'rgba(6,6,9,0.97)',
+    borderTop: '1px solid rgba(56,189,248,0.12)',
+    backdropFilter: 'blur(12px)',
+    display: 'flex', alignItems: 'center',
+    padding: '0 16px', gap: 4,
+    overflowX: 'auto', overflowY: 'hidden',
+    height: 46,
+    scrollbarWidth: 'none',
+  }}>
+    {FEATURE_SLIDES.map(f => {
+      const active = activeIndex === f.index;
+      return (
+        <button key={f.label} onClick={() => onSelect(f.index)} style={{
+          flexShrink: 0,
+          fontFamily: 'Oxanium, sans-serif', fontWeight: active ? 600 : 400,
+          fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase',
+          color: active ? '#0a0a0f' : 'rgba(226,232,240,0.55)',
+          background: active ? '#38bdf8' : 'transparent',
+          border: active ? 'none' : '1px solid rgba(56,189,248,0.18)',
+          borderRadius: 6, padding: '5px 14px',
+          cursor: 'pointer', whiteSpace: 'nowrap',
+          transition: 'color 0.18s, background 0.18s, border-color 0.18s',
+          boxShadow: active ? '0 0 12px rgba(56,189,248,0.4)' : 'none',
+        }}
+        onMouseEnter={e => { if (!active) { e.currentTarget.style.color='#38bdf8'; e.currentTarget.style.borderColor='rgba(56,189,248,0.45)'; }}}
+        onMouseLeave={e => { if (!active) { e.currentTarget.style.color='rgba(226,232,240,0.55)'; e.currentTarget.style.borderColor='rgba(56,189,248,0.18)'; }}}
+        >{f.label}</button>
+      );
+    })}
+  </div>
+);
+
 /* ── APP ──────────────────────────────────────────────────── */
 const App = () => {
   useTweaks(/*EDITMODE-BEGIN*/{"accentColor":"#38bdf8"}/*EDITMODE-END*/);
+  const [activeIndex, setActiveIndex] = useState(1);
+  const iframeRef = useRef(null);
+
+  const goToSlide = (index) => {
+    setActiveIndex(index);
+    if (iframeRef.current) {
+      iframeRef.current.contentWindow.postMessage({ type: 'goTo', index }, '*');
+    }
+  };
+
   return (
     <div style={{ display:'flex', flexDirection:'column', height:'100vh', overflow:'hidden' }}>
       <Navbar />
       <div style={{ height:68, flexShrink:0 }} />
       <iframe
+        ref={iframeRef}
         src="https://showcase.medgryd.com"
-        style={{ flex:1, width:'100%', border:'none', display:'block' }}
+        style={{ flex:1, width:'100%', border:'none', display:'block', minHeight:0 }}
         title="MedGryd Showcase"
         allow="fullscreen"
       />
+      <FeatureNav activeIndex={activeIndex} onSelect={goToSlide} />
     </div>
   );
 };
