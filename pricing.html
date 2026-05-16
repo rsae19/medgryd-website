@@ -88,7 +88,7 @@ const Navbar = () => {
     window.addEventListener('scroll', h, { passive: true });
     return () => window.removeEventListener('scroll', h);
   }, []);
-  const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Showcase','https://showcase.medgryd.com'],['Contact','contact.html']];
+  const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
   return (
     <nav style={{
       position:'fixed', top:0, left:0, right:0, zIndex:100,
