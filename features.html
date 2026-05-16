@@ -656,6 +656,24 @@ const App = () => {
   const [activeIndex, setActiveIndex] = useState(1);
   const iframeRef = useRef(null);
 
+  // Listen for slide-change messages sent back from showcase.medgryd.com.
+  // The showcase should fire: postMessage({ type: 'slideChange', index: N }, '*')
+  // We also accept common alternative key names for robustness.
+  useEffect(() => {
+    const handler = (e) => {
+      if (!e.data || typeof e.data !== 'object') return;
+      const d = e.data;
+      // Accept any of these key names for the slide index
+      const idx = d.index ?? d.slideIndex ?? d.slide ?? d.currentSlide;
+      if (typeof idx !== 'number') return;
+      // Map to the nearest FEATURE_SLIDE whose .index is <= the incoming idx
+      const match = [...FEATURE_SLIDES].reverse().find(f => f.index <= idx);
+      if (match) setActiveIndex(match.index);
+    };
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
+  }, []);
+
   const goToSlide = (index) => {
     setActiveIndex(index);
     if (iframeRef.current) {
