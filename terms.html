@@ -75,8 +75,8 @@ function Navbar() {
 }
 
 function Footer() {
-  const platform = [['Features','features.html'],['Pricing','pricing.html'],['Privacy Policy','privacy.html'],['Terms of Service','terms.html'],['DPA / FERPA BAA','dpa.html']];
-  const company = [['About','about.html'],['Contact','contact.html']];
+  const platform = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
+  const legal = [['Privacy Policy','privacy.html'],['Terms of Service','terms.html'],['DPA / FERPA BAA','dpa.html']];
   return (
     <footer style={S.footer}>
       <div style={S.footerGrid}>
@@ -89,8 +89,8 @@ function Footer() {
           {platform.map(([l,h])=><a key={l} href={h} style={S.footerLink}>{l}</a>)}
         </div>
         <div>
-          <div style={S.footerHead}>Company</div>
-          {company.map(([l,h])=><a key={l} href={h} style={S.footerLink}>{l}</a>)}
+          <div style={S.footerHead}>Legal</div>
+          {legal.map(([l,h])=><a key={l} href={h} style={S.footerLink}>{l}</a>)}
         </div>
       </div>
       <div style={S.footerBottom}>

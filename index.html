@@ -1346,11 +1346,20 @@ const Footer = ({ setPage, accent, dark }) =>
           onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>
             {l}</button>
           )}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 14 }}>Legal</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 <a href="/privacy.html" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
                   onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
                   onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>Privacy Policy</a>
-                <a href="/terms.html" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='#94a3b8'} onMouseLeave={e=>e.currentTarget.style.color='#64748b'}>Terms of Service</a>
-                <a href="/dpa.html" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none' }} onMouseEnter={e=>e.currentTarget.style.color='#94a3b8'} onMouseLeave={e=>e.currentTarget.style.color='#64748b'}>DPA / FERPA BAA</a>
+                <a href="/terms.html" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>Terms of Service</a>
+                <a href="/dpa.html" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>DPA / FERPA BAA</a>
               </div>
             </div>
             <div>
