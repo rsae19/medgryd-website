@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
+  <title>Privacy Policy — MedGryd</title>
+  <meta name="description" content="MedGryd Privacy Policy — how we collect, use, and protect your data." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://medgryd.com/privacy.html" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://medgryd.com/privacy.html",
+    "url": "https://medgryd.com/privacy.html",
+    "name": "Privacy Policy — MedGryd",
+    "description": "MedGryd Privacy Policy — how we collect, use, and protect your data.",
+    "isPartOf": { "@id": "https://medgryd.com/#website" },
+    "publisher": { "@id": "https://medgryd.com/#organization" }
+  }
+  </script>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://medgryd.com/privacy.html" />
+  <meta property="og:title" content="Privacy Policy — MedGryd" />
+  <meta property="og:description" content="MedGryd Privacy Policy — how we collect, use, and protect your data." />
+  <meta property="og:image" content="https://medgryd.com/uploads/og-image.png" />
+  <meta property="og:site_name" content="MedGryd" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Privacy Policy — MedGryd" />
+  <meta name="twitter:description" content="MedGryd Privacy Policy — how we collect, use, and protect your data." />
+  <meta name="twitter:image" content="https://medgryd.com/uploads/og-image.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0f; }
+    ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
+    @keyframes fade-up { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+    @media (max-width: 767px) {
+      html, body { overflow-x: hidden; }
+      * { -webkit-tap-highlight-color: transparent; }
+      a, button { touch-action: manipulation; }
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+
+const { useState, useEffect, useRef } = React;
+const useWindowWidth = () => {
+  const [w, setW] = React.useState(window.innerWidth);
+  React.useEffect(() => {
+    const h = () => setW(window.innerWidth);
+    window.addEventListener('resize', h, { passive: true });
+    return () => window.removeEventListener('resize', h);
+  }, []);
+  return w;
+};
+
+/* ── NAVBAR ─────────────────────────────────────────────── */
+const Navbar = () => {
+  const [scrolled, setScrolled] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const isMobile = useWindowWidth() < 768;
+  React.useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 48);
+    window.addEventListener('scroll', h, { passive: true });
+    return () => window.removeEventListener('scroll', h);
+  }, []);
+  React.useEffect(() => { if (!isMobile) setMobileOpen(false); }, [isMobile]);
+  const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
+  return (
+    <React.Fragment>
+      <nav style={{
+        position:'fixed', top:0, left:0, right:0, zIndex:100,
+        display:'flex', alignItems:'center', justifyContent:'space-between',
+        padding:'0 clamp(20px,4vw,60px)', height:68,
+        background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        transition: 'background 0.35s, border-color 0.35s',
+      }}>
+        <a href="index.html" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none' }}>
+          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:44, display:'block' }} />
+        </a>
+        {!isMobile && (
+          <div style={{ display:'flex', alignItems:'center', gap:32 }}>
+            {links.map(([l, h]) => (
+              <a key={l} href={h} style={{ fontFamily:'Space Grotesk', fontSize:14, color:'#94a3b8', textDecoration:'none', transition:'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#e2e8f0'}
+                onMouseLeave={e => e.currentTarget.style.color = '#94a3b8'}>{l}</a>
+            ))}
+            <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
+              fontFamily:'Oxanium', fontSize:13, fontWeight:600, color:'#0a0a0f',
+              background:'#38bdf8', padding:'8px 20px', borderRadius:8,
+              textDecoration:'none', letterSpacing:'0.04em', transition:'background 0.2s, transform 0.2s'
+            }}
+              onMouseEnter={e => { e.currentTarget.style.background='#7dd3fc'; e.currentTarget.style.transform='translateY(-1px)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background='#38bdf8'; e.currentTarget.style.transform='translateY(0)'; }}>
+              Launch App
+            </a>
+          </div>
+        )}
+        {isMobile && (
+          <button onClick={() => setMobileOpen(o => !o)} style={{ background:'none', border:'none', cursor:'pointer', color:'#94a3b8', padding:8 }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        )}
+      </nav>
+      {isMobile && mobileOpen && (
+        <div style={{ position:'fixed', top:68, left:0, right:0, background:'rgba(10,10,15,0.98)', backdropFilter:'blur(16px)', zIndex:99, padding:'20px clamp(20px,4vw,60px)', borderBottom:'1px solid rgba(56,189,248,0.1)', display:'flex', flexDirection:'column', gap:16 }}>
+          {links.map(([l, h]) => (
+            <a key={l} href={h} style={{ fontFamily:'Space Grotesk', fontSize:15, color:'#94a3b8', textDecoration:'none' }}>{l}</a>
+          ))}
+          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily:'Oxanium', fontSize:14, fontWeight:600, color:'#38bdf8', textDecoration:'none', letterSpacing:'0.04em' }}>Launch App →</a>
+        </div>
+      )}
+    </React.Fragment>
+  );
+};
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+const Footer = () =>
+<footer style={{ background: '#060609', borderTop: '1px solid rgba(255,255,255,0.05)', padding: 'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px' }}>
+    <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 32, paddingBottom: 28, borderBottom: '1px solid rgba(255,255,255,0.05)', marginBottom: 20 }}>
+      <div style={{ maxWidth: 340 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 28 }} />
+          <span style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 16, color: '#e2e8f0' }}>MedGryd</span>
+        </div>
+        <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.6 }}>Mission Control for Medical School.</p>
+        <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
+          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 8, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.18)', color: '#64748b', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 8, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.18)', color: '#64748b', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div style={{ display: 'flex', gap: 48, flexWrap: 'wrap' }}>
+        <div>
+          <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 12 }}>Platform</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {[['Features', 'features.html'], ['Pricing', 'pricing.html'], ['About', 'about.html'], ['Contact', 'contact.html'], ['Privacy Policy', 'privacy.html']].map(([l, h]) =>
+              <a key={l} href={h} style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
+                onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
+                onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>{l}</a>
+            )}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 12 }}>Contact</div>
+          <a href="mailto:hello@medgryd.com" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', display: 'block', marginBottom: 6 }}>hello@medgryd.com</a>
+          <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.55, marginBottom: 10 }}>PO Box 70385<br />Rochester Hills, MI 48307</p>
+          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'Oxanium', fontSize: 12, fontWeight: 600, color: '#38bdf8', textDecoration: 'none', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Launch App →</a>
+        </div>
+      </div>
+    </div>
+    <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+      <span style={{ fontSize: 12, color: '#334155' }}>© 2026 MedGryd. All rights reserved.</span>
+      <span style={{ fontSize: 12, color: '#1e293b', fontFamily: 'Oxanium' }}>Built with 🩺 for future physicians</span>
+    </div>
+  </footer>;
+
+/* ── PRIVACY POLICY PAGE ─────────────────────────────────── */
+const PrivacyPage = () => {
+  const accent = '#38bdf8';
+  const S = {
+    page: { minHeight: '100vh', paddingTop: 68, background: '#0a0a0f' },
+    hero: {
+      padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px) 48px',
+      background: 'linear-gradient(180deg, rgba(56,189,248,0.04) 0%, transparent 60%)',
+      borderBottom: '1px solid rgba(255,255,255,0.05)',
+      maxWidth: 1100, margin: '0 auto',
+    },
+    label: { fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: accent, marginBottom: 16 },
+    title: { fontFamily: 'Oxanium', fontSize: 'clamp(32px,5vw,52px)', fontWeight: 700, color: '#f1f5f9', lineHeight: 1.1, marginBottom: 16 },
+    meta:  { fontSize: 13, color: '#475569' },
+    body:  { maxWidth: 760, margin: '0 auto', padding: 'clamp(40px,6vw,80px) clamp(20px,5vw,80px)' },
+    h2:    { fontFamily: 'Oxanium', fontSize: 18, fontWeight: 600, color: '#e2e8f0', marginBottom: 10, marginTop: 40, paddingBottom: 8, borderBottom: '1px solid rgba(255,255,255,0.06)' },
+    h3:    { fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 6, marginTop: 20 },
+    p:     { fontSize: 14, lineHeight: 1.75, color: '#64748b', marginBottom: 12 },
+    ul:    { paddingLeft: 20, marginBottom: 12 },
+    li:    { fontSize: 14, lineHeight: 1.75, color: '#64748b', marginBottom: 4 },
+    a:     { color: accent, textDecoration: 'none', borderBottom: '1px solid rgba(56,189,248,0.3)' },
+    card:  { background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.12)', borderRadius: 10, padding: '16px 20px', marginBottom: 16 },
+  };
+
+  return (
+    <div style={S.page}>
+      <div style={S.hero}>
+        <div style={S.label}>Legal</div>
+        <h1 style={S.title}>Privacy Policy</h1>
+        <p style={S.meta}>Effective Date: May 24, 2026 &nbsp;·&nbsp; Last Updated: May 24, 2026</p>
+      </div>
+
+      <div style={S.body}>
+
+        <h2 style={S.h2}>1. Introduction</h2>
+        <p style={S.p}>MedGryd ("we," "us," or "our") is a student productivity platform built for medical students. This Privacy Policy explains what information we collect when you use MedGryd, how we use it, who we share it with, and your rights over your data.</p>
+        <p style={S.p}>By creating an account or using MedGryd, you agree to the practices described in this policy. If you are using MedGryd through your medical school's license, your school may have additional data agreements with us — refer to your school's privacy notices as well.</p>
+
+        <h2 style={S.h2}>2. Who We Are</h2>
+        <p style={S.p}>MedGryd is an independent software product developed by Raayed Saeed and Aaron Smith (co-developer, Quiz Mastery feature). We are the data controllers for all personal information processed through the app.</p>
+        <div style={S.card}>
+          <p style={{...S.p, marginBottom: 0}}>📧 <strong style={{color:'#94a3b8'}}>hello@medgryd.com</strong> — for privacy requests, use subject line "Privacy Request."</p>
+        </div>
+
+        <h2 style={S.h2}>3. Information We Collect</h2>
+
+        <h3 style={S.h3}>3.1 Account Information (via Google Sign-In)</h3>
+        <p style={S.p}>When you sign in with Google, we receive your Google account email address, display name, profile photo URL, and a unique Firebase user ID (UID). We do not receive your Google password, payment information, or any other Google account data.</p>
+
+        <h3 style={S.h3}>3.2 Study &amp; Planner Data</h3>
+        <p style={S.p}>We store the following in Firebase Firestore under your account:</p>
+        <ul style={S.ul}>
+          <li style={S.li}>Weekly planner tasks — titles, times, completion status, notes, links, and priority</li>
+          <li style={S.li}>Calendar events — synced from Google Calendar for your weekly view</li>
+          <li style={S.li}>Exams and goals — names, dates, and personal study goals you enter</li>
+          <li style={S.li}>Study session time — cumulative hours tracked by date</li>
+          <li style={S.li}>Anki flashcard counts — daily review counts only (no card content)</li>
+          <li style={S.li}>Skills Vault — confidence ratings and notes for OMM techniques and CEPA clinical skills</li>
+          <li style={S.li}>Score Matrix — assessment scores and grade projections you enter</li>
+          <li style={S.li}>OSCE Tracker — notes and scores from OSCE practice sessions</li>
+          <li style={S.li}>Quick Jot — rich text notes organized in sections</li>
+          <li style={S.li}>App settings and preferences — theme, colors, calendar configurations, and other UI preferences</li>
+        </ul>
+
+        <h3 style={S.h3}>3.3 Quiz Mastery Data</h3>
+        <p style={S.p}>If you use the Quiz Mastery feature: uploaded quiz sets (questions, answer choices, explanations), your answers, confidence ratings, attempt history, and per-topic mastery scores.</p>
+
+        <h3 style={S.h3}>3.4 Research Hub Data</h3>
+        <p style={S.p}>Personal research projects (title, status, co-authors, journal, links, task lists, deadlines). Shared projects are stored in a shared collection accessible only to members you invite via invite code.</p>
+
+        <h3 style={S.h3}>3.5 GrydRank / Leaderboard Data</h3>
+        <p style={S.p}>XP, level, badges, and aggregate study/task/Anki totals. <strong style={{color:'#94a3b8'}}>Leaderboard participation is opt-in.</strong> If you opt in, your display name, profile photo, and stats are visible to cohort members. You may enable anonymous mode to display as "Anonymous." Study group members can see your stats within the group.</p>
+
+        <h3 style={S.h3}>3.6 Peer Board</h3>
+        <p style={S.p}>Posts and replies are stored without your name — only your Firebase UID is stored internally for moderation. It is never displayed to other users.</p>
+
+        <h3 style={S.h3}>3.7 Presence Information</h3>
+        <p style={S.p}>When active, your online/offline status, display name, and last-seen timestamp are written to Firebase Realtime Database for group features.</p>
+
+        <h3 style={S.h3}>3.8 Activation Data</h3>
+        <p style={S.p}>Your activation code, display name, and Firebase UID are sent to our activation validation service to verify your code. This data is not retained after validation.</p>
+
+        <h3 style={S.h3}>3.9 Quiz Password Cache (Noorda Students)</h3>
+        <p style={S.p}>Daily Examplify and CEPA weekly quiz passwords are fetched and cached in a shared Firestore document visible to all Noorda DO29 students as operational data for coursework.</p>
+
+        <h2 style={S.h2}>4. How We Use Your Information</h2>
+        <ul style={S.ul}>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Provide the service</strong> — display your planner, sync calendar events, track study progress</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Personalize your experience</strong> — apply your settings, theme, and preferences</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Power social/collaborative features</strong> — leaderboard, peer board, study groups, shared research</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Improve the app</strong> — diagnose errors and bugs using error reports</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Enforce our terms</strong> — detect abuse of the peer board or activation system</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>License to medical schools</strong> — aggregate non-identifiable usage patterns may be shared with licensed institutions</li>
+        </ul>
+        <p style={S.p}>We do <strong style={{color:'#94a3b8'}}>not</strong> use your data for advertising, sell your data to third parties, or use it for purposes unrelated to providing MedGryd.</p>
+
+        <h2 style={S.h2}>5. Third-Party Services</h2>
+
+        <h3 style={S.h3}>5.1 Google / Firebase</h3>
+        <p style={S.p}>Firebase Authentication, Firestore, Realtime Database, and Storage are used as our backend. Data is stored in the United States. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style={S.a}>Google Privacy Policy →</a></p>
+
+        <h3 style={S.h3}>5.2 Google Calendar API</h3>
+        <p style={S.p}>We access your Google Calendar (read-only) to sync events into your planner. Calendar data is not shared with any party other than Google and Firebase.</p>
+
+        <h3 style={S.h3}>5.3 Sentry (Error Monitoring &amp; Session Replay)</h3>
+        <p style={S.p}>We use Sentry for error tracking. Sentry may collect JavaScript errors, network request metadata, and browser information. <strong style={{color:'#94a3b8'}}>Approximately 10% of sessions are recorded as interactive replays; 100% of sessions in which an error occurs are recorded.</strong> Our current configuration does not mask on-screen text, so content you enter (task names, notes) may appear in error reports visible to our development team. We are evaluating stricter masking before broader institutional deployment. <a href="https://sentry.io/privacy/" target="_blank" rel="noopener noreferrer" style={S.a}>Sentry Privacy Policy →</a></p>
+
+        <h3 style={S.h3}>5.4 Tawk.to (Support Chat)</h3>
+        <p style={S.p}>If you use the in-app support chat, your conversation and session metadata are processed by Tawk.to. <a href="https://www.tawk.to/privacy-policy/" target="_blank" rel="noopener noreferrer" style={S.a}>Tawk.to Privacy Policy →</a></p>
+
+        <h3 style={S.h3}>5.5 Vercel (Hosting)</h3>
+        <p style={S.p}>MedGryd is hosted on Vercel, which may log standard request metadata (IP address, user agent, timestamps). <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" style={S.a}>Vercel Privacy Policy →</a></p>
+
+        <h3 style={S.h3}>5.6 AnkiConnect (Local, Optional)</h3>
+        <p style={S.p}>Anki integration communicates only with AnkiConnect running on your own computer (localhost). No Anki data is sent to external servers — only daily review counts are stored in MedGryd.</p>
+
+        <h2 style={S.h2}>6. Educational Records &amp; FERPA</h2>
+        <p style={S.p}>If you use MedGryd through a medical school with a data agreement, certain data (grades, study time, self-assessed competency) may constitute educational records under FERPA. In such cases, we act as a school official with a legitimate educational interest and do not disclose records without consent except as permitted by FERPA.</p>
+        <p style={S.p}><strong style={{color:'#94a3b8'}}>Currently (beta period):</strong> MedGryd is used independently — no educational record sharing occurs.</p>
+
+        <h2 style={S.h2}>7. Data Security</h2>
+        <ul style={S.ul}>
+          <li style={S.li}>All data transmitted over HTTPS (TLS encryption in transit)</li>
+          <li style={S.li}>Firebase Firestore uses Google's infrastructure (data encrypted at rest)</li>
+          <li style={S.li}>Access to your data is restricted to your Firebase UID via Firestore Security Rules</li>
+          <li style={S.li}>Only the development team has access to Sentry error reports and session replays</li>
+        </ul>
+        <p style={S.p}>No internet service is 100% secure. We recommend a strong Google account password and two-factor authentication.</p>
+
+        <h2 style={S.h2}>8. Your Rights &amp; Choices</h2>
+        <ul style={S.ul}>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Access:</strong> View your data in the app; request a machine-readable export by email.</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Correction:</strong> Edit or delete tasks, notes, goals, etc. at any time through the app.</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Deletion:</strong> Email hello@medgryd.com with subject "Account Deletion Request." We will delete your Firestore documents within 30 days. Peer Board posts will be anonymized.</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Opt-out of Leaderboard:</strong> Disable participation or enable anonymous mode in Settings → GrydRank.</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Opt-out of Sentry replay:</strong> No per-user opt-out currently available. Contact us if this is a concern.</li>
+        </ul>
+
+        <h2 style={S.h2}>9. Data Retention</h2>
+        <ul style={S.ul}>
+          <li style={S.li}>Personal data is retained while your account is active. Inactive accounts may be purged after 24 months.</li>
+          <li style={S.li}>Leaderboard entries are removed when you delete your account.</li>
+          <li style={S.li}>Peer Board posts are soft-deleted (body cleared) on request; the post shell may remain.</li>
+          <li style={S.li}>Sentry error reports are retained per Sentry's standard retention period (90 days for session replays).</li>
+          <li style={S.li}>Activation validation data is not retained by MedGryd after validation.</li>
+        </ul>
+
+        <h2 style={S.h2}>10. Children's Privacy</h2>
+        <p style={S.p}>MedGryd is designed exclusively for medical students (adults aged 18+). We do not knowingly collect personal information from anyone under 18. Contact us if you believe a minor has created an account.</p>
+
+        <h2 style={S.h2}>11. Changes to This Policy</h2>
+        <p style={S.p}>We may update this policy as the app evolves. Material changes will be announced in the app. Continued use after the notice constitutes acceptance.</p>
+
+        <h2 style={S.h2}>12. Contact</h2>
+        <div style={S.card}>
+          <p style={{...S.p, marginBottom: 4}}>📧 <a href="mailto:hello@medgryd.com" style={S.a}>hello@medgryd.com</a></p>
+          <p style={{...S.p, marginBottom: 0, fontSize: 12, color: '#334155'}}>Subject line: "MedGryd Privacy" · PO Box 70385, Rochester Hills, MI 48307</p>
+        </div>
+
+        <p style={{ fontSize: 12, color: '#1e293b', marginTop: 48, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)' }}>Last reviewed May 24, 2026</p>
+      </div>
+    </div>
+  );
+};
+
+/* ── APP ─────────────────────────────────────────────────── */
+const App = () => {
+  useTweaks(/*EDITMODE-BEGIN*/{ "accentColor": "#38bdf8" } /*EDITMODE-END*/);
+  return (
+    <div>
+      <Navbar />
+      <PrivacyPage />
+      <Footer />
+    </div>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
