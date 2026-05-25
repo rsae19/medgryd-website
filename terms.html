@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — MedGryd</title>
+  <meta name="description" content="MedGryd Terms of Service — rules governing your use of the MedGryd student productivity platform." />
+  <link rel="icon" href="favicon.ico" />
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; min-height: 100vh; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    #root { display: flex; flex-direction: column; min-height: 100vh; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const accent = '#38bdf8';
+
+const S = {
+  nav: { background: 'rgba(10,10,15,0.92)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 32px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 },
+  navLogo: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 20, color: '#fff', letterSpacing: '-0.02em', textDecoration: 'none' },
+  navLinks: { display: 'flex', alignItems: 'center', gap: 28 },
+  navLink: { color: 'rgba(255,255,255,0.55)', fontSize: 14, fontWeight: 500, textDecoration: 'none', transition: 'color 0.2s' },
+  navLinkActive: { color: accent },
+  hero: { padding: '72px 32px 48px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' },
+  heroTag: { display: 'inline-block', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', color: accent, fontSize: 12, fontWeight: 600, padding: '4px 14px', borderRadius: 100, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 20 },
+  heroTitle: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 40, color: '#fff', letterSpacing: '-0.03em', marginBottom: 14, lineHeight: 1.1 },
+  heroSub: { color: 'rgba(255,255,255,0.45)', fontSize: 15, lineHeight: 1.6, maxWidth: 560, margin: '0 auto' },
+  body: { maxWidth: 720, margin: '0 auto', padding: '48px 32px 80px' },
+  section: { marginBottom: 40 },
+  h2: { fontFamily: "'Oxanium', sans-serif", fontWeight: 700, fontSize: 18, color: '#fff', marginBottom: 12, marginTop: 36, paddingBottom: 8, borderBottom: '1px solid rgba(255,255,255,0.07)' },
+  h3: { fontWeight: 600, fontSize: 14, color: 'rgba(255,255,255,0.75)', marginBottom: 6, marginTop: 16 },
+  p: { fontSize: 14, lineHeight: 1.75, color: 'rgba(255,255,255,0.55)', marginBottom: 12 },
+  ul: { fontSize: 14, lineHeight: 1.75, color: 'rgba(255,255,255,0.55)', paddingLeft: 22, marginBottom: 14 },
+  warn: { background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 8, padding: '12px 16px', marginBottom: 12 },
+  warnText: { fontSize: 13, lineHeight: 1.65, color: 'rgba(239,68,68,0.8)', fontWeight: 600 },
+  toc: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '20px 24px', marginBottom: 48 },
+  tocTitle: { fontWeight: 700, fontSize: 13, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 },
+  tocList: { listStyle: 'none', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px 24px' },
+  tocItem: { fontSize: 13, color: 'rgba(56,189,248,0.7)', lineHeight: 1.6 },
+  footer: { background: 'rgba(0,0,0,0.4)', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '48px 32px' },
+  footerGrid: { maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 32 },
+  footerBrand: { gridColumn: 'span 1' },
+  footerLogo: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 18, color: '#fff', marginBottom: 8 },
+  footerTagline: { fontSize: 13, color: 'rgba(255,255,255,0.3)', lineHeight: 1.5 },
+  footerHead: { fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14 },
+  footerLink: { display: 'block', fontSize: 14, color: 'rgba(255,255,255,0.45)', marginBottom: 8, textDecoration: 'none' },
+  footerBottom: { maxWidth: 1100, margin: '32px auto 0', paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 },
+  footerCopy: { fontSize: 12, color: 'rgba(255,255,255,0.2)' },
+};
+
+function Navbar() {
+  const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
+  return (
+    <nav style={S.nav}>
+      <a href="index.html" style={S.navLogo}>MedGryd</a>
+      <div style={S.navLinks}>
+        {links.map(([l,h])=><a key={l} href={h} style={S.navLink}>{l}</a>)}
+        <a href="https://app.medgryd.com" style={{background:accent,color:'#000',fontWeight:700,fontSize:13,padding:'8px 18px',borderRadius:8,textDecoration:'none'}}>Launch App</a>
+      </div>
+    </nav>
+  );
+}
+
+function Footer() {
+  const platform = [['Features','features.html'],['Pricing','pricing.html'],['Privacy Policy','privacy.html'],['Terms of Service','terms.html'],['DPA / FERPA BAA','dpa.html']];
+  const company = [['About','about.html'],['Contact','contact.html']];
+  return (
+    <footer style={S.footer}>
+      <div style={S.footerGrid}>
+        <div style={S.footerBrand}>
+          <div style={S.footerLogo}>MedGryd</div>
+          <div style={S.footerTagline}>The study OS for medical students.</div>
+        </div>
+        <div>
+          <div style={S.footerHead}>Platform</div>
+          {platform.map(([l,h])=><a key={l} href={h} style={S.footerLink}>{l}</a>)}
+        </div>
+        <div>
+          <div style={S.footerHead}>Company</div>
+          {company.map(([l,h])=><a key={l} href={h} style={S.footerLink}>{l}</a>)}
+        </div>
+      </div>
+      <div style={S.footerBottom}>
+        <span style={S.footerCopy}>© 2026 MedGryd. All rights reserved.</span>
+        <span style={S.footerCopy}>hello@medgryd.com</span>
+      </div>
+    </footer>
+  );
+}
+
+function TermsPage() {
+  const toc = [
+    ['1','Acceptance of Terms'],['2','Who We Are'],['3','Description of Service'],
+    ['4','Account Registration'],['5','Acceptable Use'],['6','Content and Data'],
+    ['7','Institutional Use'],['8','Third-Party Integrations'],['9','Intellectual Property'],
+    ['10','Beta Disclaimer & No Warranty'],['11','Limitation of Liability'],['12','Indemnification'],
+    ['13','Termination'],['14','Governing Law & Disputes'],['15','Changes to These Terms'],['16','Entire Agreement'],
+  ];
+  return (
+    <main style={{flex:1}}>
+      <div style={S.hero}>
+        <div style={S.heroTag}>Legal</div>
+        <h1 style={S.heroTitle}>Terms of Service</h1>
+        <p style={S.heroSub}>Effective Date: May 24, 2026 · Last Updated: May 24, 2026</p>
+      </div>
+
+      <div style={S.body}>
+
+        <div style={S.toc}>
+          <div style={S.tocTitle}>Table of Contents</div>
+          <ul style={S.tocList}>
+            {toc.map(([n,t])=>(
+              <li key={n} style={S.tocItem}><a href={`#s${n}`} style={{color:'rgba(56,189,248,0.7)',textDecoration:'none'}}>{n}. {t}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <h2 id="s1" style={S.h2}>1. Acceptance of Terms</h2>
+        <p style={S.p}>By creating an account or using MedGryd ("the Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree, do not use the Service. These Terms apply to all users, including students using MedGryd independently and those accessing it through a licensed institution.</p>
+
+        <h2 id="s2" style={S.h2}>2. Who We Are</h2>
+        <p style={S.p}>MedGryd is an independent software product developed and operated by Raayed Saeed and Aaron Smith (co-developer, Quiz Mastery feature).</p>
+        <p style={S.p}>📧 <strong style={{color:'rgba(255,255,255,0.7)'}}>hello@medgryd.com</strong> — for legal inquiries, use subject "Legal Inquiry."</p>
+        <p style={S.p}>Mailing Address: MedGryd, PO Box 70385, Rochester Hills, MI 48307</p>
+
+        <h2 id="s3" style={S.h2}>3. Description of Service</h2>
+        <p style={S.p}>MedGryd is a productivity and study management platform for medical students, including: weekly planner and calendar integration, exam and goal tracking, grade calculator (Score Matrix), Skills Vault (OMM/CEPA), research project management, Quiz Mastery, GrydRank gamification, Peer Board, and study resource companion tracker.</p>
+        <p style={S.p}><strong style={{color:'rgba(255,255,255,0.6)'}}>MedGryd is currently in beta.</strong> Features may change, be added, or be removed at any time without notice.</p>
+
+        <h2 id="s4" style={S.h2}>4. Account Registration</h2>
+        <h3 style={S.h3}>4.1 Google Sign-In</h3>
+        <p style={S.p}>You must sign in with a Google account to use MedGryd. By doing so, you authorize MedGryd to receive your email address, display name, and profile photo URL as described in our <a href="privacy.html">Privacy Policy</a>.</p>
+        <h3 style={S.h3}>4.2 Activation Code (Beta Access)</h3>
+        <p style={S.p}>During the beta period, a valid activation code is required. You may not share, sell, or transfer activation codes.</p>
+        <h3 style={S.h3}>4.3 Account Security & Integrity</h3>
+        <p style={S.p}>You are responsible for maintaining the security of your Google account. MedGryd is not liable for any loss resulting from unauthorized access. You may not create multiple accounts.</p>
+
+        <h2 id="s5" style={S.h2}>5. Acceptable Use</h2>
+        <p style={S.p}>You agree not to:</p>
+        <ul style={S.ul}>
+          <li>Use the Service for any unlawful purpose</li>
+          <li>Attempt to reverse engineer, decompile, or extract the source code of MedGryd</li>
+          <li>Use automated scripts, bots, or crawlers to access or interact with the Service</li>
+          <li>Upload or submit content that is defamatory, harassing, threatening, or violates any third party's rights</li>
+          <li>Share your account credentials or activation code with others</li>
+          <li>Attempt to gain unauthorized access to other users' data or infrastructure</li>
+          <li>Upload copyrighted exam question content you do not have the right to reproduce</li>
+          <li>Use the Peer Board for harassment, spam, or coordinated manipulation</li>
+        </ul>
+
+        <h2 id="s6" style={S.h2}>6. Content and Data</h2>
+        <h3 style={S.h3}>6.1 Your Content</h3>
+        <p style={S.p}>You retain ownership of all content you submit to MedGryd, including tasks, notes, quiz sets, research data, and Peer Board posts. By submitting content, you grant MedGryd a limited, non-exclusive license to store, process, and display it solely to provide the Service to you and, where applicable, to authorized members of your study groups or shared projects.</p>
+        <h3 style={S.h3}>6.2 Quiz Question Sets</h3>
+        <p style={S.p}>You represent that any quiz sets you upload are your original work, licensed for your use, or public domain. MedGryd does not review uploaded content for copyright compliance. You are solely responsible for ensuring uploads comply with applicable copyright law and your institution's academic policies.</p>
+        <h3 style={S.h3}>6.3 Peer Board</h3>
+        <p style={S.p}>The Peer Board is an anonymous discussion space. Only an internal identifier links your account to your posts, for moderation only — it is never displayed to other users. You agree not to post content that identifies other individuals without their consent.</p>
+        <h3 style={S.h3}>6.4 Content Removal</h3>
+        <p style={S.p}>MedGryd reserves the right to remove any content that violates these Terms without notice. Repeated violations may result in account suspension or termination.</p>
+
+        <h2 id="s7" style={S.h2}>7. Institutional Use</h2>
+        <p style={S.p}>If your school has licensed MedGryd, your school may receive aggregate (non-identifiable) usage statistics. Additional data agreements between MedGryd and your school govern educational record handling under FERPA. You remain subject to these Terms in addition to any institutional policies.</p>
+
+        <h2 id="s8" style={S.h2}>8. Third-Party Integrations</h2>
+        <p style={S.p}>MedGryd integrates with Google Calendar, Canvas, and AnkiConnect. Your use of those services is governed by their respective terms. MedGryd is not responsible for the availability, accuracy, or practices of third-party services.</p>
+        <ul style={S.ul}>
+          <li>Google Terms of Service: <a href="https://policies.google.com/terms" target="_blank" rel="noopener">policies.google.com/terms</a></li>
+          <li>Canvas (Instructure): governed by your institution's agreement</li>
+        </ul>
+
+        <h2 id="s9" style={S.h2}>9. Intellectual Property</h2>
+        <p style={S.p}>MedGryd and its original content, features, and design are owned by MedGryd and protected by applicable intellectual property laws. You may not copy, reproduce, or create derivative works without express written permission.</p>
+        <p style={S.p}>If you submit bug reports, feature requests, or other feedback, you grant MedGryd a perpetual, royalty-free license to use that feedback to improve the Service.</p>
+
+        <h2 id="s10" style={S.h2}>10. Beta Disclaimer & No Warranty</h2>
+        <div style={S.warn}>
+          <p style={S.warnText}>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTY OF ANY KIND. MEDGRYD EXPRESSLY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+        </div>
+        <p style={S.p}>The Service is in beta — data loss, downtime, or service interruption may occur. We recommend maintaining independent records of critical study data (exam dates, grades, notes).</p>
+
+        <h2 id="s11" style={S.h2}>11. Limitation of Liability</h2>
+        <div style={S.warn}>
+          <p style={S.warnText}>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, MEDGRYD SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, PROFITS, OR REVENUE ARISING FROM YOUR USE OF THE SERVICE.</p>
+        </div>
+        <p style={S.p}>MedGryd's total liability for any claim shall not exceed $100 USD.</p>
+
+        <h2 id="s12" style={S.h2}>12. Indemnification</h2>
+        <p style={S.p}>You agree to defend, indemnify, and hold harmless MedGryd and its developers from any claims, damages, or expenses (including reasonable attorneys' fees) arising from your use of the Service, your violation of these Terms, your Content, or your violation of any third party's rights.</p>
+
+        <h2 id="s13" style={S.h2}>13. Termination</h2>
+        <p style={S.p}>You may stop using the Service at any time. To delete your account, contact <a href="mailto:hello@medgryd.com">hello@medgryd.com</a> with the subject "Account Deletion Request." We may suspend or terminate your access for violation of these Terms, with or without notice. Upon termination, your right to use the Service ends immediately and your data will be deleted as described in our <a href="privacy.html">Privacy Policy</a>.</p>
+
+        <h2 id="s14" style={S.h2}>14. Governing Law & Disputes</h2>
+        <p style={S.p}>These Terms are governed by the laws of the State of Michigan, without regard to conflict of law principles. Any disputes shall be resolved by binding arbitration under JAMS rules in Oakland County, Michigan, or in state or federal courts in Oakland County if arbitration is not required by applicable law. You agree to resolve disputes individually and waive the right to participate in any class action.</p>
+
+        <h2 id="s15" style={S.h2}>15. Changes to These Terms</h2>
+        <p style={S.p}>We may update these Terms as the Service evolves. Material changes will be announced in the app. Continued use after the announcement constitutes acceptance.</p>
+
+        <h2 id="s16" style={S.h2}>16. Entire Agreement</h2>
+        <p style={S.p}>These Terms, together with our <a href="privacy.html">Privacy Policy</a>, constitute the entire agreement between you and MedGryd regarding the Service.</p>
+
+        <div style={{marginTop:48,padding:'20px 24px',background:'rgba(56,189,248,0.04)',border:'1px solid rgba(56,189,248,0.1)',borderRadius:10}}>
+          <p style={{...S.p,marginBottom:4}}>Questions about these Terms? Contact us:</p>
+          <p style={{...S.p,marginBottom:0}}>📧 <a href="mailto:hello@medgryd.com">hello@medgryd.com</a> — subject: "Legal Inquiry"</p>
+          <p style={{...S.p,marginBottom:0,marginTop:6}}>For institutional licensing and DPA/FERPA inquiries, see our <a href="dpa.html">Data Processing Agreement & FERPA BAA</a>.</p>
+        </div>
+
+        <p style={{fontSize:12,color:'rgba(255,255,255,0.2)',marginTop:32,textAlign:'center'}}>These Terms were last reviewed on May 24, 2026.</p>
+      </div>
+    </main>
+  );
+}
+
+function App() {
+  return (
+    <div id="root" style={{display:'flex',flexDirection:'column',minHeight:'100vh'}}>
+      <Navbar />
+      <TermsPage />
+      <Footer />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

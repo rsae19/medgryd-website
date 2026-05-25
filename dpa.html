@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Processing Agreement & FERPA BAA — MedGryd</title>
+  <meta name="description" content="MedGryd Data Processing Agreement and FERPA Business Associate Addendum for institutional licensing." />
+  <link rel="icon" href="favicon.ico" />
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; min-height: 100vh; }
+    a { color: #38bdf8; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    #root { display: flex; flex-direction: column; min-height: 100vh; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 16px; }
+    th { text-align: left; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    td { font-size: 13px; color: rgba(255,255,255,0.5); padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: top; }
+    td a { color: rgba(56,189,248,0.7); }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+const accent = '#38bdf8';
+
+const S = {
+  nav: { background: 'rgba(10,10,15,0.92)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 32px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 },
+  navLogo: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 20, color: '#fff', letterSpacing: '-0.02em', textDecoration: 'none' },
+  navLinks: { display: 'flex', alignItems: 'center', gap: 28 },
+  navLink: { color: 'rgba(255,255,255,0.55)', fontSize: 14, fontWeight: 500, textDecoration: 'none' },
+  hero: { padding: '72px 32px 48px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' },
+  heroTag: { display: 'inline-block', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', color: accent, fontSize: 12, fontWeight: 600, padding: '4px 14px', borderRadius: 100, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 20 },
+  heroTitle: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 40, color: '#fff', letterSpacing: '-0.03em', marginBottom: 14, lineHeight: 1.1 },
+  heroSub: { color: 'rgba(255,255,255,0.45)', fontSize: 15, lineHeight: 1.6, maxWidth: 620, margin: '0 auto' },
+  body: { maxWidth: 760, margin: '0 auto', padding: '48px 32px 80px' },
+  notice: { background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.15)', borderRadius: 12, padding: '20px 24px', marginBottom: 40 },
+  noticeText: { fontSize: 14, lineHeight: 1.7, color: 'rgba(255,255,255,0.6)' },
+  partBadge: { display: 'inline-block', background: 'rgba(56,189,248,0.12)', border: '1px solid rgba(56,189,248,0.2)', color: accent, fontSize: 11, fontWeight: 700, padding: '3px 12px', borderRadius: 100, letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: 16, marginTop: 48 },
+  partTitle: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 24, color: '#fff', marginBottom: 8 },
+  partSub: { fontSize: 14, color: 'rgba(255,255,255,0.4)', marginBottom: 32, lineHeight: 1.5 },
+  h2: { fontFamily: "'Oxanium', sans-serif", fontWeight: 700, fontSize: 17, color: '#fff', marginBottom: 12, marginTop: 36, paddingBottom: 8, borderBottom: '1px solid rgba(255,255,255,0.07)' },
+  h3: { fontWeight: 600, fontSize: 13, color: 'rgba(255,255,255,0.65)', marginBottom: 6, marginTop: 16, textTransform: 'uppercase', letterSpacing: '0.04em' },
+  p: { fontSize: 14, lineHeight: 1.75, color: 'rgba(255,255,255,0.55)', marginBottom: 12 },
+  ul: { fontSize: 14, lineHeight: 1.75, color: 'rgba(255,255,255,0.55)', paddingLeft: 22, marginBottom: 14 },
+  sigBox: { background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: '24px', marginTop: 12, marginBottom: 20 },
+  sigLine: { borderBottom: '1px solid rgba(255,255,255,0.15)', marginBottom: 16, paddingBottom: 6 },
+  sigLabel: { fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: 4 },
+  footer: { background: 'rgba(0,0,0,0.4)', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '48px 32px' },
+  footerGrid: { maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 32 },
+  footerLogo: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 18, color: '#fff', marginBottom: 8 },
+  footerTagline: { fontSize: 13, color: 'rgba(255,255,255,0.3)', lineHeight: 1.5 },
+  footerHead: { fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14 },
+  footerLink: { display: 'block', fontSize: 14, color: 'rgba(255,255,255,0.45)', marginBottom: 8, textDecoration: 'none' },
+  footerBottom: { maxWidth: 1100, margin: '32px auto 0', paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 },
+  footerCopy: { fontSize: 12, color: 'rgba(255,255,255,0.2)' },
+};
+
+function Navbar() {
+  const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
+  return (
+    <nav style={S.nav}>
+      <a href="index.html" style={S.navLogo}>MedGryd</a>
+      <div style={S.navLinks}>
+        {links.map(([l,h])=><a key={l} href={h} style={S.navLink}>{l}</a>)}
+        <a href="https://app.medgryd.com" style={{background:accent,color:'#000',fontWeight:700,fontSize:13,padding:'8px 18px',borderRadius:8,textDecoration:'none'}}>Launch App</a>
+      </div>
+    </nav>
+  );
+}
+
+function Footer() {
+  const platform = [['Features','features.html'],['Pricing','pricing.html'],['Privacy Policy','privacy.html'],['Terms of Service','terms.html'],['DPA / FERPA BAA','dpa.html']];
+  const company = [['About','about.html'],['Contact','contact.html']];
+  return (
+    <footer style={S.footer}>
+      <div style={S.footerGrid}>
+        <div>
+          <div style={S.footerLogo}>MedGryd</div>
+          <div style={S.footerTagline}>The study OS for medical students.</div>
+        </div>
+        <div>
+          <div style={S.footerHead}>Platform</div>
+          {platform.map(([l,h])=><a key={l} href={h} style={S.footerLink}>{l}</a>)}
+        </div>
+        <div>
+          <div style={S.footerHead}>Company</div>
+          {company.map(([l,h])=><a key={l} href={h} style={S.footerLink}>{l}</a>)}
+        </div>
+      </div>
+      <div style={S.footerBottom}>
+        <span style={S.footerCopy}>© 2026 MedGryd. All rights reserved.</span>
+        <span style={S.footerCopy}>hello@medgryd.com</span>
+      </div>
+    </footer>
+  );
+}
+
+function DpaPage() {
+  return (
+    <main style={{flex:1}}>
+      <div style={S.hero}>
+        <div style={S.heroTag}>Institutional</div>
+        <h1 style={S.heroTitle}>Data Processing Agreement<br />& FERPA Addendum</h1>
+        <p style={S.heroSub}>For medical schools and institutions licensing MedGryd. Template effective May 24, 2026 — a signed copy with your institution's details is provided upon request.</p>
+      </div>
+
+      <div style={S.body}>
+
+        <div style={S.notice}>
+          <p style={S.noticeText}><strong style={{color:'rgba(255,255,255,0.8)'}}>For IT Departments &amp; Administrators:</strong> This page contains the standard template MedGryd uses for institutional data agreements. To receive a countersigned executed copy for your institution, contact <a href="mailto:hello@medgryd.com">hello@medgryd.com</a> with subject "DPA Request — [Institution Name]." We typically respond within 5 business days.</p>
+        </div>
+
+        {/* ── PART I: DPA ── */}
+        <div style={S.partBadge}>Part I</div>
+        <div style={S.partTitle}>Data Processing Agreement</div>
+        <p style={{...S.partSub}}>This DPA governs how MedGryd processes personal data on behalf of the Institution and identifies all subprocessors.</p>
+
+        <h2 id="d1" style={S.h2}>1. Definitions</h2>
+        <p style={S.p}><strong style={{color:'rgba(255,255,255,0.7)'}}>Controller</strong> means the Institution, which determines the purposes and means of processing personal data related to enrolled students.</p>
+        <p style={S.p}><strong style={{color:'rgba(255,255,255,0.7)'}}>Processor</strong> means MedGryd, which processes personal data on behalf of the Institution.</p>
+        <p style={S.p}><strong style={{color:'rgba(255,255,255,0.7)'}}>Personal Data</strong> means any information relating to an identified or identifiable natural person.</p>
+        <p style={S.p}><strong style={{color:'rgba(255,255,255,0.7)'}}>Subprocessor</strong> means any third party engaged by MedGryd to process personal data.</p>
+        <p style={S.p}><strong style={{color:'rgba(255,255,255,0.7)'}}>Education Records</strong> has the meaning assigned by FERPA (20 U.S.C. § 1232g).</p>
+
+        <h2 id="d2" style={S.h2}>2. Scope and Purpose</h2>
+        <p style={S.p}>MedGryd will process Personal Data only as necessary to provide the Service as described in the institutional license agreement. Categories of data processed include:</p>
+        <ul style={S.ul}>
+          <li>Account identifiers — email address, display name, profile photo URL, Firebase UID</li>
+          <li>Study activity data — tasks, study time, Anki review counts</li>
+          <li>Self-assessed competency data — Skills Vault confidence ratings and notes</li>
+          <li>Assessment data entered by the student — grades, exam scores, projections</li>
+          <li>Quiz performance data — topic mastery scores, attempt history</li>
+          <li>Peer Board posts — stored without display names; UID-linked for moderation only</li>
+          <li>GrydRank data — XP, level, leaderboard stats (opt-in; anonymity toggle available)</li>
+          <li>Presence data — online/offline status, last-seen timestamp</li>
+        </ul>
+        <p style={S.p}>MedGryd will not process Personal Data for any purpose other than providing the Service.</p>
+
+        <h2 id="d3" style={S.h2}>3. Processing Instructions</h2>
+        <p style={S.p}>MedGryd will process Personal Data only on documented instructions from the Institution or in accordance with applicable law. The primary instruction is: process data to provide MedGryd's features to enrolled students as described in the Service description.</p>
+
+        <h2 id="d4" style={S.h2}>4. Subprocessors</h2>
+        <p style={S.p}>MedGryd relies on the following subprocessors to deliver the Service. All subprocessors are bound by data processing agreements consistent with this DPA:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Subprocessor</th>
+              <th>Role</th>
+              <th>Location</th>
+              <th>Privacy Policy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Google LLC (Firebase)</strong></td>
+              <td>Authentication, database (Firestore), real-time data (RTDB), file storage</td>
+              <td>United States</td>
+              <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></td>
+            </tr>
+            <tr>
+              <td><strong>Sentry (Functional Software, Inc.)</strong></td>
+              <td>Error monitoring, session replay (10% of sessions; 100% on errors)</td>
+              <td>United States</td>
+              <td><a href="https://sentry.io/privacy/" target="_blank" rel="noopener">sentry.io/privacy</a></td>
+            </tr>
+            <tr>
+              <td><strong>Vercel Inc.</strong></td>
+              <td>Web hosting, serverless functions (quiz import, activation validation)</td>
+              <td>United States (CDN global)</td>
+              <td><a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">vercel.com/legal/privacy-policy</a></td>
+            </tr>
+            <tr>
+              <td><strong>Tawk.to</strong></td>
+              <td>In-app support chat widget (optional; only active when user initiates chat)</td>
+              <td>Global</td>
+              <td><a href="https://www.tawk.to/privacy-policy/" target="_blank" rel="noopener">tawk.to/privacy-policy</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style={S.p}>MedGryd will notify the Institution of any material changes to this subprocessor list at least 30 days in advance. The Institution may object to a new subprocessor within that period; if objection cannot be resolved, either party may terminate the license agreement without penalty.</p>
+
+        <h2 id="d5" style={S.h2}>5. Security Measures</h2>
+        <p style={S.p}>MedGryd implements the following technical and organizational security measures:</p>
+        <ul style={S.ul}>
+          <li>All data in transit is encrypted using TLS (HTTPS enforced)</li>
+          <li>Firebase Firestore data is encrypted at rest using Google's infrastructure</li>
+          <li>Access to individual student data is restricted by Firestore Security Rules tied to each student's Firebase UID — no student can access another's data</li>
+          <li>Session replays via Sentry are accessible only to the MedGryd development team</li>
+          <li>Activation codes are validated server-side and not retained after validation</li>
+          <li>No plaintext passwords are stored — authentication is fully delegated to Google</li>
+        </ul>
+        <p style={S.p}><strong style={{color:'rgba(255,255,255,0.6)'}}>Sentry session replay note:</strong> Approximately 10% of sessions are recorded as interactive replays; 100% of sessions in which a JavaScript error occurs are recorded. Current configuration does not mask text input. Session replays may include on-screen text content entered by the user. Replays are used solely for bug diagnosis by the development team and are subject to Sentry's 90-day retention policy.</p>
+
+        <h2 id="d6" style={S.h2}>6. Data Breach Notification</h2>
+        <p style={S.p}>In the event of a personal data breach affecting Institutional data, MedGryd will:</p>
+        <ul style={S.ul}>
+          <li>Notify the Institution within <strong style={{color:'rgba(255,255,255,0.6)'}}>72 hours</strong> of becoming aware of the breach</li>
+          <li>Provide available details: nature of the breach, categories and approximate number of records affected, likely consequences, and measures taken or proposed</li>
+          <li>Cooperate fully with the Institution's incident response</li>
+        </ul>
+
+        <h2 id="d7" style={S.h2}>7. Data Subject Rights</h2>
+        <p style={S.p}>MedGryd will assist the Institution in fulfilling data subject rights requests (access, correction, deletion, portability) within 30 days of a documented request from the Institution. Individual students may also submit requests directly to <a href="mailto:hello@medgryd.com">hello@medgryd.com</a> per our <a href="privacy.html">Privacy Policy</a>.</p>
+
+        <h2 id="d8" style={S.h2}>8. Data Retention and Deletion</h2>
+        <p style={S.p}>Upon termination of the institutional license, MedGryd will delete or return all Institutional data within <strong style={{color:'rgba(255,255,255,0.6)'}}>60 days</strong>, as directed by the Institution in writing. Sentry error reports are subject to Sentry's standard 90-day retention policy. Anonymized aggregate statistics with no personally identifiable information may be retained indefinitely for product improvement.</p>
+
+        <h2 id="d9" style={S.h2}>9. Audit Rights</h2>
+        <p style={S.p}>The Institution may request a written summary of MedGryd's security practices and subprocessor agreements once per calendar year. MedGryd will respond within 30 business days. On-site audits may be requested with reasonable advance notice and are subject to mutual scheduling agreement.</p>
+
+        {/* ── PART II: FERPA ── */}
+        <div style={{...S.partBadge, marginTop: 64}}>Part II</div>
+        <div style={S.partTitle}>FERPA Addendum</div>
+        <p style={S.partSub}>This addendum designates MedGryd as a school official under FERPA for institutional licensees and defines the scope of that designation.</p>
+
+        <h2 id="f10" style={S.h2}>10. FERPA Designation</h2>
+        <p style={S.p}>MedGryd is designated as a <strong style={{color:'rgba(255,255,255,0.7)'}}>"school official"</strong> of the Institution with a <strong style={{color:'rgba(255,255,255,0.7)'}}>"legitimate educational interest"</strong> in accessing education records, as those terms are defined under FERPA (20 U.S.C. § 1232g) and its implementing regulations (34 C.F.R. Part 99), for the purpose of providing the Service.</p>
+        <p style={S.p}>This designation is limited to:</p>
+        <ul style={S.ul}>
+          <li>Displaying and storing data the student themselves enters into MedGryd</li>
+          <li>Providing the student with features described in the Service (planner, grade tracker, skills tracker, Quiz Mastery, etc.)</li>
+          <li>Generating aggregate, non-identifiable usage statistics for the Institution for administrative and program improvement purposes</li>
+        </ul>
+
+        <h2 id="f11" style={S.h2}>11. Permitted Uses of Education Records</h2>
+        <p style={S.p}>As a designated school official, MedGryd may use education records only to:</p>
+        <ul style={S.ul}>
+          <li>Provide the contracted Service to enrolled students</li>
+          <li>Diagnose and fix technical errors affecting the Service</li>
+          <li>Generate aggregate, non-identifiable reports for the Institution</li>
+        </ul>
+
+        <h2 id="f12" style={S.h2}>12. Prohibited Uses</h2>
+        <p style={S.p}>MedGryd will <strong style={{color:'rgba(239,68,68,0.8)'}}>NOT</strong>:</p>
+        <ul style={S.ul}>
+          <li>Share individually identifiable education records with third parties except as required to operate the Service (as listed in the subprocessor table in Section 4)</li>
+          <li>Use education records for advertising or commercial profiling of any kind</li>
+          <li>Sell education records or any derivative thereof</li>
+          <li>Re-disclose education records in violation of FERPA</li>
+        </ul>
+
+        <h2 id="f13" style={S.h2}>13. Annual Notification</h2>
+        <p style={S.p}>The Institution agrees to include MedGryd in its FERPA annual notification to students as a service provider designated as a school official with a legitimate educational interest, consistent with 34 C.F.R. § 99.7.</p>
+
+        <h2 id="f14" style={S.h2}>14. Student Rights Under FERPA</h2>
+        <p style={S.p}>MedGryd acknowledges that students retain all rights under FERPA, including the right to inspect, review, and request amendment of their education records. MedGryd will cooperate with the Institution in honoring these rights and will not impede a student's ability to exercise them.</p>
+
+        <h2 id="f15" style={S.h2}>15. Breach of FERPA Addendum</h2>
+        <p style={S.p}>If MedGryd materially violates this FERPA Addendum, the Institution may terminate the institutional license agreement immediately upon written notice. MedGryd will return or destroy all education records as specified in Section 8 within 30 days of termination.</p>
+
+        {/* ── Execution ── */}
+        <h2 style={{...S.h2, marginTop: 56}}>Execution</h2>
+        <p style={S.p}>This DPA and FERPA Addendum becomes effective upon execution of the institutional license agreement, which incorporates this document by reference. A fully executed copy with both signatures will be provided to the Institution upon request.</p>
+        <p style={S.p}>To request a countersigned DPA for your institution:</p>
+        <div style={{...S.notice, marginTop:16}}>
+          <p style={S.noticeText}>📧 <a href="mailto:hello@medgryd.com"><strong>hello@medgryd.com</strong></a> — Subject: "DPA Request — [Institution Name]"<br /><br />Please include your institution's full legal name, primary IT/compliance contact, and the name and title of the authorized signatory. We'll return an executable copy within 5 business days.</p>
+        </div>
+
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24,marginTop:32}}>
+          <div style={S.sigBox}>
+            <p style={{fontSize:13,fontWeight:700,color:'rgba(255,255,255,0.6)',marginBottom:16}}>MedGryd (Service Provider)</p>
+            <div style={S.sigLine}><p style={S.sigLabel}>Signature</p></div>
+            <p style={{fontSize:13,color:'rgba(255,255,255,0.5)',marginTop:8}}>Raayed Saeed<br />Developer, MedGryd<br />hello@medgryd.com</p>
+          </div>
+          <div style={S.sigBox}>
+            <p style={{fontSize:13,fontWeight:700,color:'rgba(255,255,255,0.6)',marginBottom:16}}>Institution (Controller)</p>
+            <div style={S.sigLine}><p style={S.sigLabel}>Authorized Signatory</p></div>
+            <div style={{height:8}} />
+            <div style={S.sigLine}><p style={S.sigLabel}>Name & Title</p></div>
+            <div style={{height:8}} />
+            <div style={S.sigLine}><p style={S.sigLabel}>Institution Name</p></div>
+            <div style={{height:8}} />
+            <div><p style={S.sigLabel}>Date</p></div>
+          </div>
+        </div>
+
+        <p style={{fontSize:12,color:'rgba(255,255,255,0.2)',marginTop:40,textAlign:'center'}}>Template last reviewed May 24, 2026. Also see: <a href="privacy.html" style={{color:'rgba(56,189,248,0.4)'}}>Privacy Policy</a> · <a href="terms.html" style={{color:'rgba(56,189,248,0.4)'}}>Terms of Service</a></p>
+      </div>
+    </main>
+  );
+}
+
+function App() {
+  return (
+    <div style={{display:'flex',flexDirection:'column',minHeight:'100vh'}}>
+      <Navbar />
+      <DpaPage />
+      <Footer />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
