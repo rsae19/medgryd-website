@@ -24,7 +24,17 @@
 <body>
 <div id="root"></div>
 <script type="text/babel">
-const { useState } = React;
+const { useState, useEffect } = React;
+
+const useWindowWidth = () => {
+  const [w, setW] = React.useState(window.innerWidth);
+  React.useEffect(() => {
+    const h = () => setW(window.innerWidth);
+    window.addEventListener('resize', h, { passive: true });
+    return () => window.removeEventListener('resize', h);
+  }, []);
+  return w;
+};
 
 const accent = '#38bdf8';
 
@@ -61,45 +71,144 @@ const S = {
   footerCopy: { fontSize: 12, color: 'rgba(255,255,255,0.2)' },
 };
 
-function Navbar() {
+/* ── NAVBAR ─────────────────────────────────────────────── */
+const Navbar = () => {
+  const [scrolled, setScrolled] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const isMobile = useWindowWidth() < 768;
+  React.useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 48);
+    window.addEventListener('scroll', h, { passive: true });
+    return () => window.removeEventListener('scroll', h);
+  }, []);
+  React.useEffect(() => { if (!isMobile) setMobileOpen(false); }, [isMobile]);
   const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
   return (
-    <nav style={S.nav}>
-      <a href="index.html" style={S.navLogo}>MedGryd</a>
-      <div style={S.navLinks}>
-        {links.map(([l,h])=><a key={l} href={h} style={S.navLink}>{l}</a>)}
-        <a href="https://app.medgryd.com" style={{background:accent,color:'#000',fontWeight:700,fontSize:13,padding:'8px 18px',borderRadius:8,textDecoration:'none'}}>Launch App</a>
-      </div>
-    </nav>
+    <React.Fragment>
+      <nav style={{
+        position:'fixed', top:0, left:0, right:0, zIndex:100,
+        display:'flex', alignItems:'center', justifyContent:'space-between',
+        padding:'0 clamp(20px,4vw,60px)', height:68,
+        background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
+        borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        transition: 'background 0.35s ease, border-color 0.35s ease',
+      }}>
+        <a href="index.html" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none', userSelect:'none' }}>
+          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:44, display:'block' }} />
+          <span style={{ fontFamily:'Oxanium, sans-serif', fontWeight:600, fontSize: isMobile ? 20 : 26, color:'#e2e8f0', letterSpacing:'0.04em', lineHeight:1 }}>MedGryd</span>
+        </a>
+        {!isMobile && (
+          <div style={{ position:'absolute', left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'center', gap:36 }}>
+            {links.map(([l,h]) => (
+              <a key={l} href={h} style={{ fontFamily:'Oxanium, sans-serif', fontWeight:400, fontSize:13, color:'rgba(226,232,240,0.65)', letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none', transition:'color 0.2s', padding:'4px 2px', borderBottom:'1px solid transparent' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#e2e8f0'}
+                onMouseLeave={e => e.currentTarget.style.color = 'rgba(226,232,240,0.65)'}>{l}</a>
+            ))}
+          </div>
+        )}
+        {isMobile ? (
+          <button onClick={() => setMobileOpen(o => !o)} aria-label="Toggle menu" style={{ background:'none', border:'none', cursor:'pointer', padding:8, display:'flex', flexDirection:'column', gap:5, alignItems:'center', justifyContent:'center' }}>
+            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition:'transform 0.25s' }} />
+            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, opacity: mobileOpen ? 0 : 1, transition:'opacity 0.2s' }} />
+            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(-7px) rotate(-45deg)' : 'none', transition:'transform 0.25s' }} />
+          </button>
+        ) : (
+          <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+            <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.5)'; e.currentTarget.style.color='#38bdf8'; e.currentTarget.style.background='rgba(56,189,248,0.12)'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.15)'; e.currentTarget.style.color='rgba(226,232,240,0.5)'; e.currentTarget.style.background='rgba(56,189,248,0.07)'; }}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.5)'; e.currentTarget.style.color='#38bdf8'; e.currentTarget.style.background='rgba(56,189,248,0.12)'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.15)'; e.currentTarget.style.color='rgba(226,232,240,0.5)'; e.currentTarget.style.background='rgba(56,189,248,0.07)'; }}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily:'Oxanium, sans-serif', fontWeight:600, fontSize:13, letterSpacing:'0.1em', textTransform:'uppercase', background:'#38bdf8', color:'#0a0a0f', padding:'9px 22px', borderRadius:8, textDecoration:'none', boxShadow:'0 0 18px rgba(56,189,248,0.35)', transition:'box-shadow 0.2s, transform 0.15s', display:'inline-block' }}
+              onMouseEnter={e => { e.currentTarget.style.boxShadow='0 0 28px rgba(56,189,248,0.55)'; e.currentTarget.style.transform='translateY(-1px)'; }}
+              onMouseLeave={e => { e.currentTarget.style.boxShadow='0 0 18px rgba(56,189,248,0.35)'; e.currentTarget.style.transform='translateY(0)'; }}>
+              Launch App
+            </a>
+          </div>
+        )}
+      </nav>
+      {isMobile && mobileOpen && (
+        <div style={{ position:'fixed', top:68, left:0, right:0, zIndex:99, background:'rgba(10,10,15,0.97)', borderBottom:'1px solid rgba(56,189,248,0.12)', backdropFilter:'blur(16px)', padding:'12px 24px 24px', display:'flex', flexDirection:'column', gap:0 }}>
+          {links.map(([l,h]) => (
+            <a key={l} href={h} onClick={() => setMobileOpen(false)} style={{ fontFamily:'Oxanium, sans-serif', fontWeight:400, fontSize:15, color:'rgba(226,232,240,0.8)', letterSpacing:'0.08em', textTransform:'uppercase', textDecoration:'none', padding:'14px 0', borderBottom:'1px solid rgba(255,255,255,0.05)', display:'block' }}>{l}</a>
+          ))}
+          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily:'Oxanium, sans-serif', fontWeight:600, fontSize:13, letterSpacing:'0.1em', textTransform:'uppercase', background:'#38bdf8', color:'#0a0a0f', padding:'13px 22px', borderRadius:8, textDecoration:'none', textAlign:'center', marginTop:12, display:'block', boxShadow:'0 0 18px rgba(56,189,248,0.35)' }}>Launch App</a>
+        </div>
+      )}
+    </React.Fragment>
   );
-}
+};
 
-function Footer() {
-  const platform = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
-  const legal = [['Privacy Policy','privacy.html'],['Terms of Service','terms.html'],['DPA / FERPA BAA','dpa.html']];
-  return (
-    <footer style={S.footer}>
-      <div style={S.footerGrid}>
-        <div style={S.footerBrand}>
-          <div style={S.footerLogo}>MedGryd</div>
-          <div style={S.footerTagline}>The study OS for medical students.</div>
+/* ── FOOTER ─────────────────────────────────────────────── */
+const Footer = () => (
+  <footer style={{ background:'#060609', borderTop:'1px solid rgba(255,255,255,0.05)', padding:'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px' }}>
+    <div style={{ maxWidth:1100, margin:'0 auto', display:'flex', flexWrap:'wrap', justifyContent:'space-between', gap:32, paddingBottom:32, borderBottom:'1px solid rgba(255,255,255,0.05)', marginBottom:24 }}>
+      <div style={{ maxWidth:340 }}>
+        <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:12 }}>
+          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:30 }} />
+          <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize:16, color:'#e2e8f0' }}>MedGryd</span>
         </div>
-        <div>
-          <div style={S.footerHead}>Platform</div>
-          {platform.map(([l,h])=><a key={l} href={h} style={S.footerLink}>{l}</a>)}
-        </div>
-        <div>
-          <div style={S.footerHead}>Legal</div>
-          {legal.map(([l,h])=><a key={l} href={h} style={S.footerLink}>{l}</a>)}
+        <p style={{ color:'#475569', fontSize:13, lineHeight:1.65 }}>Mission Control for Medical School.</p>
+        <div style={{ display:'flex', gap:10, marginTop:14 }}>
+          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+            style={{ display:'flex', alignItems:'center', justifyContent:'center', width:34, height:34, borderRadius:8, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.18)', color:'#64748b', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.5)'; e.currentTarget.style.color='#38bdf8'; e.currentTarget.style.background='rgba(56,189,248,0.12)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.18)'; e.currentTarget.style.color='#64748b'; e.currentTarget.style.background='rgba(56,189,248,0.07)'; }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+            style={{ display:'flex', alignItems:'center', justifyContent:'center', width:34, height:34, borderRadius:8, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.18)', color:'#64748b', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.5)'; e.currentTarget.style.color='#38bdf8'; e.currentTarget.style.background='rgba(56,189,248,0.12)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.18)'; e.currentTarget.style.color='#64748b'; e.currentTarget.style.background='rgba(56,189,248,0.07)'; }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
         </div>
       </div>
-      <div style={S.footerBottom}>
-        <span style={S.footerCopy}>© 2026 MedGryd. All rights reserved.</span>
-        <span style={S.footerCopy}>hello@medgryd.com</span>
+      <div style={{ display:'flex', gap:56, flexWrap:'wrap' }}>
+        <div>
+          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:14 }}>Platform</div>
+          <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+            {[['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']].map(([l,h]) => (
+              <a key={l} href={h} style={{ fontSize:13, color:'#64748b', textDecoration:'none', transition:'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#94a3b8'}
+                onMouseLeave={e => e.currentTarget.style.color = '#64748b'}>{l}</a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:14 }}>Legal</div>
+          <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
+            {[['Privacy Policy','privacy.html'],['Terms of Service','terms.html'],['DPA / FERPA BAA','dpa.html']].map(([l,h]) => (
+              <a key={l} href={h} style={{ fontSize:13, color:'#64748b', textDecoration:'none', transition:'color 0.2s' }}
+                onMouseEnter={e => e.currentTarget.style.color = '#94a3b8'}
+                onMouseLeave={e => e.currentTarget.style.color = '#64748b'}>{l}</a>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:14 }}>Contact</div>
+          <a href="mailto:hello@medgryd.com" style={{ fontSize:13, color:'#64748b', textDecoration:'none', display:'block', marginBottom:10, transition:'color 0.2s' }}
+            onMouseEnter={e => e.currentTarget.style.color = '#38bdf8'}
+            onMouseLeave={e => e.currentTarget.style.color = '#64748b'}>hello@medgryd.com</a>
+          <p style={{ fontSize:13, color:'#475569', lineHeight:1.55, marginBottom:10 }}>PO Box 70385<br />Rochester Hills, MI 48307</p>
+          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily:'Oxanium', fontSize:12, fontWeight:600, color:'#38bdf8', textDecoration:'none', letterSpacing:'0.08em', textTransform:'uppercase' }}>Launch App →</a>
+        </div>
       </div>
-    </footer>
-  );
-}
+    </div>
+    <div style={{ maxWidth:1100, margin:'0 auto', display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:12 }}>
+      <span style={{ fontSize:12, color:'#334155' }}>© 2026 MedGryd. All rights reserved.</span>
+      <span style={{ fontSize:12, color:'#1e293b', fontFamily:'Oxanium' }}>Built with 🩺 for future physicians</span>
+    </div>
+  </footer>
+);
 
 function TermsPage() {
   const toc = [
@@ -110,7 +219,7 @@ function TermsPage() {
     ['13','Termination'],['14','Governing Law & Disputes'],['15','Changes to These Terms'],['16','Entire Agreement'],
   ];
   return (
-    <main style={{flex:1}}>
+    <main style={{flex:1,paddingTop:68}}>
       <div style={S.hero}>
         <div style={S.heroTag}>Legal</div>
         <h1 style={S.heroTitle}>Terms of Service</h1>
