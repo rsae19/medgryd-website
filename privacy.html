@@ -214,17 +214,11 @@ const Footer = () =>
 const PrivacyPage = () => {
   const accent = '#38bdf8';
   const S = {
-    page: { minHeight: '100vh', paddingTop: 68, background: '#0a0a0f' },
-    hero: {
-      padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px) 48px',
-      background: 'linear-gradient(180deg, rgba(56,189,248,0.04) 0%, transparent 60%)',
-      borderBottom: '1px solid rgba(255,255,255,0.05)',
-      maxWidth: 1100, margin: '0 auto',
-    },
-    label: { fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: accent, marginBottom: 16 },
-    title: { fontFamily: 'Oxanium', fontSize: 'clamp(32px,5vw,52px)', fontWeight: 700, color: '#f1f5f9', lineHeight: 1.1, marginBottom: 16 },
-    meta:  { fontSize: 13, color: '#475569' },
-    body:  { maxWidth: 760, margin: '0 auto', padding: 'clamp(40px,6vw,80px) clamp(20px,5vw,80px)' },
+    hero: { padding: '72px 32px 48px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' },
+    heroTag: { display: 'inline-block', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', color: accent, fontSize: 12, fontWeight: 600, padding: '4px 14px', borderRadius: 100, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 20 },
+    title: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 40, color: '#fff', letterSpacing: '-0.03em', marginBottom: 14, lineHeight: 1.1 },
+    meta:  { color: 'rgba(255,255,255,0.45)', fontSize: 15, lineHeight: 1.6, maxWidth: 560, margin: '0 auto' },
+    body:  { maxWidth: 720, margin: '0 auto', padding: '48px 32px 80px' },
     h2:    { fontFamily: 'Oxanium', fontSize: 18, fontWeight: 600, color: '#e2e8f0', marginBottom: 10, marginTop: 40, paddingBottom: 8, borderBottom: '1px solid rgba(255,255,255,0.06)' },
     h3:    { fontSize: 14, fontWeight: 600, color: '#94a3b8', marginBottom: 6, marginTop: 20 },
     p:     { fontSize: 14, lineHeight: 1.75, color: '#64748b', marginBottom: 12 },
@@ -235,11 +229,11 @@ const PrivacyPage = () => {
   };
 
   return (
-    <div style={S.page}>
+    <main style={{flex:1,paddingTop:68}}>
       <div style={S.hero}>
-        <div style={S.label}>Legal</div>
+        <div style={S.heroTag}>Legal</div>
         <h1 style={S.title}>Privacy Policy</h1>
-        <p style={S.meta}>Effective Date: May 24, 2026 &nbsp;·&nbsp; Last Updated: May 24, 2026</p>
+        <p style={S.meta}>Effective Date: May 24, 2026 · Last Updated: May 24, 2026</p>
       </div>
 
       <div style={S.body}>
@@ -371,7 +365,7 @@ const PrivacyPage = () => {
 
         <p style={{ fontSize: 12, color: '#1e293b', marginTop: 48, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)' }}>Last reviewed May 24, 2026</p>
       </div>
-    </div>
+    </main>
   );
 };
 
