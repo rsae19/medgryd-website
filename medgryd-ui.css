@@ -26,6 +26,7 @@
   color-scheme: dark;
   --accent: #38bdf8;
   --accent-rgb: 56, 189, 248;
+  --on-accent: #06121a;
   --bg-base: #07070f;
   --bg-app: linear-gradient(145deg, #07070f 0%, #0d0d1a 48%, #09090f 100%);
   --bg-footer: rgba(2, 2, 10, 0.66);
@@ -34,7 +35,10 @@
   --text-heading: #f0f0fa;
   --text-day-head: rgba(240, 240, 250, 0.92);
   --text-dim: rgba(240, 240, 250, 0.62);
-  --text-muted: rgba(240, 240, 250, 0.36);
+  /* 0.36 landed around 3.2:1 against this ground, and it is used almost
+     exclusively on 9–11px labels where that is hardest to read. 0.46 clears
+     4.5:1 without turning these into primary text. */
+  --text-muted: rgba(240, 240, 250, 0.46);
   --text-faint: rgba(240, 240, 250, 0.18);
   --surface-1: rgba(255, 255, 255, 0.045);
   --surface-2: rgba(255, 255, 255, 0.072);
@@ -48,6 +52,21 @@
   --font-ui-bold: "Aptos Narrow Bold", "Aptos Narrow", "Aptos", "Segoe UI", sans-serif;
   --font-display: "Oxanium", "Aptos Narrow", sans-serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* ── Spacing scale ──────────────────────────────────────────────────
+     Section padding and stack gaps were previously ad-hoc numbers typed
+     per component (56, 48, 40, 28, 24…), which is why the vertical rhythm
+     drifted from section to section. Everything below now comes from here.
+     --space-section is deliberately larger than the old flat
+     clamp(60px,8vw,100px): at the widths this site is actually read at,
+     the old value left major sections looking crowded against each other
+     once the band tints came in. */
+  --space-section: clamp(68px, 7.5vw, 112px);
+  --space-section-tight: clamp(48px, 5vw, 76px);
+  --space-gutter: clamp(20px, 5vw, 80px);
+  --space-head: clamp(40px, 5vw, 64px);  /* section header → its content */
+  --space-stack: 24px;
+  --measure: 1180px;                      /* content column ceiling */
 }
 
 html { background: var(--bg-base); }
@@ -70,14 +89,20 @@ body::after {
   pointer-events: none;
 }
 
+/* Instrument grid. This element is position:fixed, so a `to bottom` mask
+   cuts the grid off at the same point on the *screen* no matter where you
+   are on the page — at any scroll position the bottom fifth of the window
+   was simply grid-less, which read as an unfinished background rather than
+   as depth. A centred radial mask has no such edge: it falls off toward
+   the corners in every direction, so it looks like atmosphere. */
 body::before {
   z-index: 0;
   background-image:
-    linear-gradient(rgba(var(--accent-rgb), 0.014) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(var(--accent-rgb), 0.014) 1px, transparent 1px);
+    linear-gradient(rgba(var(--accent-rgb), 0.016) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.016) 1px, transparent 1px);
   background-size: 64px 64px;
-  -webkit-mask-image: linear-gradient(to bottom, black, transparent 82%);
-  mask-image: linear-gradient(to bottom, black, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse 130% 105% at 50% 26%, black 22%, transparent 92%);
+  mask-image: radial-gradient(ellipse 130% 105% at 50% 26%, black 22%, transparent 92%);
 }
 
 body::after {
@@ -89,13 +114,354 @@ body::after {
 
 #root { position: relative; z-index: 1; }
 
+/* Site-wide starfield, mounted by medgryd-ui.js. The app runs one field
+   behind the entire document, not just the header — that continuity is a
+   lot of why scrolling the app feels like moving through one space. Sits
+   in the same z-index 0 layer as the grid and the bloom above, so it is
+   over the page background and under everything in #root. */
+#mg-starfield {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Scroll reveal ────────────────────────────────────────────────────
+   Sections tagged .mg-reveal rise into place as they enter the viewport,
+   on the app's --ease-out curve. --mg-i is a stagger index set by
+   medgryd-ui.js, so a grid cascades in DOM order rather than landing as
+   one block.
+
+   Two deliberate details:
+   • The hidden state is scoped to .mg-anim, which the script puts on
+     <html> only once it can actually drive the reveal. If the script
+     fails to load, nothing is ever hidden — a broken animation must
+     never cost a visitor the content.
+   • The shown state keys off [data-mg-in] rather than a class, because
+     every page renders through React and a re-render (a window resize is
+     enough) rewrites className from JSX, which would silently re-hide
+     anything already on screen. React leaves unknown data-attributes
+     alone. */
+.mg-anim .mg-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 520ms var(--ease-out) calc(var(--mg-i, 0) * 55ms),
+    transform 520ms var(--ease-out) calc(var(--mg-i, 0) * 55ms);
+  will-change: opacity, transform;
+}
+
+.mg-anim .mg-reveal[data-mg-in] { opacity: 1; transform: translateY(0); }
+
+/* Once settled: drop the compositor hint so long pages hold no layers, and
+   hand the element's transition back to interaction speed. Leaving the
+   520ms entrance timing (plus its stagger delay) in place would make every
+   subsequent hover on a revealed card feel laggy. */
+.mg-anim .mg-reveal[data-mg-done] {
+  will-change: auto;
+  transition:
+    transform 180ms var(--ease-out),
+    opacity 180ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
+}
+
 ::selection { background: rgba(var(--accent-rgb), 0.28); color: var(--text-heading); }
 ::-webkit-scrollbar { width: 4px !important; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent !important; }
 ::-webkit-scrollbar-thumb { background: rgba(var(--accent-rgb), 0.24) !important; border-radius: 999px !important; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(var(--accent-rgb), 0.52) !important; }
 
-section { background-color: transparent !important; }
+/* Sections never paint their own opaque ground — the starfield and the
+   body gradient have to read continuously behind everything.
+
+   `header` is included because the page headers on pricing.html and
+   about.html each carried an opaque #0a0a0f, which cut a solid rectangle
+   out of the starfield across the entire top of those pages: the stars ran
+   behind the nav, vanished for the whole header, then reappeared. `nav` and
+   `footer` are deliberately excluded — those are frosted chrome and are
+   supposed to sit on their own tinted ground. */
+section,
+header:not(nav) { background-color: transparent !important; }
+
+/* ── Section rhythm ───────────────────────────────────────────────────
+   Every section previously used the same clamp(60px,8vw,100px) padding on
+   a fully transparent ground, so the page read as one undifferentiated
+   column with no signal about where one idea ended and the next began.
+
+   .mg-section sets the shared vertical rhythm. .mg-band adds an alternating
+   frosted pane — a translucent lift plus hairline accent seams, never an
+   opaque slab, so the stars still show through. Alternating banded and
+   unbanded sections is what gives the scroll a pulse. */
+.mg-section {
+  position: relative;
+  padding: var(--space-section) var(--space-gutter);
+}
+
+.mg-section-tight { padding: var(--space-section-tight) var(--space-gutter); }
+.mg-shell { width: 100%; max-width: var(--measure); margin: 0 auto; }
+
+.mg-band {
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0.012) 55%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Hairline seams instead of hard edges. Fading them out at both ends stops
+   the band from reading as a boxed-in rectangle. */
+.mg-band::before,
+.mg-band::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+}
+
+.mg-band::before {
+  top: 0;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.22), transparent);
+}
+
+.mg-band::after {
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.1), transparent);
+}
+
+/* Section header block — one owner for the eyebrow → title → lede stack,
+   replacing the marginBottom: 56 / 48 / 40 that was typed per section. */
+.mg-head {
+  max-width: 720px;
+  margin: 0 auto var(--space-head);
+  text-align: center;
+}
+
+.mg-head-left { margin-inline: 0; text-align: left; }
+.mg-head .mg-eyebrow { margin-bottom: 16px; }
+
+.mg-title {
+  margin: 0;
+  color: var(--text-heading);
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+.mg-lede {
+  max-width: 620px;
+  margin: 18px auto 0;
+  color: var(--text-dim);
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 1.7;
+}
+
+.mg-head-left .mg-lede { margin-inline: 0; }
+
+/* ── Grids ────────────────────────────────────────────────────────────
+   auto-fit with a per-instance --min, rather than a hard repeat(4, 1fr).
+   The fixed 4-up meant eight cards became two rows of ~250px boxes with
+   28px of padding inside them, which left the descriptions three words to
+   a line. Cards now claim the width they need and reflow on their own. */
+.mg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min, 268px)), 1fr));
+  gap: var(--gap, 18px);
+}
+
+/* ── Feature card ─────────────────────────────────────────────────── */
+.mg-feature {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 26px 24px 24px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Instrument-panel hairline, straight off the app's .md-stat tiles. It is
+   what makes a grid of these read as a bank of readouts. */
+.mg-feature::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.42;
+  transition: opacity 220ms var(--ease-out);
+}
+
+.mg-feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  background: rgba(var(--accent-rgb), 0.09);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  border-radius: 11px;
+}
+
+.mg-feature-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+}
+
+.mg-feature h3 {
+  margin: 0;
+  color: var(--text-heading);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+.mg-feature p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 13.5px;
+  line-height: 1.68;
+}
+
+.mg-feature ul {
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mg-feature li {
+  position: relative;
+  padding-left: 16px;
+  color: var(--text-muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.mg-feature li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.55);
+}
+
+.mg-tag {
+  padding: 3px 8px;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  border-radius: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mg-feature:hover::before { opacity: 1; }
+}
+
+/* ── Tabs ─────────────────────────────────────────────────────────────
+   The app's .sub-tab-btn: brightens and lifts on hover, compresses on
+   press, accent fill when selected. */
+.mg-tab {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  color: var(--text-dim);
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mg-tab[aria-selected="true"] {
+  color: var(--on-accent, #06121a);
+  font-weight: 700;
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 14px rgba(var(--accent-rgb), 0.38);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mg-tab:hover {
+    color: var(--accent);
+    border-color: rgba(var(--accent-rgb), 0.45);
+    transform: translateY(-1px);
+  }
+
+  .mg-tab[aria-selected="true"]:hover { color: var(--on-accent, #06121a); filter: brightness(1.1); }
+  .mg-tab:hover:active { transform: scale(0.97); }
+}
+
+/* ── Stat readouts ────────────────────────────────────────────────────
+   Concrete numbers, in the app's tabular-numeral instrument style. These
+   carry more weight than adjectives: "237 OMM techniques" says more about
+   the product than "comprehensive skills tracking" ever will. */
+.mg-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: 1px;
+  background: var(--border-muted);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.mg-stat {
+  padding: 22px 18px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.022);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  backdrop-filter: blur(12px) saturate(150%);
+}
+
+.mg-stat b {
+  display: block;
+  color: var(--text-heading);
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.mg-stat span {
+  display: block;
+  margin-top: 9px;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
 
 nav {
   height: 68px !important;
@@ -117,7 +483,14 @@ h1, h2, h3, h4 { font-family: var(--font-display) !important; }
 p, li { text-wrap: pretty; }
 a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 
+/* Press feedback. The `a[style*="padding"]` half of this selector only
+   catches anchors carrying an inline padding — which meant the hero's own
+   .mg-btn CTAs, whose padding comes from CSS, had transition-duration: 0s
+   and no :active state at all. .mg-btn and .mg-icon-link are named here so
+   the most important buttons on the site are not the only ones that snap. */
 button,
+.mg-btn,
+.mg-icon-link,
 a[style*="padding"] {
   transition-property: transform, background-color, border-color, color, filter, box-shadow !important;
   transition-duration: 150ms !important;
@@ -125,6 +498,8 @@ a[style*="padding"] {
 }
 
 button:active,
+.mg-btn:active,
+.mg-icon-link:active,
 a[style*="padding"]:active { transform: scale(0.97) !important; }
 
 a:focus-visible,
@@ -253,14 +628,24 @@ td { color: var(--text-dim) !important; border-color: var(--border-muted) !impor
   opacity: 0.95 !important;
 }
 
+/* Vignette. Every stop stays translucent on purpose.
+
+   The previous version ended in an opaque `#090910`, which had to match
+   whatever the page was painting directly below the hero — and it did not:
+   `body` carries a fixed 145° gradient, so the colour sitting at the hero's
+   bottom edge is nearer #0d0d1a. The mismatch drew a visible horizontal
+   seam across the full width of the page, and the opaque band also wiped
+   out the starfield for the last ~120px of the hero. Darkening with a
+   low-alpha neutral instead means this layer never has to know what colour
+   is behind it, and the stars stay continuous through the transition. */
 .mg-hero-vignette {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 86% 72% at 70% 48%, transparent 18%, rgba(7, 7, 15, 0.18) 62%, rgba(7, 7, 15, 0.78) 100%),
-    linear-gradient(to bottom, rgba(7, 7, 15, 0.12), transparent 18%, transparent 78%, #090910 100%);
+    radial-gradient(ellipse 86% 72% at 70% 48%, transparent 20%, rgba(4, 4, 12, 0.22) 66%, rgba(4, 4, 12, 0.52) 100%),
+    linear-gradient(to bottom, rgba(4, 4, 12, 0.34), transparent 20%, transparent 86%, rgba(4, 4, 12, 0.34) 100%);
 }
 
 .mg-hero-shell {
@@ -497,6 +882,19 @@ td { color: var(--text-dim) !important; border-color: var(--border-muted) !impor
     transform: translateY(-2px) !important;
     box-shadow: var(--shadow-md) !important;
   }
+
+  /* Glow variant adds the accent bloom on hover; the tweaks panel's "flat"
+     card style opts out and keeps just the lift. */
+  .mg-section-card:not(.mg-section-card-flat):hover {
+    box-shadow: var(--shadow-md), 0 0 32px rgba(var(--accent-rgb), 0.1) !important;
+  }
+}
+
+.mg-section-card {
+  transition:
+    transform 180ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
 }
 
 .mg-module-preview { position: relative; min-height: 330px; overflow: hidden; }
@@ -648,4 +1046,13 @@ td { color: var(--text-dim) !important; border-color: var(--border-muted) !impor
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
   }
+  /* Reduced motion means fewer and gentler animations, not none: the
+     press feedback and the reveal keep their opacity change, and only the
+     movement is dropped. The script also skips the starfield and never
+     adds .mg-anim, so these are belt and braces. */
+  button:active,
+  a[style*="padding"]:active { transform: none !important; }
+  .mg-anim .mg-reveal,
+  .mg-anim .mg-reveal[data-mg-in] { transform: none; transition: opacity 300ms ease; }
+  #mg-starfield { display: none; }
 }

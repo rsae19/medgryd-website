@@ -2,18 +2,26 @@
 
 > Mission Control for Medical School — the all-in-one study operating system for medical students.
 
-MedGryd is a web application built by OMS-1 medical students at Noorda College of Osteopathic Medicine. It unifies weekly planning, clinical skills tracking, quiz mastery, research management, grade calculation, and gamified motivation into a single platform purpose-built for the demands of medical education.
+MedGryd is a web application built by osteopathic medical students during their own pre-clinical years. It unifies weekly planning, clinical skills tracking, quiz mastery, research management, grade calculation, and gamified motivation into a single platform purpose-built for the demands of medical education.
 
 ## Core Features
 
-- **Weekly Planner** — Drag-and-drop task management with Canvas LMS and Google Calendar sync, smart overdue tracking, and priority workflows
-- **Skills Vault** — Confidence tracking across 237 OMM (Osteopathic Manipulative Medicine) techniques and CEPA clinical checklists, with a randomized practice picker wheel
-- **Quiz Mastery** — AI-powered question banks with per-topic mastery tracking, weak area identification, and smart review scheduling
-- **Research Hub** — Project management for academic research, deadline tracking, collaborator invites, and idea-to-project pipeline
-- **Score Matrix** — Weighted grade calculator with auto-drop rules and target-score projections for upcoming exams
-- **GrydRank** — XP system, badges, rank tiers, school-wide leaderboards, and weekly challenges for sustained motivation
-- **Companion Tracker** — Progress tracking for Pathoma and Sketchy video series
-- **Stats & Analytics** — Study time breakdowns, Anki card history, task completion graphs, and login streaks
+- **Quiz Mastery** — A spaced-retrieval engine, not a flashcard viewer. Review intervals stretch 1 → 3 → 7 → 14 → 30 → 60 → 120 days as a question sticks. Every answer is tagged with the learner's confidence, so the engine distinguishes knowing from guessing and flags confidently-wrong answers as their own category. A repeat inside 20 hours does not count as retrieval practice; retention is scored 55% on delayed recall and 45% on overall accuracy, which deliberately discounts cramming. Recall strength and transfer strength are tracked separately. Five extra-practice modes: weak concepts, high-yield, unseen, random review, exam practice
+- **Question Generation** — Point the generator at your own lecture material and it first builds a source-coverage map rating each topic high/medium/low yield, then writes questions constrained strictly to that material. It will not test content your lectures did not cover
+- **Skills Vault** — 227 OMM (Osteopathic Manipulative Medicine) techniques, each with its full step-by-step protocol, plus 349 clinical skills tasks across 18 physical exam checklists and 66 categories. Confidence dial per item, practice timer, randomized picker wheel with no-repeat mode, and saddle-stitched booklet PDF export for printing
+- **OSCE Tracker** — A complete SOAP note: 8 subjective fields, 18 review-of-systems categories, vitals, 7 physical exam sections, and 22 lab values across CBC/BMP/CMP with reference ranges and units, flagged automatically when out of range. Printable patient-card PDF export
+- **Anki → Concept Lessons** — Identifies Anki cards repeatedly rated Again or Hard, groups them into concepts rather than decks, ranks them by difficulty evidence, and generates a NotebookLM source packet plus steering prompt that turns them into a single narrated Audio or Video Overview lesson
+- **Weekly Planner** — Seven-day grid with drag-and-drop across days and weeks, triple-state tasks (pending/done/skipped), priority levels, "Good Enough" mode, and colour-coded overdue aging. Canvas LMS iCal auto-sync, two-way Google Calendar sync, recurring events, shared events and goals, PDF schedule import
+- **Score Matrix** — Weighted grade calculator handling multi-component courses and automatic lowest-score drops, with target-score projections for every grade tier
+- **GrydRank** — 100 named levels across 10 tiers (Foundations → MS-1 → Board Prep → Clinician → Board Warrior → Resident Ready → Attending → Legend → Ascendant → Prestige) and 51 badges. XP from tasks, study sessions, Anki reviews, technique practice and quizzes. Opt-in cohort leaderboard, private groups, auto-generated weekly challenges
+- **Study Avatar** — Five avatar forms unlocking by level, with palettes, outfits, equipment, environments, effects and titles earned all the way to level 1000
+- **Research Hub** — Seven-stage project pipeline from idea to published, an Ideas tab with research-type tagging, shared projects with assignable dated tasks, and a cross-project deadline countdown
+- **Focus Mode** — Timed study sessions logged automatically into study-time analytics and XP
+- **Peer Board** — Anonymous or attributed class discussion board with upvotes and threaded replies
+- **Companion Tracker** — Progress tracking for Pathoma chapters and SketchyPharm/SketchyMicro video series
+- **Stats & Analytics** — Daily and weekly study time breakdowns, Anki review history, task completion graphs, and login streaks
+- **Quick Jot** — Multi-section rich-text scratchpad one click from the planner
+- **Platform** — Installable PWA for iOS and Android with a purpose-built mobile layout, light/dark themes, eight accent presets plus a full colour picker, a ten-step setup wizard with live preview, and a seventeen-part searchable setup guide
 
 ## Target Users
 

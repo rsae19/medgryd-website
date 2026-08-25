@@ -44,23 +44,17 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <style>
+    /* Page-local only. Tokens, glass, motion curves and the reveal system
+       all live in medgryd-ui.css. */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Aptos Narrow', 'Aptos', 'Segoe UI', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0f; }
-    ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
-    @keyframes fade-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes glow-pulse { 0%,100% { box-shadow: 0 0 28px rgba(56,189,248,0.18), 0 0 0 1px rgba(56,189,248,0.35); } 50% { box-shadow: 0 0 48px rgba(56,189,248,0.28), 0 0 0 1px rgba(56,189,248,0.55); } }
-    @keyframes shimmer-line { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+    html, body { overflow-x: hidden; }
+    a, button { touch-action: manipulation; }
 
-    @media (max-width: 767px) {
-      html, body { overflow-x: hidden; }
-      * { -webkit-tap-highlight-color: transparent; }
-      a, button { touch-action: manipulation; }
-    }
+    @keyframes fade-up      { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shimmer-line { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
   </style>
   <link rel="stylesheet" href="medgryd-ui.css?v=20260825-1" />
+  <script src="medgryd-ui.js?v=20260825-1" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -77,57 +71,6 @@ const useWindowWidth = () => {
   return w;
 };
 
-
-/* ── STARS BG ───────────────────────────────────────────── */
-const StarsBg = () => {
-  const ref = useRef(null);
-  useEffect(() => {
-    const canvas = ref.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animId, t = 0;
-    let stars = [];
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      stars = Array.from({ length: 180 }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.3 + 0.2,
-        speed: Math.random() * 2 + 0.5,
-        offset: Math.random() * Math.PI * 2,
-        accent: Math.random() < 0.14,
-      }));
-    };
-    resize();
-    window.addEventListener('resize', resize);
-    const draw = () => {
-      t += 0.01;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // faint grid
-      ctx.strokeStyle = 'rgba(56,189,248,0.035)'; ctx.lineWidth = 0.5;
-      for (let x = 0; x < canvas.width; x += 64) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,canvas.height); ctx.stroke(); }
-      for (let y = 0; y < canvas.height; y += 64) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(canvas.width,y); ctx.stroke(); }
-      stars.forEach(s => {
-        const tw = 0.4 + 0.6 * Math.sin(t * s.speed + s.offset);
-        if (s.accent) {
-          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(56,189,248,${tw * 0.85})`;
-          ctx.shadowColor = 'rgba(56,189,248,0.6)'; ctx.shadowBlur = 5;
-          ctx.fill(); ctx.shadowBlur = 0;
-        } else {
-          ctx.beginPath(); ctx.arc(s.x, s.y, s.r * 0.85, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(200,220,255,${tw * 0.5})`;
-          ctx.fill();
-        }
-      });
-      animId = requestAnimationFrame(draw);
-    };
-    draw();
-    return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); };
-  }, []);
-  return <canvas ref={ref} style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} />;
-};
 
 /* ── NAVBAR ─────────────────────────────────────────────── */
 const Navbar = () => {
@@ -256,15 +199,16 @@ const Check = ({ dim }) => (
 
 /* ── PRICING CARDS ──────────────────────────────────────── */
 const studentFeatures = [
-  'Weekly Planner with Calendar Sync',
-  'Skills Vault (OMM + General Skills)',
-  'Quiz Mastery',
-  'Research Hub',
-  'Score Matrix',
-  'GrydRank & Leaderboards',
-  'Companion Tracker',
-  'Stats & Analytics',
-  'Quick Jot & OSCE Tracker',
+  'Weekly Planner with Canvas + two-way Google Calendar sync',
+  'Quiz Mastery spaced-retrieval engine with confidence tracking',
+  'Skills Vault — 227 OMM protocols + 349 clinical skills tasks',
+  'OSCE Tracker with SOAP note templates',
+  'Score Matrix grade calculator and projections',
+  'GrydRank — 100 levels, 51 badges, leaderboards and groups',
+  'Research Hub with shared projects',
+  'Focus Mode, Anki integration and full stats',
+  'Companion Tracker, Quick Jot and Peer Board',
+  'Installable mobile app, themes and accent colours',
 ];
 
 const institutionFeatures = [
@@ -277,22 +221,19 @@ const institutionFeatures = [
   'Custom onboarding',
 ];
 
+/* Surface and hover-lift come from .mg-section-card in medgryd-ui.css. Its
+   !important declarations already outranked the inline values below, so the
+   React hover state was dead weight — and dropping the inline transform is
+   what lets .mg-reveal animate the card in. */
 const StudentCard = () => {
-  const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="mg-section-card"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className="mg-section-card mg-reveal"
       style={{
         flex: '1 1 340px', maxWidth: 420,
-        background: '#0e0e1a',
         borderRadius: 20,
         padding: '36px 32px 32px',
         position: 'relative',
-        animation: 'none',
-        transition: 'transform 0.25s',
-        transform: hovered ? 'translateY(-6px)' : 'none',
         overflow: 'hidden',
       }}
     >
@@ -318,11 +259,20 @@ const StudentCard = () => {
         <h2 style={{ fontFamily:'Oxanium', fontWeight:500, fontSize:26, color:'#f1f5f9', marginBottom:20 }}>Student Plan</h2>
 
         {/* Price */}
-        <div style={{ marginBottom:6 }}>
-          <span style={{ fontFamily:'Oxanium', fontWeight:200, fontSize:52, color:'#38bdf8', letterSpacing:'-0.02em', lineHeight:1 }}>$TBD</span>
-          <span style={{ fontFamily:'Aptos Narrow', fontSize:15, color:'#64748b', marginLeft:6 }}>/month</span>
+        <div style={{ marginBottom:8, display:'flex', alignItems:'baseline', gap:7, flexWrap:'wrap' }}>
+          <span style={{ fontFamily:'Oxanium', fontWeight:200, fontSize:52, color:'var(--accent)', letterSpacing:'-0.02em', lineHeight:1, fontVariantNumeric:'tabular-nums' }}>$5</span>
+          <span style={{ fontFamily:'var(--font-ui)', fontSize:15, color:'var(--text-dim)' }}>/ month</span>
         </div>
-        <p style={{ fontSize:14, color:'#64748b', marginBottom:28 }}>Everything you need to excel</p>
+        <div style={{
+          display:'inline-flex', alignItems:'center', gap:7,
+          padding:'5px 11px', marginBottom:18, borderRadius:100,
+          background:'rgba(var(--accent-rgb),0.08)',
+          border:'1px solid rgba(var(--accent-rgb),0.22)'
+        }}>
+          <span style={{ width:5, height:5, borderRadius:'50%', background:'var(--accent)', boxShadow:'0 0 6px var(--accent)' }} />
+          <span style={{ fontFamily:'var(--font-display)', fontSize:10.5, fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--accent)' }}>Free while in beta</span>
+        </div>
+        <p style={{ fontSize:14, color:'#64748b', marginBottom:28 }}>Every tool on this site, no tiers, no locked features</p>
 
         {/* Divider */}
         <div style={{ height:1, background:'rgba(56,189,248,0.1)', marginBottom:24 }} />
@@ -355,21 +305,13 @@ const StudentCard = () => {
 };
 
 const InstitutionCard = () => {
-  const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="mg-section-card"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className="mg-section-card mg-reveal"
       style={{
         flex: '1 1 340px', maxWidth: 420,
-        background: '#111118',
         borderRadius: 20,
         padding: '36px 32px 32px',
-        border: '1px solid rgba(255,255,255,0.08)',
-        transition: 'border-color 0.25s, transform 0.25s',
-        borderColor: hovered ? 'rgba(56,189,248,0.25)' : 'rgba(255,255,255,0.08)',
-        transform: hovered ? 'translateY(-4px)' : 'none',
       }}
     >
       <div style={{ fontFamily:'Oxanium', fontSize:11, fontWeight:500, letterSpacing:'0.14em', textTransform:'uppercase', color:'rgba(56,189,248,0.5)', marginBottom:10 }}>For Institutions</div>
@@ -430,40 +372,46 @@ const faqs = [
   },
 ];
 
-const FaqItem = ({ q, a, open, onToggle }) => (
-  <div style={{
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
-    overflow: 'hidden',
+const FaqItem = ({ q, a, open, onToggle, id }) => (
+  <div className="mg-reveal" style={{
+    borderBottom: '1px solid var(--border-muted)',
   }}>
     <button
       onClick={onToggle}
+      aria-expanded={open}
+      aria-controls={id}
       style={{
         width:'100%', background:'none', border:'none', cursor:'pointer',
         display:'flex', justifyContent:'space-between', alignItems:'center',
         padding:'22px 0', gap:16, textAlign:'left',
       }}
     >
-      <span style={{ fontFamily:'Oxanium', fontWeight:400, fontSize:16, color: open ? '#f1f5f9' : '#94a3b8', transition:'color 0.2s', lineHeight:1.3 }}>{q}</span>
+      <span style={{ fontFamily:'Oxanium', fontWeight:400, fontSize:16, color: open ? 'var(--text-heading)' : 'var(--text-primary)', transition:'color 180ms ease', lineHeight:1.3 }}>{q}</span>
       <div style={{
         width:28, height:28, borderRadius:8, flexShrink:0,
-        background: open ? 'rgba(56,189,248,0.12)' : 'rgba(255,255,255,0.04)',
-        border: `1px solid ${open ? 'rgba(56,189,248,0.3)' : 'rgba(255,255,255,0.08)'}`,
+        background: open ? 'rgba(var(--accent-rgb),0.12)' : 'var(--surface-1)',
+        border: `1px solid ${open ? 'rgba(var(--accent-rgb),0.3)' : 'var(--border-subtle)'}`,
         display:'flex', alignItems:'center', justifyContent:'center',
-        transition:'background 0.2s, border-color 0.2s, transform 0.25s',
-        transform: open ? 'rotate(45deg)' : 'none',
+        transition:'background 180ms ease, border-color 180ms ease, transform 260ms var(--ease-out)',
+        transform: open ? 'rotate(135deg)' : 'none',
       }}>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={open ? '#38bdf8' : '#64748b'} strokeWidth="2.5" strokeLinecap="round">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={open ? 'var(--accent)' : 'var(--text-dim)'} strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
           <path d="M12 5v14M5 12h14"/>
         </svg>
       </div>
     </button>
-    <div style={{
-      maxHeight: open ? 200 : 0,
+    {/* Opens on grid-template-rows 0fr → 1fr rather than a max-height
+        guess. The previous 200px cap silently clipped the longer answers,
+        and any future answer would have hit the same wall. */}
+    <div id={id} role="region" style={{
+      display: 'grid',
+      gridTemplateRows: open ? '1fr' : '0fr',
       opacity: open ? 1 : 0,
-      overflow: 'hidden',
-      transition: 'max-height 0.35s ease, opacity 0.3s ease',
+      transition: 'grid-template-rows 300ms var(--ease-out), opacity 220ms ease',
     }}>
-      <p style={{ fontSize:15, color:'#64748b', lineHeight:1.8, paddingBottom:22, fontWeight:300 }}>{a}</p>
+      <div style={{ overflow: 'hidden' }}>
+        <p style={{ fontSize:15, color:'var(--text-dim)', lineHeight:1.8, paddingBottom:22 }}>{a}</p>
+      </div>
     </div>
   </div>
 );
@@ -474,14 +422,14 @@ const FaqSection = () => {
     <section style={{ padding:'clamp(60px,8vw,96px) clamp(20px,5vw,80px)', background:'#0d0d14', position:'relative' }}>
       <div style={{ position:'absolute', top:0, left:'8%', right:'8%', height:1, background:'rgba(56,189,248,0.07)' }} />
       <div style={{ maxWidth:720, margin:'0 auto' }}>
-        <div style={{ textAlign:'center', marginBottom:48 }}>
+        <div className="mg-reveal" style={{ textAlign:'center', marginBottom:48 }}>
           <span style={{ fontFamily:'Oxanium', fontSize:11, fontWeight:500, letterSpacing:'0.16em', textTransform:'uppercase', color:'#38bdf8', display:'block', marginBottom:12 }}>FAQ</span>
           <h2 style={{ fontFamily:'Oxanium', fontWeight:300, fontSize:'clamp(26px,4vw,40px)', color:'#f1f5f9', letterSpacing:'-0.01em' }}>Common questions</h2>
         </div>
-        <div>
+        <div data-mg-stagger>
           {faqs.map((f, i) => (
             <FaqItem
-              key={f.q} q={f.q} a={f.a}
+              key={f.q} q={f.q} a={f.a} id={`faq-panel-${i}`}
               open={openIdx === i}
               onToggle={() => setOpenIdx(openIdx === i ? -1 : i)}
             />
@@ -489,7 +437,7 @@ const FaqSection = () => {
         </div>
 
         {/* Still have questions */}
-        <div style={{ marginTop:40, padding:'24px 28px', borderRadius:14, background:'rgba(56,189,248,0.04)', border:'1px solid rgba(56,189,248,0.12)', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:16 }}>
+        <div className="mg-reveal" style={{ marginTop:40, padding:'24px 28px', borderRadius:14, background:'rgba(56,189,248,0.04)', border:'1px solid rgba(56,189,248,0.12)', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:16 }}>
           <div>
             <div style={{ fontFamily:'Oxanium', fontWeight:500, fontSize:15, color:'#e2e8f0', marginBottom:4 }}>Still have questions?</div>
             <div style={{ fontSize:13, color:'#64748b' }}>We're happy to chat. Reach out directly.</div>
@@ -582,7 +530,6 @@ const App = () => {
         padding: 'clamp(80px,10vw,120px) clamp(20px,5vw,80px) clamp(60px,7vw,80px)',
         textAlign: 'center',
       }}>
-        <StarsBg />
         {/* grid bg */}
         <div style={{ position:'absolute', inset:0, backgroundImage:'linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px)', backgroundSize:'60px 60px', maskImage:'radial-gradient(ellipse 70% 80% at 50% 50%, black 30%, transparent 100%)' }} />
         <div style={{ position:'relative', zIndex:1, animation:'fade-up 0.8s ease both' }}>
@@ -598,14 +545,14 @@ const App = () => {
 
       {/* Cards */}
       <section style={{ padding:'0 clamp(20px,5vw,80px) clamp(60px,8vw,96px)', background:'#0a0a0f' }}>
-        <div style={{ maxWidth:900, margin:'0 auto', display:'flex', gap:24, flexWrap:'wrap', justifyContent:'center' }}>
+        <div data-mg-stagger style={{ maxWidth:900, margin:'0 auto', display:'flex', gap:24, flexWrap:'wrap', justifyContent:'center' }}>
           <StudentCard />
           <InstitutionCard />
         </div>
 
         {/* Fine print */}
         <p style={{ textAlign:'center', fontSize:13, color:'#334155', marginTop:28, fontFamily:'Aptos Narrow' }}>
-          Pricing is being finalized. Join the waitlist to be notified when plans go live.
+          MedGryd is free for every student while it is in beta. The $5/month student plan starts when the beta ends, and anyone already using the app will be told well before that happens.
         </p>
       </section>
 

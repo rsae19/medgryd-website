@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
   <title>MedGryd — Mission Control for Medical School</title>
-  <meta name="description" content="The all-in-one study operating system for medical students. Weekly planner, skills tracker, quiz mastery, grade calculator, research hub, and gamified motivation — all in one place." />
+  <meta name="description" content="The study operating system for medical students. A spaced-retrieval engine that tells knowing from guessing, 227 OMM techniques with full step-by-step protocols, 349 clinical skills tasks, weighted grade projections and a planner already wired to your coursework." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://medgryd.com/" />
 
@@ -46,28 +46,33 @@
         "@id": "https://medgryd.com/#app",
         "name": "MedGryd",
         "url": "https://app.medgryd.com",
-        "description": "The all-in-one study operating system for medical students. Weekly planner, skills tracker, quiz mastery, grade calculator, research hub, and gamified motivation.",
+        "description": "The study operating system for medical students. A spaced-retrieval engine that tells knowing from guessing, 227 OMM techniques with full step-by-step protocols, 349 clinical skills tasks, weighted grade projections and a planner already wired to your coursework.",
         "applicationCategory": "EducationalApplication",
         "operatingSystem": "Web",
         "offers": [
           {
             "@type": "Offer",
-            "name": "Student (Free)",
-            "price": "0",
-            "priceCurrency": "USD"
+            "name": "Student",
+            "price": "5",
+            "priceCurrency": "USD",
+            "description": "Full access to every MedGryd tool. Free for the duration of the beta.",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "5",
+              "priceCurrency": "USD",
+              "referenceQuantity": {
+                "@type": "QuantitativeValue",
+                "value": "1",
+                "unitCode": "MON"
+              }
+            }
           },
           {
             "@type": "Offer",
-            "name": "Pro",
-            "price": "9",
+            "name": "School Licence",
+            "description": "Institution-wide deployment with cohort exam management, shared data and priority support. Priced per programme.",
             "priceCurrency": "USD",
-            "billingIncrement": "1",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "9",
-              "priceCurrency": "USD",
-              "unitCode": "MON"
-            }
+            "availability": "https://schema.org/PreOrder"
           }
         ],
         "publisher": { "@id": "https://medgryd.com/#organization" }
@@ -80,14 +85,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://medgryd.com/" />
   <meta property="og:title" content="MedGryd — Mission Control for Medical School" />
-  <meta property="og:description" content="The all-in-one study operating system for medical students. Weekly planner, skills tracker, quiz mastery, grade calculator, research hub, and gamified motivation — all in one place." />
+  <meta property="og:description" content="The study operating system for medical students. A spaced-retrieval engine that tells knowing from guessing, 227 OMM techniques with full step-by-step protocols, 349 clinical skills tasks, weighted grade projections and a planner already wired to your coursework." />
   <meta property="og:image" content="https://medgryd.com/uploads/og-image.png" />
   <meta property="og:site_name" content="MedGryd" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="MedGryd — Mission Control for Medical School" />
-  <meta name="twitter:description" content="The all-in-one study operating system for medical students. Weekly planner, skills tracker, quiz mastery, grade calculator, research hub, and gamified motivation — all in one place." />
+  <meta name="twitter:description" content="The study operating system for medical students. A spaced-retrieval engine that tells knowing from guessing, 227 OMM techniques with full step-by-step protocols, 349 clinical skills tasks, weighted grade projections and a planner already wired to your coursework." />
   <meta name="twitter:image" content="https://medgryd.com/uploads/og-image.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -97,53 +102,14 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <style>
+    /* Page-local only. Tokens, glass, motion curves and the reveal system
+       all live in medgryd-ui.css. */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: #0a0a0f;
-      color: #e2e8f0;
-      font-family: 'Aptos Narrow', 'Aptos', 'Segoe UI', sans-serif;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0f; }
-    ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
-
-    @keyframes pulse-ring {
-      0% { transform: scale(0.4); opacity: 0.6; }
-      100% { transform: scale(2.8); opacity: 0; }
-    }
-    @keyframes fade-up {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes glow-border {
-      0%, 100% { box-shadow: 0 0 18px rgba(56,189,248,0.15), inset 0 0 18px rgba(56,189,248,0.04); }
-      50%       { box-shadow: 0 0 32px rgba(56,189,248,0.28), inset 0 0 28px rgba(56,189,248,0.08); }
-    }
-    @keyframes heartbeat-trace {
-      0%   { stroke-dashoffset: 900; opacity: 1; }
-      70%  { opacity: 1; }
-      100% { stroke-dashoffset: 0; opacity: 0; }
-    }
-    @keyframes scroll-bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
-      50%       { transform: translateX(-50%) translateY(6px); opacity: 1; }
-    }
-    }
-    @keyframes shimmer {
-      0%   { background-position: -400px 0; }
-      100% { background-position: 400px 0; }
-    }
-
-    @media (max-width: 767px) {
-      html, body { overflow-x: hidden; }
-      * { -webkit-tap-highlight-color: transparent; }
-      a, button { touch-action: manipulation; }
-    }
+    html, body { overflow-x: hidden; }
+    a, button { touch-action: manipulation; }
   </style>
   <link rel="stylesheet" href="medgryd-ui.css?v=20260825-1" />
+  <script src="medgryd-ui.js?v=20260825-1" defer></script>
 </head>
 <body>
   <div id="root"></div>
@@ -166,7 +132,7 @@ const useWindowWidth = () => {
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accentColor": "#38bdf8",
   "heroHeadline": "Mission Control for Medical School",
-  "heroSub": "Plan your week. Track your skills. Master your material. All in one place.",
+  "heroSub": "A spaced-retrieval engine that knows what you guessed, 227 OMM protocols written out step by step, and a planner that already has your week in it.",
   "showSocialProof": true,
   "cardStyle": "glow",
   "darkFooter": true
@@ -189,11 +155,19 @@ const Icon = ({ name, size = 24, color = "#38bdf8" }) => {
     check: "M20 6L9 17l-5-5",
     arrow: "M5 12h14M12 5l7 7-7 7",
     stethoscope: "M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3M14 12a6 6 0 0 0 6 6 3 3 0 0 0 0-6",
-    chevron: "M6 9l6 6 6-6"
+    chevron: "M6 9l6 6 6-6",
+    timer: "M12 22a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 8v5l3 2M9 2h6",
+    note: "M4 4a2 2 0 0 1 2-2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4zM14 2v6h6M8 13h8M8 17h5",
+    users: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
+    sync: "M21 2v6h-6M3 22v-6h6M21 8a9 9 0 0 0-15-3.5L3 8M3 16a9 9 0 0 0 15 3.5l3-3.5",
+    phone: "M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 19h2",
+    palette: "M12 22a10 10 0 1 1 0-20c5 0 9 3.6 9 8 0 2.5-2 4-4.5 4H15a2 2 0 0 0-1.4 3.4A2 2 0 0 1 12 22zM7.5 11a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM12 7.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM16.5 11a1 1 0 1 0 0-2 1 1 0 0 0 0 2z",
+    target: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z",
+    compass: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM16.2 7.8l-2.9 6.4-6.4 2.9 2.9-6.4 6.4-2.9z"
   };
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-          <path d={paths[name]} />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d={paths[name] || paths.zap} />
         </svg>);
 
 };
@@ -650,8 +624,11 @@ const HeroBg = ({ accent }) => {
 
       drawNebula();
       drawGrid();
-      drawStars();
-      drawShootingStars();
+      // Stars and shooting stars are drawn by the site-wide #mg-starfield
+      // (medgryd-ui.js) so the field is continuous from the hero all the
+      // way down the page, the way it is in the app. Drawing them here too
+      // would double the density inside the hero and leave a visible seam
+      // at its bottom edge.
       drawRockets();
       drawParticles();
       drawOrbit();
@@ -947,325 +924,301 @@ const Hero = ({ accent, headline, sub }) => (
 
 
 /* ─── SOCIAL PROOF BAR ───────────────────────────────────── */
+/* The old copy here — "Built for and by medical students" — said the same
+   thing the Why section says two screens later, so it spent a full band of
+   page on a repeat. A specific, checkable claim does more work. */
 const SocialProofBar = ({ show, accent }) => {
   if (!show) return null;
   return (
     <div style={{
-      padding: '22px clamp(20px,5vw,80px)',
-      borderTop: `1px solid rgba(56,189,248,0.12)`,
-      borderBottom: `1px solid rgba(56,189,248,0.12)`,
-      background: 'rgba(56,189,248,0.03)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14
+      padding: '20px clamp(20px,5vw,80px)',
+      borderTop: '1px solid rgba(var(--accent-rgb),0.12)',
+      borderBottom: '1px solid rgba(var(--accent-rgb),0.12)',
+      background: 'rgba(var(--accent-rgb),0.03)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      gap: 14, flexWrap: 'wrap', textAlign: 'center'
     }}>
-          <Icon name="stethoscope" size={18} color="rgba(56,189,248,0.5)" />
-          <span style={{
-        fontFamily: 'Aptos Narrow',
-        fontSize: 14, fontWeight: 400,
-        color: '#64748b',
+      <Icon name="stethoscope" size={17} color="rgba(var(--accent-rgb),0.55)" />
+      <span style={{
+        fontFamily: 'var(--font-ui)',
+        fontSize: 14,
+        color: 'var(--text-dim)',
         letterSpacing: '0.02em'
-      }}>Built for and by medical students</span>
-          <Icon name="stethoscope" size={18} color="rgba(56,189,248,0.5)" />
-        </div>);
+      }}>One account replaces the planner, the tracker, the calculator and the spreadsheet</span>
+      <Icon name="stethoscope" size={17} color="rgba(var(--accent-rgb),0.55)" />
+    </div>);
 
 };
 
 /* ─── FEATURE CARDS ──────────────────────────────────────── */
 const featureData = [
 {
-  icon: 'calendar',
-  title: 'Weekly Planner',
-  desc: 'Drag-and-drop task management with Canvas & Google Calendar sync, smart overdue tracking, and priority-based workflows.',
-  tag: 'Productivity'
+  icon: 'brain',
+  title: 'Quiz Mastery',
+  tag: 'Learning science',
+  desc: 'A spaced-retrieval engine, not a flashcard pile. Every answer is tagged with how sure you were, so it can separate what you know from what you guessed — and it refuses to count a repeat as real practice unless twenty hours have passed.',
+  bullets: ['Intervals stretch 1 → 3 → 7 → 14 → 30 → 60 → 120 days', 'Flags confidently-wrong answers — the dangerous ones', 'Scores recall and transfer as two separate things']
 },
 {
   icon: 'shield',
   title: 'Skills Vault',
-  desc: 'Track confidence across 237 OMM techniques and CEPA checklists. Practice with the randomized picker wheel.',
-  tag: 'Clinical'
+  tag: 'Clinical',
+  desc: '227 OMM techniques, and every single one carries its full step-by-step protocol — not just a name to rate yourself against. Plus 349 clinical skills tasks across 18 physical exam checklists.',
+  bullets: ['227 techniques with written protocols, 4 semesters', '349 skills tasks, 18 checklists, 66 categories', 'Print any selection as a folded, saddle-stitched booklet']
 },
 {
-  icon: 'brain',
-  title: 'Quiz Mastery',
-  desc: 'AI-powered question banks with topic mastery tracking, weak area identification, and smart review modes.',
-  tag: 'AI-Powered'
+  icon: 'calendar',
+  title: 'Weekly Planner',
+  tag: 'Core',
+  desc: 'The seven-day grid the rest of the app hangs off. Drag tasks between days or across whole weeks, and watch anything overdue age from yellow through orange to red until you deal with it.',
+  bullets: ['Canvas and two-way Google Calendar sync built in', 'Triple-state tasks with priority and "Good Enough" mode', 'Recurring events, shared events, PDF schedule import']
 },
 {
-  icon: 'flask',
-  title: 'Research Hub',
-  desc: 'Manage research projects, collaborate with classmates, track deadlines, and organize ideas all in one place.',
-  tag: 'Collaborate'
+  icon: 'layers',
+  title: 'Anki → Concept Lessons',
+  tag: 'Nobody else does this',
+  desc: 'MedGryd reads which Anki cards you keep failing, groups them into concepts, ranks them by how much trouble they are actually giving you, and builds a NotebookLM packet that turns them into one narrated lesson.',
+  bullets: ['Finds cards you rated Again or Hard', 'Groups by concept rather than by deck', 'Generates the source packet and the prompt for you']
+},
+{
+  icon: 'stethoscope',
+  title: 'OSCE Tracker',
+  tag: 'Clinical',
+  desc: 'A full SOAP note, not a text box. Eighteen review-of-systems categories, vitals, physical exam sections, and 22 lab values that flag themselves when a result falls outside its reference range.',
+  bullets: ['22 labs across CBC, BMP, CMP with normal ranges', '18 ROS categories and 7 exam sections', 'Export any station as a printable patient card']
 },
 {
   icon: 'chart',
   title: 'Score Matrix',
-  desc: 'Know exactly where you stand. Handles weighted components, auto-drops lowest scores, and projects what you need on your next exam.',
-  tag: 'Grades'
+  tag: 'Grades',
+  desc: 'Weighted grade calculation that understands how your courses are actually marked, including the lowest scores that get dropped — then tells you the score you need on everything left.',
+  bullets: ['Multi-component weighting with automatic drops', 'Target projection for every letter grade', 'Current standing and weighted partial totals']
 },
 {
   icon: 'trophy',
   title: 'GrydRank',
-  desc: 'XP, badges, leaderboards, and weekly challenges. Climb through 8 rank tiers and stay motivated all semester long.',
-  tag: 'Gamification'
+  tag: 'Momentum',
+  desc: 'A hundred named levels across ten tiers, from Pre-Med to Prestige, and 51 badges earned from work you were doing anyway. Your avatar visibly changes form as you climb.',
+  bullets: ['100 named levels, 10 tiers, 51 badges', 'Avatar evolves through 5 forms with unlockable gear', 'Cohort leaderboard, private groups, weekly challenges']
 },
 {
-  icon: 'book',
-  title: 'Companion Tracker',
-  desc: 'Track Pathoma chapters and Sketchy series videos as you complete them. Visual progress bars keep you on top of your resources.',
-  tag: 'Resources'
+  icon: 'flask',
+  title: 'Research Hub',
+  tag: 'Collaborate',
+  desc: 'Every project, idea and deadline on one board. Capture a hypothesis in Ideas, promote it to a real project, then invite co-authors and split the task list between you.',
+  bullets: ['Seven-stage pipeline from idea to published', 'Shared projects with assignable, dated tasks', 'Countdown panel across every deadline you have']
+},
+{
+  icon: 'timer',
+  title: 'Focus Mode',
+  tag: 'Deep work',
+  desc: 'Timed study sessions that log themselves into your stats and your rank, so the hours you actually put in are visible rather than vanishing the moment you close the laptop.',
+  bullets: ['Session timer with automatic logging', 'Feeds study-time analytics and XP', 'Pairs with "Good Enough" mode on heavy weeks']
 },
 {
   icon: 'activity',
   title: 'Stats & Analytics',
-  desc: 'Daily and weekly study breakdowns, Anki stats, task completion graphs, and login streak tracking to optimize your approach.',
-  tag: 'Analytics'
+  tag: 'Analytics',
+  desc: 'Daily and weekly study breakdowns, Anki review history, task completion graphs and login streaks — the evidence for whether the way you are studying is working.',
+  bullets: ['Study time by day and by week', 'Anki review history and card counts', 'Completion trends and streak tracking']
+},
+{
+  icon: 'book',
+  title: 'Companion Tracker',
+  tag: 'Resources',
+  desc: 'Pathoma chapters and Sketchy videos ticked off as you finish them, with progress bars that show how much of each resource is genuinely behind you.',
+  bullets: ['Pathoma, SketchyPharm and SketchyMicro', 'Visual per-series progress', 'Counts toward XP as you go']
+},
+{
+  icon: 'note',
+  title: 'Quick Jot',
+  tag: 'Capture',
+  desc: 'A rich-text scratchpad one click from the planner, split into as many named sections as you keep separate thoughts. For the thing you need to park right now.',
+  bullets: ['Unlimited named sections', 'Rich text with inline rename', 'Always one keystroke from the planner']
 }];
 
+/* Verified counts from the app source. Every figure here is something a
+   reader can go and check inside the product. */
+const statData = [
+  { n: '227', label: 'OMM protocols, step by step' },
+  { n: '349', label: 'Clinical skills tasks' },
+  { n: '51', label: 'Badges across 100 levels' },
+  { n: '7', label: 'Spaced review intervals' },
+  { n: '21', label: 'Tools, one account' }
+];
 
-const FeatureCard = ({ icon, title, desc, tag, accent, cardStyle }) => {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <div
-      className="mg-section-card"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        background: '#111118',
-        border: hovered ?
-        `1px solid rgba(56,189,248,0.45)` :
-        `1px solid rgba(255,255,255,0.07)`,
-        borderRadius: 16,
-        padding: '30px 28px',
-        transition: 'border-color 0.25s, box-shadow 0.25s, transform 0.2s',
-        boxShadow: hovered ?
-        cardStyle === 'glow' ? '0 0 30px rgba(56,189,248,0.13), 0 8px 32px rgba(0,0,0,0.4)' : '0 8px 32px rgba(0,0,0,0.4)' :
-        '0 2px 12px rgba(0,0,0,0.3)',
-        transform: hovered ? 'translateY(-4px)' : 'none',
-        cursor: 'default'
-      }}>
-      
-          {/* Icon bg */}
-          <div style={{
-        width: 48, height: 48,
-        borderRadius: 12,
-        background: 'rgba(56,189,248,0.08)',
-        border: `1px solid rgba(56,189,248,0.18)`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        marginBottom: 18
-      }}>
-            <Icon name={icon} size={22} color={accent} />
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-            <h3 style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 17, color: '#f1f5f9' }}>{title}</h3>
-            <span style={{
-          fontFamily: 'Oxanium', fontSize: 10, fontWeight: 500,
-          letterSpacing: '0.1em', textTransform: 'uppercase',
-          color: accent,
-          background: 'rgba(56,189,248,0.08)',
-          border: `1px solid rgba(56,189,248,0.18)`,
-          padding: '3px 8px', borderRadius: 4
-        }}>{tag}</span>
-          </div>
-          <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.7, fontWeight: 300 }}>{desc}</p>
-        </div>);
 
-};
+/* Surface, border, shadow and hover-lift all come from .mg-section-card in
+   medgryd-ui.css, whose !important declarations already outrank an inline
+   style — so the old React hover state was computing values the cascade
+   threw away. Dropping it also frees the element's inline transform, which
+   .mg-reveal needs in order to animate the card into place. */
+const FeatureCard = ({ icon, title, desc, tag, bullets, accent, cardStyle }) => (
+  <article className={`mg-section-card mg-feature mg-reveal${cardStyle === 'glow' ? '' : ' mg-section-card-flat'}`}>
+    <div className="mg-feature-icon"><Icon name={icon} size={20} color={accent} /></div>
+    <div className="mg-feature-head">
+      <h3>{title}</h3>
+      <span className="mg-tag">{tag}</span>
+    </div>
+    <p>{desc}</p>
+    {bullets && (
+      <ul>{bullets.map((b) => <li key={b}>{b}</li>)}</ul>
+    )}
+  </article>
+);
 
-const FeaturesSection = ({ accent, cardStyle }) => {
-  const w = useWindowWidth();
-  const cols = w < 600 ? '1fr' : w < 960 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)';
-  return (
-<section id="features" style={{ padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span style={{
-        fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500,
-        letterSpacing: '0.16em', textTransform: 'uppercase',
-        color: accent, display: 'block', marginBottom: 12
-      }}>Platform</span>
-            <h2 style={{
-        fontFamily: 'Oxanium', fontWeight: 300,
-        fontSize: 'clamp(28px,4vw,46px)',
-        color: '#f1f5f9',
-        letterSpacing: '-0.01em',
-        lineHeight: 1.15
-      }}>Everything you need.<br />Nothing you don't.</h2>
+/* A row of real figures, sitting between the hero and the feature grid.
+   It is the fastest way to establish that this is a large, finished
+   product rather than a landing page for an idea. */
+const StatStrip = () => (
+  <section className="mg-section-tight">
+    <div className="mg-shell">
+      <div className="mg-stats mg-reveal">
+        {statData.map((s) => (
+          <div className="mg-stat" key={s.label}>
+            <b>{s.n}</b>
+            <span>{s.label}</span>
           </div>
-          <div style={{
-      display: 'grid',
-      gridTemplateColumns: cols,
-      gap: 20
-    }}>
-            {featureData.map((f) =>
-      <FeatureCard key={f.title} {...f} accent={accent} cardStyle={cardStyle} />
-      )}
-          </div>
-        </div>
-      </section>
-  );
-};
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const FeaturesSection = ({ accent, cardStyle }) => (
+  <section id="features" className="mg-section mg-band">
+    <div className="mg-shell">
+      <div className="mg-head mg-reveal">
+        <div className="mg-eyebrow">The platform</div>
+        <h2 className="mg-title">Twenty-one tools, and none of them<br />are a to-do list with a stethoscope.</h2>
+        <p className="mg-lede">
+          Most study apps hand you an empty box and a subscription. MedGryd ships the
+          content too — every OMM protocol written out, every checklist, a retrieval
+          engine tuned against cramming, and your actual timetable already loaded.
+        </p>
+      </div>
+
+      {/* data-mg-stagger cascades the tiles in DOM order rather than
+          landing them as one block — see medgryd-ui.js */}
+      <div className="mg-grid" data-mg-stagger style={{ '--min': '288px', '--gap': '18px' }}>
+        {featureData.map((f) => (
+          <FeatureCard key={f.title} {...f} accent={accent} cardStyle={cardStyle} />
+        ))}
+      </div>
+
+      <div className="mg-reveal" style={{ marginTop: 44, textAlign: 'center' }}>
+        <a className="mg-btn mg-btn-secondary" href="features.html">
+          See every tool in detail <Icon name="arrow" size={15} color="currentColor" />
+        </a>
+      </div>
+    </div>
+  </section>
+);
 
 
 /* ─── WHY MEDGRYD ────────────────────────────────────────── */
 const whyData = [
 {
   icon: 'star',
-  title: 'Built by Med Students',
-  desc: 'Created in the trenches of medical school by students who understand your workflow, your stress, and your goals.'
+  title: 'Written between lectures',
+  desc: 'Every feature here started as a problem its author had that week. MedGryd is written by osteopathic medical students during their own pre-clinical years — which is why it fits the way medical school actually runs rather than the way productivity apps assume it does.'
 },
 {
   icon: 'layers',
-  title: 'All-in-One Platform',
-  desc: 'Weekly planner, skills tracker, grade calculator, research manager, and more — no more juggling 10 different apps.'
+  title: 'One place, not eleven',
+  desc: 'Planner, skills tracker, question bank, grade calculator, research board, OSCE log and stats — sharing one account and one set of data. Finishing a task moves your XP, your streak and your stats without you opening anything else.'
 },
 {
   icon: 'zap',
-  title: 'Gamified Motivation',
-  desc: 'GrydRank XP system, badges, leaderboards, and weekly challenges keep you engaged and accountable all semester long.'
+  title: 'Momentum, engineered',
+  desc: 'GrydRank turns the work you were already doing into XP, ranks and badges. Not because points are magic, but because on week nine of a hard block, visible progress is the difference between opening the app and not.'
 }];
 
 
-const WhySection = ({ accent }) =>
-<section style={{
-  padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px)',
-  background: '#0d0d14',
-  position: 'relative'
-}}>
-        {/* subtle top border */}
-        <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: 1, background: 'rgba(56,189,248,0.1)' }} />
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span style={{
-        fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500,
-        letterSpacing: '0.16em', textTransform: 'uppercase',
-        color: accent, display: 'block', marginBottom: 12
-      }}>Why MedGryd</span>
-            <h2 style={{
-        fontFamily: 'Oxanium', fontWeight: 300,
-        fontSize: 'clamp(28px,4vw,46px)',
-        color: '#f1f5f9',
-        letterSpacing: '-0.01em'
-      }}>Built different. By design.</h2>
-          </div>
-          <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
-      gap: 28
-    }}>
-            {whyData.map((w, i) =>
-      <div key={w.title} className="mg-section-card" style={{
-        padding: '34px 30px',
-        borderRadius: 16,
-        border: '1px solid rgba(255,255,255,0.06)',
-        background: 'rgba(255,255,255,0.02)',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
-                {/* corner accent */}
-                <div style={{
-          position: 'absolute', top: 0, right: 0,
-          width: 80, height: 80,
-          background: `radial-gradient(circle at top right, rgba(56,189,248,0.1), transparent 70%)`
-        }} />
-                <div style={{
-          fontFamily: 'Oxanium', fontWeight: 700,
-          fontSize: 13, color: 'rgba(56,189,248,0.3)',
-          marginBottom: 16, letterSpacing: '0.06em'
-        }}>0{i + 1}</div>
-                <div style={{ marginBottom: 14 }}>
-                  <Icon name={w.icon} size={26} color={accent} />
-                </div>
-                <h3 style={{
-          fontFamily: 'Oxanium', fontWeight: 600,
-          fontSize: 18, color: '#e2e8f0', marginBottom: 10
-        }}>{w.title}</h3>
-                <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.7, fontWeight: 300 }}>{w.desc}</p>
-              </div>
-      )}
-          </div>
-        </div>
-      </section>;
-
+const WhySection = ({ accent }) => (
+  <section className="mg-section">
+    <div className="mg-shell">
+      <div className="mg-head mg-reveal">
+        <div className="mg-eyebrow">Why MedGryd</div>
+        <h2 className="mg-title">Built different. By design.</h2>
+      </div>
+      <div className="mg-grid" data-mg-stagger style={{ '--min': '292px', '--gap': '22px' }}>
+        {whyData.map((w, i) => (
+          <article key={w.title} className="mg-section-card mg-reveal" style={{
+            position: 'relative',
+            padding: '32px 28px',
+            borderRadius: 16,
+            overflow: 'hidden'
+          }}>
+            <div style={{
+              position: 'absolute', top: 0, right: 0,
+              width: 90, height: 90,
+              background: 'radial-gradient(circle at top right, rgba(var(--accent-rgb),0.1), transparent 70%)',
+              pointerEvents: 'none'
+            }} />
+            <div style={{
+              fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 13,
+              fontVariantNumeric: 'tabular-nums',
+              color: 'rgba(var(--accent-rgb),0.38)',
+              letterSpacing: '0.06em', marginBottom: 18
+            }}>0{i + 1}</div>
+            <div style={{ marginBottom: 14 }}>
+              <Icon name={w.icon} size={24} color={accent} />
+            </div>
+            <h3 style={{
+              fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 18,
+              color: 'var(--text-heading)', marginBottom: 10
+            }}>{w.title}</h3>
+            <p style={{ color: 'var(--text-dim)', fontSize: 14, lineHeight: 1.72 }}>{w.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 /* ─── CTA BANNER ─────────────────────────────────────────── */
-const CtaBanner = ({ accent }) =>
-<section style={{
-  padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px)'
-}}>
-        <div className="mg-glass" style={{
-    maxWidth: 900, margin: '0 auto',
-    background: 'linear-gradient(135deg, #0f0f1a 0%, #111120 100%)',
-    borderRadius: 24,
-    padding: 'clamp(40px,6vw,72px)',
-    textAlign: 'center',
-    position: 'relative',
-    border: '1px solid rgba(56,189,248,0.18)',
-    animation: 'none',
-    overflow: 'hidden'
-  }}>
-          {/* Decorative bg glow */}
-          <div style={{
-      position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)',
-      width: '60%', height: '100%',
-      background: 'radial-gradient(ellipse at top, rgba(56,189,248,0.07) 0%, transparent 70%)',
-      pointerEvents: 'none'
-    }} />
+const CtaBanner = ({ accent }) => (
+  <section className="mg-section">
+    <div className="mg-shell" style={{ maxWidth: 920 }}>
+      <div className="mg-glass mg-reveal" style={{
+        position: 'relative',
+        borderRadius: 24,
+        padding: 'clamp(40px,6vw,72px)',
+        textAlign: 'center',
+        border: '1px solid rgba(var(--accent-rgb),0.18)',
+        overflow: 'hidden'
+      }}>
+        <div style={{
+          position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)',
+          width: '60%', height: '100%',
+          background: 'radial-gradient(ellipse at top, rgba(var(--accent-rgb),0.09) 0%, transparent 70%)',
+          pointerEvents: 'none'
+        }} />
 
-          <span style={{
-      fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500,
-      letterSpacing: '0.16em', textTransform: 'uppercase',
-      color: accent, display: 'block', marginBottom: 16
-    }}>Get Started</span>
+        <div className="mg-eyebrow" style={{ marginBottom: 18 }}>Now in beta</div>
 
-          <h2 style={{
-      fontFamily: 'Oxanium', fontWeight: 300,
-      fontSize: 'clamp(26px,3.5vw,44px)',
-      color: '#f1f5f9', marginBottom: 14,
-      letterSpacing: '-0.01em'
-    }}>Ready to level up<br />your study game?</h2>
+        <h2 className="mg-title" style={{ fontSize: 'clamp(28px,3.5vw,44px)' }}>
+          Your next block starts<br />in a few days either way.
+        </h2>
 
-          <p style={{
-      color: '#64748b', fontSize: 15, lineHeight: 1.6,
-      marginBottom: 36, maxWidth: 440, margin: '0 auto 36px'
-    }}>Join medical students who've taken control of their academic journey with MedGryd.</p>
+        <p className="mg-lede" style={{ maxWidth: 470 }}>
+          Bring it into one place before it starts. Setup takes about ten minutes,
+          most of which is waiting for Canvas to hand over your schedule.
+        </p>
 
-          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a
-        href="https://app.medgryd.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          fontFamily: 'Oxanium', fontWeight: 600, fontSize: 13,
-          letterSpacing: '0.1em', textTransform: 'uppercase',
-          background: accent, color: '#0a0a0f',
-          padding: '13px 30px', borderRadius: 10,
-          textDecoration: 'none',
-          boxShadow: `0 0 24px rgba(56,189,248,0.4)`,
-          transition: 'transform 0.15s, box-shadow 0.2s',
-          display: 'inline-flex', alignItems: 'center', gap: 8
-        }}
-        onMouseEnter={(e) => {e.currentTarget.style.transform = 'translateY(-2px)';e.currentTarget.style.boxShadow = '0 0 36px rgba(56,189,248,0.6)';}}
-        onMouseLeave={(e) => {e.currentTarget.style.transform = '';e.currentTarget.style.boxShadow = '0 0 24px rgba(56,189,248,0.4)';}}>
-        Launch App <Icon name="arrow" size={15} color="#0a0a0f" /></a>
-
-            <a
-        href="contact.html"
-        style={{
-          fontFamily: 'Oxanium', fontWeight: 500, fontSize: 13,
-          letterSpacing: '0.1em', textTransform: 'uppercase',
-          background: 'transparent', color: accent,
-          padding: '13px 30px', borderRadius: 10,
-          border: `1.5px solid rgba(56,189,248,0.35)`,
-          textDecoration: 'none',
-          transition: 'border-color 0.2s, background 0.2s',
-          display: 'inline-block'
-        }}
-        onMouseEnter={(e) => {e.currentTarget.style.borderColor = accent;e.currentTarget.style.background = 'rgba(56,189,248,0.07)';}}
-        onMouseLeave={(e) => {e.currentTarget.style.borderColor = 'rgba(56,189,248,0.35)';e.currentTarget.style.background = 'transparent';}}>
-        Contact for Licensing</a>
-          </div>
+        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 34 }}>
+          <a className="mg-btn mg-btn-primary" href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer">
+            Launch MedGryd <Icon name="arrow" size={15} color="currentColor" />
+          </a>
+          <a className="mg-btn mg-btn-secondary" href="contact.html">
+            Licence for your school
+          </a>
         </div>
-      </section>;
-
+      </div>
+    </div>
+  </section>
+);
 
 /* ─── FOOTER ─────────────────────────────────────────────── */
 const Footer = ({ setPage, accent, dark }) =>
@@ -1359,137 +1312,12 @@ const Footer = ({ setPage, accent, dark }) =>
       </footer>;
 
 
-/* ─── SUB-PAGES ──────────────────────────────────────────── */
-const PageShell = ({ title, subtitle, children }) =>
-<div style={{ minHeight: '100vh', paddingTop: 68 }}>
-        <div style={{
-    padding: 'clamp(60px,8vw,100px) clamp(20px,5vw,80px) 40px',
-    background: 'linear-gradient(180deg, rgba(56,189,248,0.05) 0%, transparent 60%)',
-    textAlign: 'center',
-    borderBottom: '1px solid rgba(56,189,248,0.1)',
-    marginBottom: 48
-  }}>
-          <h1 style={{ fontFamily: 'Oxanium', fontWeight: 200, fontSize: 'clamp(32px,5vw,56px)', color: '#f1f5f9', marginBottom: 14 }}>{title}</h1>
-          <p style={{ color: '#64748b', fontSize: 17, maxWidth: 480, margin: '0 auto' }}>{subtitle}</p>
-        </div>
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 clamp(20px,5vw,80px) 80px' }}>
-          {children}
-        </div>
-      </div>;
-
-
-const FeaturesPage = ({ accent, cardStyle }) =>
-<PageShell title="Platform Features" subtitle="Everything you need to conquer medical school, in one place.">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))', gap: 20 }}>
-          {featureData.map((f) => <FeatureCard key={f.title} {...f} accent={accent} cardStyle={cardStyle} />)}
-        </div>
-        <div style={{ marginTop: 64 }}>
-          <WhySection accent={accent} />
-        </div>
-      </PageShell>;
-
-
-const PricingPage = ({ accent }) => {
-  const plans = [
-  { name: 'Student', price: 'Free', desc: 'Core tools for individual students', features: ['Weekly Planner', 'Skills Vault (50 skills)', 'Quiz Mastery (100 Q)', 'Research Hub'], cta: 'Get Started' },
-  { name: 'Pro', price: '$9/mo', desc: 'Full access for serious students', features: ['Everything in Student', 'Unlimited Skills Vault', 'AI Quiz Generator', 'GrydRank & Leaderboards', 'Priority Support'], cta: 'Launch App', highlight: true },
-  { name: 'Institution', price: 'Custom', desc: 'Deploy across your medical school', features: ['All Pro features', 'Admin dashboard', 'Custom branding', 'LMS integration', 'Dedicated support'], cta: 'Contact Us' }];
-
-  return (
-    <PageShell title="Simple Pricing" subtitle="Invest in your future physician self. Cancel anytime.">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))', gap: 20, maxWidth: 860, margin: '0 auto' }}>
-            {plans.map((p) =>
-        <div key={p.name} style={{
-          background: p.highlight ? 'rgba(56,189,248,0.06)' : '#111118',
-          border: p.highlight ? `1.5px solid rgba(56,189,248,0.45)` : '1px solid rgba(255,255,255,0.07)',
-          borderRadius: 16, padding: '32px 26px',
-          position: 'relative',
-          boxShadow: p.highlight ? '0 0 30px rgba(56,189,248,0.1)' : 'none'
-        }}>
-                {p.highlight &&
-          <div style={{
-            position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)',
-            background: accent, color: '#0a0a0f',
-            fontFamily: 'Oxanium', fontSize: 10, fontWeight: 700,
-            letterSpacing: '0.14em', textTransform: 'uppercase',
-            padding: '4px 14px', borderRadius: 100
-          }}>Most Popular</div>
-          }
-                <div style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 18, color: '#e2e8f0', marginBottom: 6 }}>{p.name}</div>
-                <div style={{ fontFamily: 'Oxanium', fontWeight: 200, fontSize: 36, color: p.highlight ? accent : '#e2e8f0', marginBottom: 8 }}>{p.price}</div>
-                <div style={{ color: '#64748b', fontSize: 13, marginBottom: 24 }}>{p.desc}</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
-                  {p.features.map((f) =>
-            <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <Icon name="check" size={14} color={accent} />
-                      <span style={{ fontSize: 13, color: '#94a3b8' }}>{f}</span>
-                    </div>
-            )}
-                </div>
-                <a
-            href={p.cta === 'Contact Us' ? 'mailto:hello@medgryd.com' : 'https://app.medgryd.com'}
-            target={p.cta !== 'Contact Us' ? '_blank' : undefined}
-            rel="noopener noreferrer"
-            style={{
-              display: 'block', textAlign: 'center',
-              fontFamily: 'Oxanium', fontWeight: 600, fontSize: 13,
-              letterSpacing: '0.1em', textTransform: 'uppercase',
-              background: p.highlight ? accent : 'transparent',
-              color: p.highlight ? '#0a0a0f' : accent,
-              padding: '11px 20px', borderRadius: 8,
-              border: p.highlight ? 'none' : `1.5px solid rgba(56,189,248,0.35)`,
-              textDecoration: 'none',
-              transition: 'opacity 0.2s'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.opacity = '0.85'}
-            onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}>
-            {p.cta}</a>
-              </div>
-        )}
-          </div>
-        </PageShell>);
-
-};
-
-const AboutPage = ({ accent }) =>
-<PageShell title="About MedGryd" subtitle="The story behind the platform built in the trenches.">
-        <div style={{ maxWidth: 680, margin: '0 auto' }}>
-          {[
-    { heading: 'Origin Story', body: 'MedGryd was born out of frustration. During first-year, our founder was juggling five different apps for studying, scheduling, skills tracking, and research. Nothing talked to each other. Nothing understood the unique demands of medical education. So we built what we wished existed.' },
-    { heading: 'The Mission', body: 'We believe every medical student deserves tools built specifically for their workflow — not adapted from generic productivity apps. MedGryd is purpose-built for the chaos and rigor of medical school, from MS1 through boards prep.' },
-    { heading: 'What\'s Next', body: 'We\'re actively developing AI-powered study recommendations, integration with major QBanks, and an institutional dashboard for program directors. Want to partner or license MedGryd for your institution? Reach out.' }].
-    map((s) =>
-    <div key={s.heading} style={{
-      marginBottom: 40,
-      paddingLeft: 20,
-      borderLeft: `2px solid rgba(56,189,248,0.25)`
-    }}>
-              <h3 style={{ fontFamily: 'Oxanium', fontWeight: 500, fontSize: 20, color: '#e2e8f0', marginBottom: 12 }}>{s.heading}</h3>
-              <p style={{ color: '#64748b', fontSize: 15, lineHeight: 1.8 }}>{s.body}</p>
-            </div>
-    )}
-          <a
-      href="mailto:hello@medgryd.com"
-      style={{
-        display: 'inline-flex', alignItems: 'center', gap: 8,
-        fontFamily: 'Oxanium', fontWeight: 600, fontSize: 13,
-        letterSpacing: '0.1em', textTransform: 'uppercase',
-        color: '#0a0a0f', background: accent,
-        padding: '13px 28px', borderRadius: 10,
-        textDecoration: 'none',
-        boxShadow: '0 0 20px rgba(56,189,248,0.35)',
-        marginTop: 12
-      }}>
-      Get in Touch <Icon name="arrow" size={14} color="#0a0a0f" /></a>
-        </div>
-      </PageShell>;
-
-
 /* ─── HOME PAGE ──────────────────────────────────────────── */
 const HomePage = ({ accent, headline, sub, showSocialProof, cardStyle, setPage }) =>
 <>
         <Hero accent={accent} headline={headline} sub={sub} setPage={setPage} />
         <SocialProofBar show={showSocialProof} accent={accent} />
+        <StatStrip />
         <FeaturesSection accent={accent} cardStyle={cardStyle} />
         <WhySection accent={accent} />
         <CtaBanner accent={accent} />
@@ -1508,23 +1336,15 @@ const App = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const renderPage = () => {
-    switch (page) {
-      case 'features':return <FeaturesPage accent={accent} cardStyle={cardStyle} />;
-      case 'pricing':return <PricingPage accent={accent} />;
-      case 'about':return <AboutPage accent={accent} />;
-      default:return (
-          <HomePage
-            accent={accent}
-            headline={heroHeadline}
-            sub={heroSub}
-            showSocialProof={showSocialProof}
-            cardStyle={cardStyle}
-            setPage={handleSetPage} />);
-
-
-    }
-  };
+  const renderPage = () => (
+    <HomePage
+      accent={accent}
+      headline={heroHeadline}
+      sub={heroSub}
+      showSocialProof={showSocialProof}
+      cardStyle={cardStyle}
+      setPage={handleSetPage} />
+  );
 
   return (
     <div>

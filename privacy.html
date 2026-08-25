@@ -44,20 +44,14 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <style>
+    /* Page-local only. Tokens, glass, motion curves and the reveal system
+       all live in medgryd-ui.css. */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Aptos Narrow', 'Aptos', 'Segoe UI', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0f; }
-    ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
-    @keyframes fade-up { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
-    @media (max-width: 767px) {
-      html, body { overflow-x: hidden; }
-      * { -webkit-tap-highlight-color: transparent; }
-      a, button { touch-action: manipulation; }
-    }
+    html, body { overflow-x: hidden; }
+    a, button { touch-action: manipulation; }
   </style>
   <link rel="stylesheet" href="medgryd-ui.css?v=20260825-1" />
+  <script src="medgryd-ui.js?v=20260825-1" defer></script>
 </head>
 <body>
 <div id="root"></div>
@@ -262,7 +256,7 @@ const PrivacyPage = () => {
           <li style={S.li}>Exams and goals — names, dates, and personal study goals you enter</li>
           <li style={S.li}>Study session time — cumulative hours tracked by date</li>
           <li style={S.li}>Anki flashcard counts — daily review counts only (no card content)</li>
-          <li style={S.li}>Skills Vault — confidence ratings and notes for OMM techniques and CEPA clinical skills</li>
+          <li style={S.li}>Skills Vault — confidence ratings and notes for OMM techniques and clinical skills checklists</li>
           <li style={S.li}>Score Matrix — assessment scores and grade projections you enter</li>
           <li style={S.li}>OSCE Tracker — notes and scores from OSCE practice sessions</li>
           <li style={S.li}>Quick Jot — rich text notes organized in sections</li>
@@ -287,8 +281,8 @@ const PrivacyPage = () => {
         <h3 style={S.h3}>3.8 Activation Data</h3>
         <p style={S.p}>Your activation code, display name, and Firebase UID are sent to our activation validation service to verify your code. This data is not retained after validation.</p>
 
-        <h3 style={S.h3}>3.9 Quiz Password Cache (Noorda Students)</h3>
-        <p style={S.p}>Daily Examplify and CEPA weekly quiz passwords are fetched and cached in a shared Firestore document visible to all Noorda DO29 students as operational data for coursework.</p>
+        <h3 style={S.h3}>3.9 Quiz Password Cache (Partner Schools)</h3>
+        <p style={S.p}>Where a school distributes quiz passwords to its cohort, MedGryd fetches and caches them in a shared Firestore document visible to students in that same cohort, as operational data for coursework.</p>
 
         <h2 style={S.h2}>4. How We Use Your Information</h2>
         <ul style={S.ul}>
