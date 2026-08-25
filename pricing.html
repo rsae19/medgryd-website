@@ -46,7 +46,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Aptos Narrow', 'Aptos', 'Segoe UI', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0a0a0f; }
     ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
@@ -60,6 +60,7 @@
       a, button { touch-action: manipulation; }
     }
   </style>
+  <link rel="stylesheet" href="medgryd-ui.css" />
 </head>
 <body>
 <div id="root"></div>
@@ -280,6 +281,7 @@ const StudentCard = () => {
   const [hovered, setHovered] = useState(false);
   return (
     <div
+      className="mg-section-card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -288,7 +290,7 @@ const StudentCard = () => {
         borderRadius: 20,
         padding: '36px 32px 32px',
         position: 'relative',
-        animation: 'glow-pulse 4s ease-in-out infinite',
+        animation: 'none',
         transition: 'transform 0.25s',
         transform: hovered ? 'translateY(-6px)' : 'none',
         overflow: 'hidden',
@@ -318,7 +320,7 @@ const StudentCard = () => {
         {/* Price */}
         <div style={{ marginBottom:6 }}>
           <span style={{ fontFamily:'Oxanium', fontWeight:200, fontSize:52, color:'#38bdf8', letterSpacing:'-0.02em', lineHeight:1 }}>$TBD</span>
-          <span style={{ fontFamily:'Space Grotesk', fontSize:15, color:'#64748b', marginLeft:6 }}>/month</span>
+          <span style={{ fontFamily:'Aptos Narrow', fontSize:15, color:'#64748b', marginLeft:6 }}>/month</span>
         </div>
         <p style={{ fontSize:14, color:'#64748b', marginBottom:28 }}>Everything you need to excel</p>
 
@@ -356,6 +358,7 @@ const InstitutionCard = () => {
   const [hovered, setHovered] = useState(false);
   return (
     <div
+      className="mg-section-card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -601,7 +604,7 @@ const App = () => {
         </div>
 
         {/* Fine print */}
-        <p style={{ textAlign:'center', fontSize:13, color:'#334155', marginTop:28, fontFamily:'Space Grotesk' }}>
+        <p style={{ textAlign:'center', fontSize:13, color:'#334155', marginTop:28, fontFamily:'Aptos Narrow' }}>
           Pricing is being finalized. Join the waitlist to be notified when plans go live.
         </p>
       </section>

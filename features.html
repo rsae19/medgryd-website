@@ -47,7 +47,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     html, body { height: 100%; overflow-x: hidden; }
-    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; -webkit-font-smoothing: antialiased; }
+    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Aptos Narrow', 'Aptos', 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0a0a0f; }
     ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
@@ -61,6 +61,7 @@
       a, button { touch-action: manipulation; }
     }
   </style>
+  <link rel="stylesheet" href="medgryd-ui.css" />
 </head>
 <body>
 <div id="root"></div>
@@ -258,33 +259,38 @@ const DotsBg = () => {
 
 /* ── SCREENSHOT PLACEHOLDER ───────────────────────────────── */
 const ScreenshotPlaceholder = ({ label, aspect = '16/9' }) => (
-  <div style={{
-    aspectRatio: aspect,
-    background: '#0d0d16',
-    border: '1px solid rgba(56,189,248,0.15)',
-    borderRadius: 16,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    flexDirection: 'column', gap: 10,
-    animation: 'float 6s ease-in-out infinite',
-    boxShadow: '0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(56,189,248,0.08)',
-  }}>
-    {/* Striped pattern */}
-    <div style={{
-      position:'absolute', inset:0,
-      backgroundImage: 'repeating-linear-gradient(135deg, rgba(56,189,248,0.025) 0px, rgba(56,189,248,0.025) 1px, transparent 1px, transparent 28px)',
-    }} />
-    {/* Corner accent */}
-    <div style={{ position:'absolute', top:0, left:0, width:60, height:60, background:'radial-gradient(circle at top left, rgba(56,189,248,0.12), transparent 70%)' }} />
-    <div style={{ position:'absolute', bottom:0, right:0, width:80, height:80, background:'radial-gradient(circle at bottom right, rgba(56,189,248,0.08), transparent 70%)' }} />
-    {/* Top bar chrome */}
-    <div style={{ position:'absolute', top:0, left:0, right:0, height: 54, background:'rgba(56,189,248,0.04)', borderBottom:'1px solid rgba(56,189,248,0.08)', display:'flex', alignItems:'center', padding:'0 14px', gap:6 }}>
-      {[1,2,3].map(i => <div key={i} style={{ width:8, height:8, borderRadius:'50%', background:'rgba(56,189,248,0.2)' }} />)}
+  <div className="mg-module-preview mg-section-card" style={{aspectRatio:aspect}} aria-label={`${label} interface preview`}>
+    <div className="mg-module-topbar">
+      <div className="mg-module-brand">
+        <img src="uploads/logo-blue.png" alt="" />
+        <div>
+          <div className="mg-module-title">{label}</div>
+          <div className="mg-module-subtitle">MedGryd workspace</div>
+        </div>
+      </div>
+      <div className="mg-module-actions"><span>Filter</span><span className="is-accent">+ Add</span></div>
     </div>
-    <div style={{ position:'relative', zIndex:1, textAlign:'center' }}>
-      <div style={{ fontFamily:'Oxanium', fontSize:11, color:'rgba(56,189,248,0.5)', letterSpacing:'0.14em', textTransform:'uppercase', marginBottom:4 }}>Screenshot</div>
-      <div style={{ fontFamily:'Space Grotesk', fontSize:13, color:'rgba(226,232,240,0.3)' }}>{label}</div>
+    <div className="mg-module-body">
+      <div className="mg-module-rail">
+        {[0,1,2,3,4].map(i => <i key={i} className={i===1?'is-active':''} />)}
+      </div>
+      <div className="mg-module-content">
+        <div className="mg-module-kicker">Current view <span>24 items</span></div>
+        <div className="mg-module-stats">
+          <div><small>Complete</small><strong>68%</strong></div>
+          <div><small>In progress</small><strong>12</strong></div>
+          <div><small>This week</small><strong className="is-accent">+8</strong></div>
+        </div>
+        <div className="mg-module-list">
+          {[['Core workflow','Active'],['Review queue','6 due'],['Progress tracker','On pace'],['Notes & details','Updated']].map(([name,status],i) => (
+            <div key={name} className={i===0?'is-selected':''}>
+              <span className="mg-module-dots">•••••</span>
+              <span>{name}</span>
+              <small>{status}</small>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -562,13 +568,13 @@ const PageHeader = () => (
 /* ── CTA SECTION ──────────────────────────────────────────── */
 const CtaSection = () => (
   <section style={{ padding:'clamp(60px,8vw,100px) clamp(20px,5vw,80px)', background:'#0a0a0f' }}>
-    <div style={{
+    <div className="mg-glass" style={{
       maxWidth:800, margin:'0 auto',
       background:'linear-gradient(135deg, #0f0f1a, #111120)',
       borderRadius:24, padding:'clamp(40px,6vw,72px)',
       textAlign:'center',
       border:'1px solid rgba(56,189,248,0.18)',
-      animation:'glow-border 4s ease-in-out infinite',
+      animation:'none',
       position:'relative', overflow:'hidden',
     }}>
       <div style={{ position:'absolute', top:'-20%', left:'50%', transform:'translateX(-50%)', width:'60%', height:'100%', background:'radial-gradient(ellipse at top, rgba(56,189,248,0.07) 0%, transparent 70%)', pointerEvents:'none' }} />

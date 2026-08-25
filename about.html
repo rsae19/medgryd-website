@@ -46,7 +46,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Aptos Narrow', 'Aptos', 'Segoe UI', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0a0a0f; }
     ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
@@ -60,6 +60,7 @@
       a, button { touch-action: manipulation; }
     }
   </style>
+  <link rel="stylesheet" href="medgryd-ui.css" />
 </head>
 <body>
 <div id="root"></div>
@@ -360,7 +361,7 @@ const TeamCard = ({ photo, name, role, bio, delay = 0 }) => {
     obs.observe(el);return () => obs.disconnect();
   }, []);
   return (
-    <div ref={ref}
+    <div ref={ref} className="mg-section-card"
     onMouseEnter={() => setHovered(true)}
     onMouseLeave={() => setHovered(false)}
     style={{
@@ -446,7 +447,7 @@ const VisionSection = () =>
       map((item, i) =>
       <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', borderRadius: 100, background: item.done ? 'rgba(56,189,248,0.1)' : 'rgba(255,255,255,0.03)', border: `1px solid ${item.done ? 'rgba(56,189,248,0.35)' : 'rgba(255,255,255,0.08)'}` }}>
             <div style={{ width: 6, height: 6, borderRadius: '50%', background: item.done ? '#38bdf8' : '#334155', boxShadow: item.done ? '0 0 6px #38bdf8' : 'none' }} />
-            <span style={{ fontFamily: 'Space Grotesk', fontSize: 13, color: item.done ? '#94a3b8' : '#475569' }}>{item.label}</span>
+            <span style={{ fontFamily: 'Aptos Narrow', fontSize: 13, color: item.done ? '#94a3b8' : '#475569' }}>{item.label}</span>
           </div>
       )}
       </div>

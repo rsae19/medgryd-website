@@ -46,7 +46,7 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Aptos Narrow', 'Aptos', 'Segoe UI', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0a0a0f; }
     ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.3); border-radius: 3px; }
@@ -57,6 +57,7 @@
       a, button { touch-action: manipulation; }
     }
   </style>
+  <link rel="stylesheet" href="medgryd-ui.css" />
 </head>
 <body>
 <div id="root"></div>
@@ -244,7 +245,7 @@ const PrivacyPage = () => {
 
         <h2 style={S.h2}>2. Who We Are</h2>
         <p style={S.p}>MedGryd is an independent software product developed by Raayed Saeed and Aaron Smith (co-developer, Quiz Mastery feature). We are the data controllers for all personal information processed through the app.</p>
-        <div style={S.card}>
+        <div className="mg-glass" style={S.card}>
           <p style={{...S.p, marginBottom: 0}}>📧 <strong style={{color:'#94a3b8'}}>hello@medgryd.com</strong> — for privacy requests, use subject line "Privacy Request."</p>
         </div>
 
@@ -358,7 +359,7 @@ const PrivacyPage = () => {
         <p style={S.p}>We may update this policy as the app evolves. Material changes will be announced in the app. Continued use after the notice constitutes acceptance.</p>
 
         <h2 style={S.h2}>12. Contact</h2>
-        <div style={S.card}>
+        <div className="mg-glass" style={S.card}>
           <p style={{...S.p, marginBottom: 4}}>📧 <a href="mailto:hello@medgryd.com" style={S.a}>hello@medgryd.com</a></p>
           <p style={{...S.p, marginBottom: 0, fontSize: 12, color: '#334155'}}>Subject line: "MedGryd Privacy" · PO Box 70385, Rochester Hills, MI 48307</p>
         </div>
