@@ -671,7 +671,8 @@ const HeroBg = ({ accent }) => {
   return (
     <canvas
       ref={canvasRef}
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.95 }} />);
+      className="mg-hero-stars"
+      aria-hidden="true" />);
 
 
 };
@@ -923,8 +924,10 @@ const PlannerPreview = () => (
   </div>
 );
 
-const Hero = ({ headline, sub }) => (
-  <section style={{position:'relative', overflow:'hidden'}}>
+const Hero = ({ accent, headline, sub }) => (
+  <section className="mg-hero">
+    <HeroBg accent={accent} />
+    <div className="mg-hero-vignette" aria-hidden="true" />
     <div className="mg-hero-shell">
       <div className="mg-hero-copy">
         <div className="mg-eyebrow">Now in beta</div>
