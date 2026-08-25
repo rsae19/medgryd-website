@@ -228,7 +228,7 @@ const PrivacyPage = () => {
       <div style={S.hero}>
         <div style={S.heroTag}>Legal</div>
         <h1 style={S.title}>Privacy Policy</h1>
-        <p style={S.meta}>Effective Date: May 24, 2026 · Last Updated: May 24, 2026</p>
+        <p style={S.meta}>Effective Date: May 24, 2026 · Last Updated: August 24, 2026</p>
       </div>
 
       <div style={S.body}>
@@ -261,6 +261,7 @@ const PrivacyPage = () => {
           <li style={S.li}>OSCE Tracker — notes and scores from OSCE practice sessions</li>
           <li style={S.li}>Quick Jot — rich text notes organized in sections</li>
           <li style={S.li}>App settings and preferences — theme, colors, calendar configurations, and other UI preferences</li>
+          <li style={S.li}>School and cohort — whether you attend a partner school and which class year/cohort, used to show you the right exams, passwords, and leaderboard</li>
         </ul>
 
         <h3 style={S.h3}>3.3 Quiz Mastery Data</h3>
@@ -273,13 +274,13 @@ const PrivacyPage = () => {
         <p style={S.p}>XP, level, badges, and aggregate study/task/Anki totals. <strong style={{color:'#94a3b8'}}>Leaderboard participation is opt-in.</strong> If you opt in, your display name, profile photo, and stats are visible to cohort members. You may enable anonymous mode to display as "Anonymous." Study group members can see your stats within the group.</p>
 
         <h3 style={S.h3}>3.6 Peer Board</h3>
-        <p style={S.p}>Posts and replies are stored without your name — only your Firebase UID is stored internally for moderation. It is never displayed to other users.</p>
+        <p style={S.p}>Posts and replies carry no name and <strong style={{color:'#94a3b8'}}>no user ID</strong> — nothing stored on a post links it back to your account. The only record that a post is yours lives in your own account data, on your side. This means posts are genuinely anonymous to other students and to us: we can remove a post, but we cannot tell who wrote it.</p>
 
         <h3 style={S.h3}>3.7 Presence Information</h3>
         <p style={S.p}>When active, your online/offline status, display name, and last-seen timestamp are written to Firebase Realtime Database for group features.</p>
 
         <h3 style={S.h3}>3.8 Activation Data</h3>
-        <p style={S.p}>Your activation code, display name, and Firebase UID are sent to our activation validation service to verify your code. This data is not retained after validation.</p>
+        <p style={S.p}>Your activation code, display name, and Firebase UID are sent to our activation validation service (a Google Apps Script) to verify and claim your code. MedGryd itself does not retain this data after validation; the validation service keeps a record of which code was claimed so a code cannot be reused.</p>
 
         <h3 style={S.h3}>3.9 Quiz Password Cache (Partner Schools)</h3>
         <p style={S.p}>Where a school distributes quiz passwords to its cohort, MedGryd fetches and caches them in a shared Firestore document visible to students in that same cohort, as operational data for coursework.</p>
@@ -291,6 +292,7 @@ const PrivacyPage = () => {
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Power social/collaborative features</strong> — leaderboard, peer board, study groups, shared research</li>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Improve the app</strong> — diagnose errors and bugs using error reports</li>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Enforce our terms</strong> — detect abuse of the peer board or activation system</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Understand feature usage</strong> — we look at whether and how often each feature is used, both per account and across the cohort, to decide what to build and fix. This shows us usage counts and frequency only — never the contents of your notes, grades, tasks, or scores</li>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>License to medical schools</strong> — aggregate non-identifiable usage patterns may be shared with licensed institutions</li>
         </ul>
         <p style={S.p}>We do <strong style={{color:'#94a3b8'}}>not</strong> use your data for advertising, sell your data to third parties, or use it for purposes unrelated to providing MedGryd.</p>
@@ -300,11 +302,11 @@ const PrivacyPage = () => {
         <h3 style={S.h3}>5.1 Google / Firebase</h3>
         <p style={S.p}>Firebase Authentication, Firestore, Realtime Database, and Storage are used as our backend. Data is stored in the United States. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style={S.a}>Google Privacy Policy →</a></p>
 
-        <h3 style={S.h3}>5.2 Google Calendar API</h3>
-        <p style={S.p}>We access your Google Calendar (read-only) to sync events into your planner. Calendar data is not shared with any party other than Google and Firebase.</p>
+        <h3 style={S.h3}>5.2 Google Calendar &amp; Tasks API</h3>
+        <p style={S.p}>We access your Google Calendar (read and write) to sync events into your planner and to push events you create or edit in MedGryd back to your Google Calendar. We also request read and write access to Google Tasks, used to read your task lists and update tasks you manage through MedGryd. Calendar and Tasks data are not shared with any party other than Google and Firebase.</p>
 
         <h3 style={S.h3}>5.3 Sentry (Error Monitoring &amp; Session Replay)</h3>
-        <p style={S.p}>We use Sentry for error tracking. Sentry may collect JavaScript errors, network request metadata, and browser information. <strong style={{color:'#94a3b8'}}>Approximately 10% of sessions are recorded as interactive replays; 100% of sessions in which an error occurs are recorded.</strong> Our current configuration does not mask on-screen text, so content you enter (task names, notes) may appear in error reports visible to our development team. We are evaluating stricter masking before broader institutional deployment. <a href="https://sentry.io/privacy/" target="_blank" rel="noopener noreferrer" style={S.a}>Sentry Privacy Policy →</a></p>
+        <p style={S.p}>We use Sentry for error tracking. Sentry may collect JavaScript errors, network request metadata, browser information, and — because we send default personal data — your IP address and account identifiers. <strong style={{color:'#94a3b8'}}>Approximately 10% of sessions are recorded as interactive replays; 100% of sessions in which an error occurs are recorded.</strong> Our current configuration masks neither on-screen text nor images, so content you enter (task names, notes) and anything visible on screen may appear in error reports and replays visible to our development team. We are evaluating stricter masking before broader institutional deployment. <a href="https://sentry.io/privacy/" target="_blank" rel="noopener noreferrer" style={S.a}>Sentry Privacy Policy →</a></p>
 
         <h3 style={S.h3}>5.4 Tawk.to (Support Chat)</h3>
         <p style={S.p}>If you use the in-app support chat, your conversation and session metadata are processed by Tawk.to. <a href="https://www.tawk.to/privacy-policy/" target="_blank" rel="noopener noreferrer" style={S.a}>Tawk.to Privacy Policy →</a></p>
@@ -315,6 +317,12 @@ const PrivacyPage = () => {
         <h3 style={S.h3}>5.6 AnkiConnect (Local, Optional)</h3>
         <p style={S.p}>Anki integration communicates only with AnkiConnect running on your own computer (localhost). No Anki data is sent to external servers — only daily review counts are stored in MedGryd.</p>
 
+        <h3 style={S.h3}>5.7 Canvas (via Google Calendar)</h3>
+        <p style={S.p}>MedGryd does not connect to Canvas directly and has no Canvas login or API access. Your Canvas assignments reach MedGryd only through the Canvas calendar feed you subscribe to in your own Google Calendar, and arrive as ordinary calendar events.</p>
+
+        <h3 style={S.h3}>5.8 AI Question Generation (Quiz Mastery)</h3>
+        <p style={S.p}>Quiz Mastery’s question generation runs in <strong style={{color:'#94a3b8'}}>the AI tool you choose</strong> — ChatGPT, Claude, Gemini, or another. MedGryd gives you a prompt to paste in yourself and imports the .json file the tool returns. <strong style={{color:'#94a3b8'}}>MedGryd never sends your lecture material, notes, or any other data to an AI provider.</strong> Whatever you paste into that tool is governed by that tool’s own privacy policy and your school’s academic policies.</p>
+
         <h2 style={S.h2}>6. Educational Records &amp; FERPA</h2>
         <p style={S.p}>If you use MedGryd through a medical school with a data agreement, certain data (grades, study time, self-assessed competency) may constitute educational records under FERPA. In such cases, we act as a school official with a legitimate educational interest and do not disclose records without consent except as permitted by FERPA.</p>
         <p style={S.p}><strong style={{color:'#94a3b8'}}>Currently (beta period):</strong> MedGryd is used independently — no educational record sharing occurs.</p>
@@ -323,7 +331,9 @@ const PrivacyPage = () => {
         <ul style={S.ul}>
           <li style={S.li}>All data transmitted over HTTPS (TLS encryption in transit)</li>
           <li style={S.li}>Firebase Firestore uses Google's infrastructure (data encrypted at rest)</li>
-          <li style={S.li}>Access to your data is restricted to your Firebase UID via Firestore Security Rules</li>
+          <li style={S.li}>Firestore Security Rules tie your data to your Firebase UID — no other student can read or write it</li>
+          <li style={S.li}>The developer can access account data for the usage review described in Section 4, and for support and debugging when you ask for help</li>
+          <li style={S.li}>Peer Board posts are stored in one shared document that any signed-in MedGryd user can read — it is a public anonymous board by design, so treat anything you post there as public</li>
           <li style={S.li}>Only the development team has access to Sentry error reports and session replays</li>
         </ul>
         <p style={S.p}>No internet service is 100% secure. We recommend a strong Google account password and two-factor authentication.</p>
@@ -332,7 +342,7 @@ const PrivacyPage = () => {
         <ul style={S.ul}>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Access:</strong> View your data in the app; request a machine-readable export by email.</li>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Correction:</strong> Edit or delete tasks, notes, goals, etc. at any time through the app.</li>
-          <li style={S.li}><strong style={{color:'#94a3b8'}}>Deletion:</strong> Email hello@medgryd.com with subject "Account Deletion Request." We will delete your Firestore documents within 30 days. Peer Board posts will be anonymized.</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Deletion:</strong> Email hello@medgryd.com with subject "Account Deletion Request." We will delete your Firestore documents within 30 days. Peer Board posts are never linked to your account, so they are already anonymous and cannot be found and removed for you after the fact — delete any you no longer want from the Peer Board yourself while still signed in.</li>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Opt-out of Leaderboard:</strong> Disable participation or enable anonymous mode in Settings → GrydRank.</li>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Opt-out of Sentry replay:</strong> No per-user opt-out currently available. Contact us if this is a concern.</li>
         </ul>
@@ -341,7 +351,7 @@ const PrivacyPage = () => {
         <ul style={S.ul}>
           <li style={S.li}>Personal data is retained while your account is active. Inactive accounts may be purged after 24 months.</li>
           <li style={S.li}>Leaderboard entries are removed when you delete your account.</li>
-          <li style={S.li}>Peer Board posts are soft-deleted (body cleared) on request; the post shell may remain.</li>
+          <li style={S.li}>Peer Board posts are soft-deleted (body cleared) when you delete them from the board yourself; the post shell may remain.</li>
           <li style={S.li}>Sentry error reports are retained per Sentry's standard retention period (90 days for session replays).</li>
           <li style={S.li}>Activation validation data is not retained by MedGryd after validation.</li>
         </ul>
@@ -358,7 +368,7 @@ const PrivacyPage = () => {
           <p style={{...S.p, marginBottom: 0, fontSize: 12, color: '#334155'}}>Subject line: "MedGryd Privacy" · PO Box 70385, Rochester Hills, MI 48307</p>
         </div>
 
-        <p style={{ fontSize: 12, color: '#1e293b', marginTop: 48, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)' }}>Last reviewed May 24, 2026</p>
+        <p style={{ fontSize: 12, color: '#1e293b', marginTop: 48, paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)' }}>Last reviewed August 24, 2026</p>
       </div>
     </main>
   );
