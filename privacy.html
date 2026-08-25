@@ -335,6 +335,7 @@ const PrivacyPage = () => {
           <li style={S.li}>The developer can access account data for the usage review described in Section 4, and for support and debugging when you ask for help</li>
           <li style={S.li}>Peer Board posts are stored in one shared document that any signed-in MedGryd user can read — it is a public anonymous board by design, so treat anything you post there as public</li>
           <li style={S.li}>Only the development team has access to Sentry error reports and session replays</li>
+          <li style={S.li}>We maintain nightly encrypted database backups for disaster recovery, retained for up to 30 days</li>
         </ul>
         <p style={S.p}>No internet service is 100% secure. We recommend a strong Google account password and two-factor authentication.</p>
 
@@ -342,7 +343,7 @@ const PrivacyPage = () => {
         <ul style={S.ul}>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Access:</strong> View your data in the app; request a machine-readable export by email.</li>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Correction:</strong> Edit or delete tasks, notes, goals, etc. at any time through the app.</li>
-          <li style={S.li}><strong style={{color:'#94a3b8'}}>Deletion:</strong> Email hello@medgryd.com with subject "Account Deletion Request." We will delete your Firestore documents within 30 days. Peer Board posts are never linked to your account, so they are already anonymous and cannot be found and removed for you after the fact — delete any you no longer want from the Peer Board yourself while still signed in.</li>
+          <li style={S.li}><strong style={{color:'#94a3b8'}}>Deletion:</strong> Email hello@medgryd.com with subject "Account Deletion Request." We will delete your Firestore documents within 30 days. Your data may also persist in an encrypted backup for up to 30 days after that before it is purged in the normal backup rotation cycle. Peer Board posts are never linked to your account, so they are already anonymous and cannot be found and removed for you after the fact — delete any you no longer want from the Peer Board yourself while still signed in.</li>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Opt-out of Leaderboard:</strong> Disable participation or enable anonymous mode in Settings → GrydRank.</li>
           <li style={S.li}><strong style={{color:'#94a3b8'}}>Opt-out of Sentry replay:</strong> No per-user opt-out currently available. Contact us if this is a concern.</li>
         </ul>
@@ -354,6 +355,7 @@ const PrivacyPage = () => {
           <li style={S.li}>Peer Board posts are soft-deleted (body cleared) when you delete them from the board yourself; the post shell may remain.</li>
           <li style={S.li}>Sentry error reports are retained per Sentry's standard retention period (90 days for session replays).</li>
           <li style={S.li}>Activation validation data is not retained by MedGryd after validation.</li>
+          <li style={S.li}>Nightly database backups are retained on a rolling 30-day basis, then automatically purged.</li>
         </ul>
 
         <h2 style={S.h2}>10. Children's Privacy</h2>

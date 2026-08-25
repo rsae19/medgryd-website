@@ -289,6 +289,12 @@ function DpaPage() {
               <td><a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">vercel.com/legal/privacy-policy</a></td>
             </tr>
             <tr>
+              <td><strong>GitHub, Inc.</strong></td>
+              <td>Encrypted nightly database backup storage (private repository, access restricted to the development team)</td>
+              <td>United States</td>
+              <td><a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">docs.github.com/.../github-privacy-statement</a></td>
+            </tr>
+            <tr>
               <td><strong>Tawk.to</strong></td>
               <td>In-app support chat widget (optional; only active when user initiates chat)</td>
               <td>Global</td>
@@ -307,6 +313,7 @@ function DpaPage() {
           <li>Session replays via Sentry are accessible only to the MedGryd development team</li>
           <li>Activation codes are validated server-side and not retained after validation</li>
           <li>No plaintext passwords are stored — authentication is fully delegated to Google</li>
+          <li>Nightly encrypted database backups are maintained for disaster recovery, stored in a private, access-restricted repository, and retained for up to 30 days</li>
         </ul>
         <p style={S.p}><strong style={{color:'rgba(255,255,255,0.6)'}}>Sentry session replay note:</strong> Approximately 10% of sessions are recorded as interactive replays; 100% of sessions in which a JavaScript error occurs are recorded. Current configuration masks neither text input nor on-screen images — replays and error reports may include on-screen text content entered by the user, anything visible on screen, and default personal data (IP address, account identifiers) sent by the SDK. Replays are used solely for bug diagnosis by the development team and are subject to Sentry's 90-day retention policy.</p>
 
@@ -322,7 +329,7 @@ function DpaPage() {
         <p style={S.p}>MedGryd will assist the Institution in fulfilling data subject rights requests (access, correction, deletion, portability) within 30 days of a documented request from the Institution. Individual students may also submit requests directly to <a href="mailto:hello@medgryd.com">hello@medgryd.com</a> per our <a href="privacy.html">Privacy Policy</a>.</p>
 
         <h2 id="d8" style={S.h2}>8. Data Retention and Deletion</h2>
-        <p style={S.p}>Upon termination of the institutional license, MedGryd will delete or return all Institutional data within <strong style={{color:'rgba(255,255,255,0.6)'}}>60 days</strong>, as directed by the Institution in writing. Sentry error reports are subject to Sentry's standard 90-day retention policy. Anonymized aggregate statistics with no personally identifiable information may be retained indefinitely for product improvement.</p>
+        <p style={S.p}>Upon termination of the institutional license, MedGryd will delete or return all Institutional data within <strong style={{color:'rgba(255,255,255,0.6)'}}>60 days</strong>, as directed by the Institution in writing. Sentry error reports are subject to Sentry's standard 90-day retention policy. Anonymized aggregate statistics with no personally identifiable information may be retained indefinitely for product improvement. MedGryd also maintains nightly database backups on a rolling 30-day cycle for disaster recovery; backups are purged automatically 30 days after creation, independent of and in addition to the deletion timeframe above.</p>
 
         <h2 id="d9" style={S.h2}>9. Audit Rights</h2>
         <p style={S.p}>The Institution may request a written summary of MedGryd's security practices and subprocessor agreements once per calendar year. MedGryd will respond within 30 business days. On-site audits may be requested with reasonable advance notice and are subject to mutual scheduling agreement.</p>
