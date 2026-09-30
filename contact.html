@@ -1,376 +1,176 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
-  <title>Contact — MedGryd | Get in Touch</title>
-  <meta name="description" content="Questions, feedback, or licensing inquiries? Reach out to the MedGryd team at hello@medgryd.com. We read every message." />
-  <meta name="robots" content="index, follow" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — MedGryd</title>
+  <meta name="description" content="Questions, feedback, school licensing or partnerships — we read every message. hello@medgryd.com" />
+  <meta name="theme-color" content="#05060d" />
   <link rel="canonical" href="https://medgryd.com/contact.html" />
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "@id": "https://medgryd.com/contact.html",
-    "url": "https://medgryd.com/contact.html",
-    "name": "Contact — MedGryd | Get in Touch",
-    "description": "Questions, feedback, or licensing inquiries? Reach out to the MedGryd team at hello@medgryd.com. We read every message.",
-    "isPartOf": { "@id": "https://medgryd.com/#website" },
-    "publisher": { "@id": "https://medgryd.com/#organization" }
-  }
-  </script>
-
-  <!-- Open Graph -->
+  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://medgryd.com/contact.html" />
-  <meta property="og:title" content="Contact — MedGryd | Get in Touch" />
-  <meta property="og:description" content="Questions, feedback, or licensing inquiries? Reach out to the MedGryd team at hello@medgryd.com. We read every message." />
+  <meta property="og:title" content="Contact — MedGryd" />
+  <meta property="og:description" content="Questions, feedback, school licensing or partnerships — we read every message." />
   <meta property="og:image" content="https://medgryd.com/uploads/og-image.png" />
-  <meta property="og:site_name" content="MedGryd" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Contact — MedGryd | Get in Touch" />
-  <meta name="twitter:description" content="Questions, feedback, or licensing inquiries? Reach out to the MedGryd team at hello@medgryd.com. We read every message." />
-  <meta name="twitter:image" content="https://medgryd.com/uploads/og-image.png" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css?v=3" />
+  <script src="assets/site.js?v=3" defer></script>
+  <script src="assets/planet.js?v=3" defer></script>
   <style>
-    /* Page-local only. Tokens, glass, motion curves and the reveal system
-       all live in medgryd-ui.css. */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { overflow-x: hidden; }
-    a, button { touch-action: manipulation; }
-
-    @keyframes fade-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .contact { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); }
+    .contact form { display: grid; gap: 30px; }
+    .contact .two { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .status { min-height: 24px; font-size: 15px; }
+    .status.ok { color: var(--ok); } .status.err { color: var(--crit); }
+    .direct a { font-family: var(--display); font-weight: 300; font-size: clamp(24px, 2.6vw, 34px); color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hair); transition: border-color .5s var(--glide), color .5s var(--glide); }
+    .direct a:hover { color: var(--accent); border-color: var(--accent); }
+    @media (max-width: 900px) { .contact { grid-template-columns: minmax(0, 1fr); } }
+    @media (max-width: 560px) { .contact .two { grid-template-columns: minmax(0, 1fr); } }
   </style>
-  <link rel="stylesheet" href="medgryd-ui.css?v=20260825-1" />
-  <script src="medgryd-ui.js?v=20260825-1" defer></script>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel">
-
-const { useState, useEffect, useRef } = React;
-const useWindowWidth = () => {
-  const [w, setW] = React.useState(window.innerWidth);
-  React.useEffect(() => {
-    const h = () => setW(window.innerWidth);
-    window.addEventListener('resize', h, { passive: true });
-    return () => window.removeEventListener('resize', h);
-  }, []);
-  return w;
-};
-
-
-/* ── NAVBAR ─────────────────────────────────────────────── */
-const Navbar = () => {
-  const [scrolled, setScrolled] = React.useState(false);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isMobile = useWindowWidth() < 768;
-  React.useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 48);
-    window.addEventListener('scroll', h, { passive: true });
-    return () => window.removeEventListener('scroll', h);
-  }, []);
-  React.useEffect(() => { if (!isMobile) setMobileOpen(false); }, [isMobile]);
-  const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
-  return (
-    <React.Fragment>
-      <nav style={{
-        position:'fixed', top:0, left:0, right:0, zIndex:100,
-        display:'flex', alignItems:'center', justifyContent:'space-between',
-        padding:'0 clamp(20px,4vw,60px)', height:68,
-        background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
-        borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        transition: 'background 0.35s, border-color 0.35s',
-      }}>
-        <a href="index.html" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none' }}>
-          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:44, display:'block' }} />
-          <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize: isMobile ? 20 : 26, color:'#e2e8f0', letterSpacing:'0.04em', lineHeight:1 }}>MedGryd</span>
-        </a>
-        {!isMobile && (
-          <div style={{ display:'flex', alignItems:'center', gap:32 }}>
-            {links.map(([l,h]) => (
-              <a key={l} href={h} style={{
-                fontFamily:'Oxanium', fontWeight:400, fontSize:13,
-                color: h === 'contact.html' ? '#38bdf8' : 'rgba(226,232,240,0.6)',
-                letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none',
-                borderBottom: h === 'contact.html' ? '1px solid #38bdf8' : '1px solid transparent',
-                paddingBottom:2, transition:'color 0.2s',
-              }}>{l}</a>
-            ))}
-          </div>
-        )}
-        {isMobile ? (
-          <button onClick={() => setMobileOpen(o => !o)} aria-label="Toggle menu" style={{
-            background:'none', border:'none', cursor:'pointer', padding:'8px',
-            display:'flex', flexDirection:'column', gap:5, alignItems:'center', justifyContent:'center',
-          }}>
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition:'transform 0.25s' }} />
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, opacity: mobileOpen ? 0 : 1, transition:'opacity 0.2s' }} />
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(-7px) rotate(-45deg)' : 'none', transition:'transform 0.25s' }} />
-          </button>
-        ) : (
-          <div style={{ display:'flex', alignItems:'center', gap:8 }}>
-            <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.5)';e.currentTarget.style.color='#38bdf8';e.currentTarget.style.background='rgba(56,189,248,0.12)';}}
-              onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.15)';e.currentTarget.style.color='rgba(226,232,240,0.5)';e.currentTarget.style.background='rgba(56,189,248,0.07)';}}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
-            <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.5)';e.currentTarget.style.color='#38bdf8';e.currentTarget.style.background='rgba(56,189,248,0.12)';}}
-              onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.15)';e.currentTarget.style.color='rgba(226,232,240,0.5)';e.currentTarget.style.background='rgba(56,189,248,0.07)';}}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </a>
-            <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
-              fontFamily:'Oxanium', fontWeight:600, fontSize:13,
-              letterSpacing:'0.1em', textTransform:'uppercase',
-              background:'#38bdf8', color:'#0a0a0f',
-              padding:'9px 22px', borderRadius:8, textDecoration:'none',
-              boxShadow:'0 0 18px rgba(56,189,248,0.35)',
-              transition:'box-shadow 0.2s, transform 0.15s',
-            }}
-            onMouseEnter={e=>{e.currentTarget.style.boxShadow='0 0 28px rgba(56,189,248,0.55)';e.currentTarget.style.transform='translateY(-1px)';}}
-            onMouseLeave={e=>{e.currentTarget.style.boxShadow='0 0 18px rgba(56,189,248,0.35)';e.currentTarget.style.transform='';}}>
-              Launch App
-            </a>
-          </div>
-        )}
-      </nav>
-      {isMobile && mobileOpen && (
-        <div style={{
-          position:'fixed', top:68, left:0, right:0, zIndex:99,
-          background:'rgba(10,10,15,0.97)',
-          borderBottom:'1px solid rgba(56,189,248,0.12)',
-          backdropFilter:'blur(16px)',
-          padding:'12px 24px 24px',
-          display:'flex', flexDirection:'column', gap:0,
-        }}>
-          {links.map(([l,h]) => (
-            <a key={l} href={h} style={{
-              fontFamily:'Oxanium', fontWeight:400, fontSize:15,
-              color:'rgba(226,232,240,0.8)',
-              letterSpacing:'0.08em', textTransform:'uppercase', textDecoration:'none',
-              padding:'14px 0',
-              borderBottom:'1px solid rgba(255,255,255,0.05)',
-              display:'block',
-            }}>{l}</a>
-          ))}
-          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
-            fontFamily:'Oxanium', fontWeight:600, fontSize:13,
-            letterSpacing:'0.1em', textTransform:'uppercase',
-            background:'#38bdf8', color:'#0a0a0f',
-            padding:'13px 22px', borderRadius:8, textDecoration:'none',
-            textAlign:'center', marginTop:12, display:'block',
-            boxShadow:'0 0 18px rgba(56,189,248,0.35)',
-          }}>Launch App</a>
-        </div>
-      )}
-    </React.Fragment>
-  );
-};
-
-/* ── PAGE HEADER ────────────────────────────────────────── */
-const PageHeader = () =>
-<section style={{ position: 'relative', minHeight: 260, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', textAlign: 'center', padding: '120px clamp(20px,5vw,80px) 60px' }}>
-  <div style={{ position: 'relative', zIndex: 1 }}>
-    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-      <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 6px #38bdf8' }} />
-      <span style={{ fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#38bdf8' }}>Contact</span>
+<a class="skip" href="#main">Skip to content</a>
+<!--NAV:START-->
+<header class="nav" data-page="contact">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="features.html">Features</a></li>
+        <li><a href="schools.html">For Schools</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" aria-current="page">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="pill solid sm" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-controls="nav-sheet" aria-expanded="false"><span></span><span></span></button>
     </div>
-    <h1 style={{ fontFamily: 'Oxanium', fontWeight: 200, fontSize: 'clamp(32px,5vw,58px)', color: '#f1f5f9', letterSpacing: '-0.02em', lineHeight: 1.1, marginBottom: 16 }}>Get in Touch</h1>
-    <p style={{ fontSize: 16, color: '#64748b', fontWeight: 300, maxWidth: 480, margin: '0 auto' }}>Questions, feedback, partnerships — we read every message.</p>
   </div>
-</section>;
+</header>
+<div class="nav-sheet" id="nav-sheet">
+  <a href="features.html">Features</a>
+  <a href="schools.html">For Schools</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="about.html">About</a>
+  <a href="contact.html" aria-current="page">Contact</a>
+  <a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+</div>
+<!--NAV:END-->
 
-/* ── CONTACT FORM ───────────────────────────────────────── */
-const ContactForm = () => {
-  const isMobile = useWindowWidth() < 640;
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('idle'); // idle | sending | sent | error
-  const [focused, setFocused] = useState(null);
+<main id="main">
+  <section class="page-hero" style="padding-bottom:clamp(40px,5vw,64px)">
+    <div class="planetlet" aria-hidden="true"></div>
+    <canvas class="hero-canvas" data-planet="side" aria-hidden="true"></canvas>
+    <div class="shell">
+      <span class="eyebrow fade-up d0">Contact</span>
+      <h1 class="display fade-up d1" style="margin-top:22px">Get in <em>touch.</em></h1>
+      <p class="lede fade-up d2">Questions, feedback, school licensing, partnerships — we read every message, and the people who reply are the people who built it.</p>
+    </div>
+  </section>
 
-  const inputStyle = (id) => ({
-    width: '100%', background: '#0f0f18',
-    border: `1px solid ${focused === id ? 'rgba(56,189,248,0.45)' : 'rgba(255,255,255,0.08)'}`,
-    borderRadius: 10, padding: '13px 16px',
-    color: '#e2e8f0', fontSize: 14, fontFamily: 'Aptos Narrow',
-    outline: 'none', transition: 'border-color 0.2s',
-    boxShadow: focused === id ? '0 0 0 3px rgba(56,189,248,0.06)' : 'none'
-  });
+  <section class="section tight" style="padding-top:0">
+    <div class="shell contact">
+      <div class="reveal">
+        <div class="direct"><a href="mailto:hello@medgryd.com">hello@medgryd.com</a></div>
+        <address style="font-style:normal;color:var(--muted);margin-top:22px;line-height:1.7">MedGryd<br />PO Box 70385<br />Rochester Hills, MI 48307</address>
+        <div class="socials" style="margin-top:22px">
+          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a>
+        </div>
+      </div>
 
-  const handleSubmit = async (e) => {
+      <form class="reveal" data-contact novalidate>
+        <fieldset style="border:0;padding:0;margin:0">
+          <legend class="field" style="padding:0;margin-bottom:12px"><span style="font-family:var(--display);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)">I'm writing as</span></legend>
+          <div class="seg">
+            <label><input type="radio" name="topic" value="student" checked /><span>A student</span></label>
+            <label><input type="radio" name="topic" value="school" /><span>A school</span></label>
+            <label><input type="radio" name="topic" value="plan" /><span>Plans &amp; AI</span></label>
+            <label><input type="radio" name="topic" value="other" /><span>Something else</span></label>
+          </div>
+        </fieldset>
+        <div class="two">
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required /></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
+        </div>
+        <div class="field" data-school hidden><label for="f-school">School &amp; program</label><input id="f-school" name="school" autocomplete="organization" placeholder="e.g. Noorda COM — DO" /></div>
+        <div class="field"><label for="f-msg">Message</label><textarea id="f-msg" name="message" required></textarea></div>
+        <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+          <button class="pill solid" type="submit">Send message <span class="arr" aria-hidden="true">→</span></button>
+          <div class="status" role="status" aria-live="polite" data-status></div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!--FOOTER:START-->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+        <p class="tagline">Mission Control for Medical School. Built by medical students, for medical students.</p>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="features.html">Features</a></li><li><a href="schools.html">For Schools</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="mailto:hello@medgryd.com">hello@medgryd.com</a></li></ul>
+        <address>PO Box 70385<br />Rochester Hills, MI 48307</address>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li><li><a href="dpa.html">DPA / FERPA</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-word" aria-hidden="true">MedGryd</div>
+    <div class="footer-bot"><span>© <span data-year>2026</span> MedGryd. All rights reserved.</span><span>Built with 🩺 for future physicians</span></div>
+  </div>
+</footer>
+<!--FOOTER:END-->
+
+<script>
+(function () {
+  const form = document.querySelector("[data-contact]");
+  const status = document.querySelector("[data-status]");
+  const school = document.querySelector("[data-school]");
+  const f = form.elements;
+  const syncSchool = () => { school.hidden = f.topic.value !== "school"; };
+  const wanted = new URLSearchParams(location.search).get("topic");
+  if (wanted) { const r = form.querySelector(`input[name=topic][value="${CSS.escape(wanted)}"]`); if (r) r.checked = true; }
+  syncSchool();
+  form.addEventListener("change", (e) => { if (e.target.name === "topic") syncSchool(); });
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    setStatus('sending');
+    const bad = [...form.querySelectorAll("[required]")].find((el) => !el.value.trim() || (el.type === "email" && !/^\S+@\S+\.\S+$/.test(el.value)));
+    if (bad) { status.className = "status err"; status.textContent = bad.type === "email" ? "Please enter a valid email." : "Please fill in every field."; bad.focus(); return; }
+    const btn = form.querySelector("button[type=submit]");
+    btn.disabled = true; status.className = "status"; status.textContent = "Sending…";
+    const data = { topic: f.topic.value, name: f.name.value.trim(), email: f.email.value.trim(), message: f.message.value.trim() };
+    if (!school.hidden && f.school.value.trim()) data.school = f.school.value.trim();
     try {
-      const res = await fetch('https://formspree.io/f/maqvrpwp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ name: form.name, email: form.email, message: form.message }),
-      });
-      if (res.ok) {
-        setStatus('sent');
-      } else {
-        setStatus('error');
-      }
+      const res = await fetch("https://formspree.io/f/maqvrpwp", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset(); syncSchool();
+      status.className = "status ok"; status.textContent = "Sent. We'll get back to you soon.";
     } catch {
-      setStatus('error');
-    }
-  };
-
-  return (
-    <section style={{ background: '#0a0a0f', padding: 'clamp(32px,5vw,64px) clamp(20px,5vw,80px) clamp(64px,8vw,96px)' }}>
-      <div style={{ maxWidth: 640, margin: '0 auto' }}>
-
-        {/* Direct email line */}
-        <div className="mg-reveal" style={{ textAlign: 'center', marginBottom: 48 }}>
-          <a href="mailto:hello@medgryd.com" style={{ display: 'inline-block', fontFamily: 'Oxanium', fontSize: 13, color: '#38bdf8', textDecoration: 'none', letterSpacing: '0.06em' }}>hello@medgryd.com</a>
-          <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.6, marginTop: 10 }}>PO Box 70385<br />Rochester Hills, MI 48307</p>
-        </div>
-
-        {status === 'sent' ?
-          <div className="mg-glass" style={{ textAlign: 'center', padding: '56px 32px', borderRadius: 16, background: 'rgba(56,189,248,0.05)', border: '1px solid rgba(56,189,248,0.2)', animation: 'fade-up 0.4s ease both' }}>
-            <div style={{ fontSize: 32, marginBottom: 14 }}>✓</div>
-            <div style={{ fontFamily: 'Oxanium', fontWeight: 400, fontSize: 20, color: '#f1f5f9', marginBottom: 8 }}>Message sent!</div>
-            <p style={{ color: '#64748b', fontSize: 14 }}>Thanks for reaching out — we'll get back to you soon.</p>
-          </div>
-        :
-          <form className="mg-glass mg-reveal" onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16, padding: 28, borderRadius: 14 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: 16 }}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <label style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569' }}>Name</label>
-                <input
-                  type="text" placeholder="Your name" required
-                  value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  onFocus={() => setFocused('name')} onBlur={() => setFocused(null)}
-                  style={inputStyle('name')} />
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                <label style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569' }}>Email</label>
-                <input
-                  type="email" placeholder="you@example.com" required
-                  value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  onFocus={() => setFocused('email')} onBlur={() => setFocused(null)}
-                  style={inputStyle('email')} />
-              </div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <label style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569' }}>Message</label>
-              <textarea
-                placeholder="Tell us what's on your mind..." required rows={6}
-                value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })}
-                onFocus={() => setFocused('message')} onBlur={() => setFocused(null)}
-                style={{ ...inputStyle('message'), resize: 'vertical', minHeight: 140 }} />
-            </div>
-            {status === 'error' &&
-              <p style={{ fontSize: 13, color: '#f87171', fontFamily: 'Oxanium' }}>Something went wrong — please try again or email us directly.</p>
-            }
-            <button type="submit" disabled={status === 'sending'} style={{
-              fontFamily: 'Oxanium', fontWeight: 600, fontSize: 13,
-              letterSpacing: '0.1em', textTransform: 'uppercase',
-              background: status === 'sending' ? 'rgba(56,189,248,0.5)' : '#38bdf8',
-              color: '#0a0a0f', padding: '14px 32px', borderRadius: 10,
-              border: 'none', cursor: status === 'sending' ? 'default' : 'pointer',
-              boxShadow: '0 0 24px rgba(56,189,248,0.35)',
-              transition: 'box-shadow 0.2s, transform 0.15s, background 0.2s',
-              alignSelf: 'flex-start'
-            }}
-            onMouseEnter={(e) => { if (status !== 'sending') { e.currentTarget.style.boxShadow = '0 0 36px rgba(56,189,248,0.55)'; e.currentTarget.style.transform = 'translateY(-1px)'; }}}
-            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 0 24px rgba(56,189,248,0.35)'; e.currentTarget.style.transform = ''; }}>
-              {status === 'sending' ? 'Sending…' : 'Send Message'}
-            </button>
-          </form>
-        }
-      </div>
-    </section>);
-};
-
-/* ── FOOTER ─────────────────────────────────────────────── */
-const Footer = () =>
-<footer style={{ background: '#060609', borderTop: '1px solid rgba(255,255,255,0.05)', padding: 'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px' }}>
-  <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 32, paddingBottom: 28, borderBottom: '1px solid rgba(255,255,255,0.05)', marginBottom: 20 }}>
-    <div style={{ maxWidth: 340 }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-        <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 28 }} />
-        <span style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 16, color: '#e2e8f0' }}>MedGryd</span>
-      </div>
-      <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.6 }}>Mission Control for Medical School.</p>
-      <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
-        <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 8, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.18)', color: '#64748b', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
-          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 8, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.18)', color: '#64748b', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
-          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-      </div>
-    </div>
-    <div style={{ display: 'flex', gap: 48, flexWrap: 'wrap' }}>
-      <div>
-        <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 12 }}>Platform</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {[['Features', 'features.html'], ['Pricing', 'pricing.html'], ['About', 'about.html'], ['Contact', 'contact.html']].map(([l, h]) =>
-          <a key={l} href={h} style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>{l}</a>
-          )}
-        </div>
-      </div>
-      <div>
-        <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 12 }}>Legal</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          {[['Privacy Policy', 'privacy.html'], ['Terms of Service', 'terms.html'], ['DPA / FERPA BAA', 'dpa.html']].map(([l, h]) =>
-          <a key={l} href={h} style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>{l}</a>
-          )}
-        </div>
-      </div>
-      <div>
-        <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 12 }}>Contact</div>
-        <a href="mailto:hello@medgryd.com" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', display: 'block', marginBottom: 6 }}>hello@medgryd.com</a>
-        <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.55, marginBottom: 10 }}>PO Box 70385<br />Rochester Hills, MI 48307</p>
-        <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'Oxanium', fontSize: 12, fontWeight: 600, color: '#38bdf8', textDecoration: 'none', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Launch App →</a>
-      </div>
-    </div>
-  </div>
-  <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-    <span style={{ fontSize: 12, color: '#334155' }}>© 2026 MedGryd. All rights reserved.</span>
-    <span style={{ fontSize: 12, color: '#1e293b', fontFamily: 'Oxanium' }}>Built with 🩺 for future physicians</span>
-  </div>
-</footer>;
-
-/* ── APP ─────────────────────────────────────────────────── */
-const App = () => {
-  useTweaks(/*EDITMODE-BEGIN*/{ "accentColor": "#38bdf8" } /*EDITMODE-END*/);
-  return (
-    <div>
-      <Navbar />
-      <PageHeader />
-      <ContactForm />
-      <Footer />
-    </div>);
-};
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+      status.className = "status err"; status.innerHTML = 'That didn’t send. Email us at <a href="mailto:hello@medgryd.com" style="color:inherit">hello@medgryd.com</a>.';
+    } finally { btn.disabled = false; }
+  });
+})();
 </script>
 </body>
 </html>

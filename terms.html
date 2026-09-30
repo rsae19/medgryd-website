@@ -1,351 +1,193 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Terms of Service — MedGryd</title>
   <meta name="description" content="MedGryd Terms of Service — rules governing your use of the MedGryd student productivity platform." />
+  <meta name="theme-color" content="#05060d" />
+  <link rel="canonical" href="https://medgryd.com/terms.html" />
   <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://medgryd.com/terms.html" />
+  <meta property="og:title" content="Terms of Service — MedGryd" />
+  <meta property="og:description" content="MedGryd Terms of Service — rules governing your use of the MedGryd student productivity platform." />
+  <meta property="og:image" content="https://medgryd.com/uploads/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { background: #0a0a0f; color: #e2e8f0; font-family: 'Aptos Narrow', 'Aptos', 'Segoe UI', sans-serif; min-height: 100vh; }
-    a { color: #38bdf8; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    #root { display: flex; flex-direction: column; min-height: 100vh; }
-  </style>
-  <link rel="stylesheet" href="medgryd-ui.css?v=20260825-1" />
-  <script src="medgryd-ui.js?v=20260825-1" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css?v=3" />
+  <script src="assets/site.js?v=3" defer></script>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel">
-const { useState, useEffect } = React;
+<a class="skip" href="#main">Skip to content</a>
+<!--NAV:START-->
+<header class="nav" data-page="terms">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="features.html">Features</a></li>
+        <li><a href="schools.html">For Schools</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="pill solid sm" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-controls="nav-sheet" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="nav-sheet" id="nav-sheet">
+  <a href="features.html">Features</a>
+  <a href="schools.html">For Schools</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+</div>
+<!--NAV:END-->
 
-const useWindowWidth = () => {
-  const [w, setW] = React.useState(window.innerWidth);
-  React.useEffect(() => {
-    const h = () => setW(window.innerWidth);
-    window.addEventListener('resize', h, { passive: true });
-    return () => window.removeEventListener('resize', h);
-  }, []);
-  return w;
-};
+<main id="main">
+  <section class="page-hero" style="padding-bottom:clamp(40px,5vw,64px)">
+    <div class="shell">
+      <span class="eyebrow fade-up d0">Legal</span>
+      <h1 class="display fade-up d1" style="margin-top:22px;font-size:clamp(40px,6.4vw,96px)">Terms of Service</h1>
+      <p class="lede fade-up d2">Effective Date: May 24, 2026 · Last Updated: August 24, 2026</p>
+    </div>
+  </section>
+  <section class="section tight" style="padding-top:0">
+    <div class="shell">
+      <article class="prose">
+Table of Contents
+<ul><li><a href="#s1">1. Acceptance of Terms</a></li>
+<li><a href="#s2">2. Who We Are</a></li>
+<li><a href="#s3">3. Description of Service</a></li>
+<li><a href="#s4">4. Account Registration</a></li>
+<li><a href="#s5">5. Acceptable Use</a></li>
+<li><a href="#s6">6. Content and Data</a></li>
+<li><a href="#s7">7. Institutional Use</a></li>
+<li><a href="#s8">8. Third-Party Integrations</a></li>
+<li><a href="#s9">9. Intellectual Property</a></li>
+<li><a href="#s10">10. Beta Disclaimer &amp; No Warranty</a></li>
+<li><a href="#s11">11. Limitation of Liability</a></li>
+<li><a href="#s12">12. Indemnification</a></li>
+<li><a href="#s13">13. Termination</a></li>
+<li><a href="#s14">14. Governing Law &amp; Disputes</a></li>
+<li><a href="#s15">15. Changes to These Terms</a></li>
+<li><a href="#s16">16. Entire Agreement</a></li>
+</ul>
 
-const accent = '#38bdf8';
+<h2>1. Acceptance of Terms</h2>
+<p>By creating an account or using MedGryd ("the Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree, do not use the Service. These Terms apply to all users, including students using MedGryd independently and those accessing it through a licensed institution.</p>
+<h2>2. Who We Are</h2>
+<p>MedGryd is an independent software product developed and operated by Raayed Saeed and Aaron Smith (co-developer, Quiz Mastery feature).</p>
+<p>📧 <strong>hello@medgryd.com</strong> — for legal inquiries, use subject "Legal Inquiry."</p>
+<p>Mailing Address: MedGryd, PO Box 70385, Rochester Hills, MI 48307</p>
+<h2>3. Description of Service</h2>
+<p>MedGryd is a productivity and study management platform for medical students, including: weekly planner and calendar integration, exam and goal tracking, grade calculator (Score Matrix), Skills Vault (OMM and clinical skills), research project management, Quiz Mastery, GrydRank gamification, Peer Board, and study resource companion tracker.</p>
+<p><strong>MedGryd is currently in beta.</strong> Features may change, be added, or be removed at any time without notice.</p>
+<h2>4. Account Registration</h2>
+<h3>4.1 Google Sign-In</h3>
+<p>You must sign in with a Google account to use MedGryd. By doing so, you authorize MedGryd to receive your email address, display name, and profile photo URL as described in our <a href="privacy.html">Privacy Policy</a>.</p>
+<h3>4.2 Activation Code (Beta Access)</h3>
+<p>During the beta period, a valid activation code is required. You may not share, sell, or transfer activation codes.</p>
+<h3>4.3 Account Security &amp; Integrity</h3>
+<p>You are responsible for maintaining the security of your Google account. MedGryd is not liable for any loss resulting from unauthorized access. You may not create multiple accounts.</p>
+<h2>5. Acceptable Use</h2>
+<p>You agree not to:</p>
+<ul><li>Use the Service for any unlawful purpose</li>
+<li>Attempt to reverse engineer, decompile, or extract the source code of MedGryd</li>
+<li>Use automated scripts, bots, or crawlers to access or interact with the Service</li>
+<li>Upload or submit content that is defamatory, harassing, threatening, or violates any third party's rights</li>
+<li>Share your account credentials or activation code with others</li>
+<li>Attempt to gain unauthorized access to other users' data or infrastructure</li>
+<li>Upload copyrighted exam question content you do not have the right to reproduce</li>
+<li>Use the Peer Board for harassment, spam, or coordinated manipulation</li>
+</ul>
+<h2>6. Content and Data</h2>
+<h3>6.1 Your Content</h3>
+<p>You retain ownership of all content you submit to MedGryd, including tasks, notes, quiz sets, research data, and Peer Board posts. By submitting content, you grant MedGryd a limited, non-exclusive license to store, process, and display it solely to provide the Service to you and, where applicable, to authorized members of your study groups or shared projects.</p>
+<h3>6.2 Quiz Question Sets</h3>
+<p>You represent that any quiz sets you upload are your original work, licensed for your use, or public domain. MedGryd does not review uploaded content for copyright compliance. You are solely responsible for ensuring uploads comply with applicable copyright law and your institution's academic policies.</p>
+<h3>6.3 Peer Board</h3>
+<p>The Peer Board is an anonymous discussion space. Posts carry no name and no user ID — nothing stored on a post links it back to your account, and we cannot determine who wrote a given post. You agree not to post content that identifies other individuals without their consent.</p>
+<h3>6.4 Content Removal</h3>
+<p>MedGryd reserves the right to remove any content that violates these Terms without notice. Repeated violations may result in account suspension or termination. Note that because Peer Board posts are not linked to any account (Section 6.3), we can remove a violating post but cannot attribute it to an author — Peer Board enforcement is limited to removing content.</p>
+<h2>7. Institutional Use</h2>
+<p>If your school has licensed MedGryd, your school may receive aggregate (non-identifiable) usage statistics. Additional data agreements between MedGryd and your school govern educational record handling under FERPA. You remain subject to these Terms in addition to any institutional policies.</p>
+<h2>8. Third-Party Integrations</h2>
+<p>MedGryd integrates with Google Calendar, Canvas, and AnkiConnect. Your use of those services is governed by their respective terms. MedGryd is not responsible for the availability, accuracy, or practices of third-party services.</p>
+<ul><li>Google Terms of Service: <a href="https://policies.google.com/terms" target="_blank" rel="noopener">policies.google.com/terms</a></li>
+<li>Canvas (Instructure): governed by your institution's agreement</li>
+</ul>
+<h2>9. Intellectual Property</h2>
+<p>MedGryd and its original content, features, and design are owned by MedGryd and protected by applicable intellectual property laws. You may not copy, reproduce, or create derivative works without express written permission.</p>
+<p>If you submit bug reports, feature requests, or other feedback, you grant MedGryd a perpetual, royalty-free license to use that feedback to improve the Service.</p>
+<h2>10. Beta Disclaimer &amp; No Warranty</h2>
 
-const S = {
-  nav: { background: 'rgba(10,10,15,0.92)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,0.06)', padding: '0 32px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 },
-  navLogo: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 20, color: '#fff', letterSpacing: '-0.02em', textDecoration: 'none' },
-  navLinks: { display: 'flex', alignItems: 'center', gap: 28 },
-  navLink: { color: 'rgba(255,255,255,0.55)', fontSize: 14, fontWeight: 500, textDecoration: 'none', transition: 'color 0.2s' },
-  navLinkActive: { color: accent },
-  hero: { padding: '72px 32px 48px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.06)' },
-  heroTag: { display: 'inline-block', background: 'rgba(56,189,248,0.1)', border: '1px solid rgba(56,189,248,0.2)', color: accent, fontSize: 12, fontWeight: 600, padding: '4px 14px', borderRadius: 100, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 20 },
-  heroTitle: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 40, color: '#fff', letterSpacing: '-0.03em', marginBottom: 14, lineHeight: 1.1 },
-  heroSub: { color: 'rgba(255,255,255,0.45)', fontSize: 15, lineHeight: 1.6, maxWidth: 560, margin: '0 auto' },
-  body: { maxWidth: 720, margin: '0 auto', padding: '48px 32px 80px' },
-  section: { marginBottom: 40 },
-  h2: { fontFamily: "'Oxanium', sans-serif", fontWeight: 700, fontSize: 18, color: '#fff', marginBottom: 12, marginTop: 36, paddingBottom: 8, borderBottom: '1px solid rgba(255,255,255,0.07)' },
-  h3: { fontWeight: 600, fontSize: 14, color: 'rgba(255,255,255,0.75)', marginBottom: 6, marginTop: 16 },
-  p: { fontSize: 14, lineHeight: 1.75, color: 'rgba(255,255,255,0.55)', marginBottom: 12 },
-  ul: { fontSize: 14, lineHeight: 1.75, color: 'rgba(255,255,255,0.55)', paddingLeft: 22, marginBottom: 14 },
-  warn: { background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: 8, padding: '12px 16px', marginBottom: 12 },
-  warnText: { fontSize: 13, lineHeight: 1.65, color: 'rgba(239,68,68,0.8)', fontWeight: 600 },
-  toc: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '20px 24px', marginBottom: 48 },
-  tocTitle: { fontWeight: 700, fontSize: 13, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 12 },
-  tocList: { listStyle: 'none', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px 24px' },
-  tocItem: { fontSize: 13, color: 'rgba(56,189,248,0.7)', lineHeight: 1.6 },
-  footer: { background: 'rgba(0,0,0,0.4)', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '48px 32px' },
-  footerGrid: { maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: 32 },
-  footerBrand: { gridColumn: 'span 1' },
-  footerLogo: { fontFamily: "'Oxanium', sans-serif", fontWeight: 800, fontSize: 18, color: '#fff', marginBottom: 8 },
-  footerTagline: { fontSize: 13, color: 'rgba(255,255,255,0.3)', lineHeight: 1.5 },
-  footerHead: { fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14 },
-  footerLink: { display: 'block', fontSize: 14, color: 'rgba(255,255,255,0.45)', marginBottom: 8, textDecoration: 'none' },
-  footerBottom: { maxWidth: 1100, margin: '32px auto 0', paddingTop: 24, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 },
-  footerCopy: { fontSize: 12, color: 'rgba(255,255,255,0.2)' },
-};
+<p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTY OF ANY KIND. MEDGRYD EXPRESSLY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
 
-/* ── NAVBAR ─────────────────────────────────────────────── */
-const Navbar = () => {
-  const [scrolled, setScrolled] = React.useState(false);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isMobile = useWindowWidth() < 768;
-  React.useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 48);
-    window.addEventListener('scroll', h, { passive: true });
-    return () => window.removeEventListener('scroll', h);
-  }, []);
-  React.useEffect(() => { if (!isMobile) setMobileOpen(false); }, [isMobile]);
-  const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
-  return (
-    <React.Fragment>
-      <nav style={{
-        position:'fixed', top:0, left:0, right:0, zIndex:100,
-        display:'flex', alignItems:'center', justifyContent:'space-between',
-        padding:'0 clamp(20px,4vw,60px)', height:68,
-        background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
-        borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        transition: 'background 0.35s ease, border-color 0.35s ease',
-      }}>
-        <a href="index.html" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none', userSelect:'none' }}>
-          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:44, display:'block' }} />
-          <span style={{ fontFamily:'Oxanium, sans-serif', fontWeight:600, fontSize: isMobile ? 20 : 26, color:'#e2e8f0', letterSpacing:'0.04em', lineHeight:1 }}>MedGryd</span>
-        </a>
-        {!isMobile && (
-          <div style={{ position:'absolute', left:'50%', transform:'translateX(-50%)', display:'flex', alignItems:'center', gap:36 }}>
-            {links.map(([l,h]) => (
-              <a key={l} href={h} style={{ fontFamily:'Oxanium, sans-serif', fontWeight:400, fontSize:13, color:'rgba(226,232,240,0.65)', letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none', transition:'color 0.2s', padding:'4px 2px', borderBottom:'1px solid transparent' }}
-                onMouseEnter={e => e.currentTarget.style.color = '#e2e8f0'}
-                onMouseLeave={e => e.currentTarget.style.color = 'rgba(226,232,240,0.65)'}>{l}</a>
-            ))}
-          </div>
-        )}
-        {isMobile ? (
-          <button onClick={() => setMobileOpen(o => !o)} aria-label="Toggle menu" style={{ background:'none', border:'none', cursor:'pointer', padding:8, display:'flex', flexDirection:'column', gap:5, alignItems:'center', justifyContent:'center' }}>
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition:'transform 0.25s' }} />
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, opacity: mobileOpen ? 0 : 1, transition:'opacity 0.2s' }} />
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(-7px) rotate(-45deg)' : 'none', transition:'transform 0.25s' }} />
-          </button>
-        ) : (
-          <div style={{ display:'flex', alignItems:'center', gap:8 }}>
-            <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.5)'; e.currentTarget.style.color='#38bdf8'; e.currentTarget.style.background='rgba(56,189,248,0.12)'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.15)'; e.currentTarget.style.color='rgba(226,232,240,0.5)'; e.currentTarget.style.background='rgba(56,189,248,0.07)'; }}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
-            <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.5)'; e.currentTarget.style.color='#38bdf8'; e.currentTarget.style.background='rgba(56,189,248,0.12)'; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.15)'; e.currentTarget.style.color='rgba(226,232,240,0.5)'; e.currentTarget.style.background='rgba(56,189,248,0.07)'; }}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </a>
-            <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily:'Oxanium, sans-serif', fontWeight:600, fontSize:13, letterSpacing:'0.1em', textTransform:'uppercase', background:'#38bdf8', color:'#0a0a0f', padding:'9px 22px', borderRadius:8, textDecoration:'none', boxShadow:'0 0 18px rgba(56,189,248,0.35)', transition:'box-shadow 0.2s, transform 0.15s', display:'inline-block' }}
-              onMouseEnter={e => { e.currentTarget.style.boxShadow='0 0 28px rgba(56,189,248,0.55)'; e.currentTarget.style.transform='translateY(-1px)'; }}
-              onMouseLeave={e => { e.currentTarget.style.boxShadow='0 0 18px rgba(56,189,248,0.35)'; e.currentTarget.style.transform='translateY(0)'; }}>
-              Launch App
-            </a>
-          </div>
-        )}
-      </nav>
-      {isMobile && mobileOpen && (
-        <div style={{ position:'fixed', top:68, left:0, right:0, zIndex:99, background:'rgba(10,10,15,0.97)', borderBottom:'1px solid rgba(56,189,248,0.12)', backdropFilter:'blur(16px)', padding:'12px 24px 24px', display:'flex', flexDirection:'column', gap:0 }}>
-          {links.map(([l,h]) => (
-            <a key={l} href={h} onClick={() => setMobileOpen(false)} style={{ fontFamily:'Oxanium, sans-serif', fontWeight:400, fontSize:15, color:'rgba(226,232,240,0.8)', letterSpacing:'0.08em', textTransform:'uppercase', textDecoration:'none', padding:'14px 0', borderBottom:'1px solid rgba(255,255,255,0.05)', display:'block' }}>{l}</a>
-          ))}
-          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily:'Oxanium, sans-serif', fontWeight:600, fontSize:13, letterSpacing:'0.1em', textTransform:'uppercase', background:'#38bdf8', color:'#0a0a0f', padding:'13px 22px', borderRadius:8, textDecoration:'none', textAlign:'center', marginTop:12, display:'block', boxShadow:'0 0 18px rgba(56,189,248,0.35)' }}>Launch App</a>
-        </div>
-      )}
-    </React.Fragment>
-  );
-};
+<p>The Service is in beta — data loss, downtime, or service interruption may occur. We recommend maintaining independent records of critical study data (exam dates, grades, notes).</p>
+<h2>11. Limitation of Liability</h2>
 
-/* ── FOOTER ─────────────────────────────────────────────── */
-const Footer = () => (
-  <footer style={{ background:'#060609', borderTop:'1px solid rgba(255,255,255,0.05)', padding:'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px' }}>
-    <div style={{ maxWidth:1100, margin:'0 auto', display:'flex', flexWrap:'wrap', justifyContent:'space-between', gap:32, paddingBottom:32, borderBottom:'1px solid rgba(255,255,255,0.05)', marginBottom:24 }}>
-      <div style={{ maxWidth:340 }}>
-        <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:12 }}>
-          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:30 }} />
-          <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize:16, color:'#e2e8f0' }}>MedGryd</span>
-        </div>
-        <p style={{ color:'#475569', fontSize:13, lineHeight:1.65 }}>Mission Control for Medical School.</p>
-        <div style={{ display:'flex', gap:10, marginTop:14 }}>
-          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-            style={{ display:'flex', alignItems:'center', justifyContent:'center', width:34, height:34, borderRadius:8, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.18)', color:'#64748b', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.5)'; e.currentTarget.style.color='#38bdf8'; e.currentTarget.style.background='rgba(56,189,248,0.12)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.18)'; e.currentTarget.style.color='#64748b'; e.currentTarget.style.background='rgba(56,189,248,0.07)'; }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-            style={{ display:'flex', alignItems:'center', justifyContent:'center', width:34, height:34, borderRadius:8, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.18)', color:'#64748b', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.5)'; e.currentTarget.style.color='#38bdf8'; e.currentTarget.style.background='rgba(56,189,248,0.12)'; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(56,189,248,0.18)'; e.currentTarget.style.color='#64748b'; e.currentTarget.style.background='rgba(56,189,248,0.07)'; }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
+<p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, MEDGRYD SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, PROFITS, OR REVENUE ARISING FROM YOUR USE OF THE SERVICE.</p>
+
+<p>MedGryd's total liability for any claim shall not exceed $100 USD.</p>
+<h2>12. Indemnification</h2>
+<p>You agree to defend, indemnify, and hold harmless MedGryd and its developers from any claims, damages, or expenses (including reasonable attorneys' fees) arising from your use of the Service, your violation of these Terms, your Content, or your violation of any third party's rights.</p>
+<h2>13. Termination</h2>
+<p>You may stop using the Service at any time. To delete your account, contact <a href="mailto:hello@medgryd.com">hello@medgryd.com</a> with the subject "Account Deletion Request." We may suspend or terminate your access for violation of these Terms, with or without notice. Upon termination, your right to use the Service ends immediately and your data will be deleted as described in our <a href="privacy.html">Privacy Policy</a>.</p>
+<h2>14. Governing Law &amp; Disputes</h2>
+<p>These Terms are governed by the laws of the State of Michigan, without regard to conflict of law principles. Any disputes shall be resolved by binding arbitration under JAMS rules in Oakland County, Michigan, or in state or federal courts in Oakland County if arbitration is not required by applicable law. You agree to resolve disputes individually and waive the right to participate in any class action.</p>
+<h2>15. Changes to These Terms</h2>
+<p>We may update these Terms as the Service evolves. Material changes will be announced in the app. Continued use after the announcement constitutes acceptance.</p>
+<h2>16. Entire Agreement</h2>
+<p>These Terms, together with our <a href="privacy.html">Privacy Policy</a>, constitute the entire agreement between you and MedGryd regarding the Service.</p>
+
+<p>Questions about these Terms? Contact us:</p>
+<p>📧 <a href="mailto:hello@medgryd.com">hello@medgryd.com</a> — subject: "Legal Inquiry"</p>
+<p>For institutional licensing and DPA/FERPA inquiries, see our <a href="dpa.html">Data Processing Agreement &amp; FERPA BAA</a>.</p>
+
+<p>These Terms were last reviewed on August 24, 2026.</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<!--FOOTER:START-->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+        <p class="tagline">Mission Control for Medical School. Built by medical students, for medical students.</p>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a>
         </div>
       </div>
-      <div style={{ display:'flex', gap:56, flexWrap:'wrap' }}>
-        <div>
-          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:14 }}>Platform</div>
-          <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-            {[['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']].map(([l,h]) => (
-              <a key={l} href={h} style={{ fontSize:13, color:'#64748b', textDecoration:'none', transition:'color 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.color = '#94a3b8'}
-                onMouseLeave={e => e.currentTarget.style.color = '#64748b'}>{l}</a>
-            ))}
-          </div>
-        </div>
-        <div>
-          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:14 }}>Legal</div>
-          <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
-            {[['Privacy Policy','privacy.html'],['Terms of Service','terms.html'],['DPA / FERPA BAA','dpa.html']].map(([l,h]) => (
-              <a key={l} href={h} style={{ fontSize:13, color:'#64748b', textDecoration:'none', transition:'color 0.2s' }}
-                onMouseEnter={e => e.currentTarget.style.color = '#94a3b8'}
-                onMouseLeave={e => e.currentTarget.style.color = '#64748b'}>{l}</a>
-            ))}
-          </div>
-        </div>
-        <div>
-          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:14 }}>Contact</div>
-          <a href="mailto:hello@medgryd.com" style={{ fontSize:13, color:'#64748b', textDecoration:'none', display:'block', marginBottom:10, transition:'color 0.2s' }}
-            onMouseEnter={e => e.currentTarget.style.color = '#38bdf8'}
-            onMouseLeave={e => e.currentTarget.style.color = '#64748b'}>hello@medgryd.com</a>
-          <p style={{ fontSize:13, color:'#475569', lineHeight:1.55, marginBottom:10 }}>PO Box 70385<br />Rochester Hills, MI 48307</p>
-          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily:'Oxanium', fontSize:12, fontWeight:600, color:'#38bdf8', textDecoration:'none', letterSpacing:'0.08em', textTransform:'uppercase' }}>Launch App →</a>
-        </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="features.html">Features</a></li><li><a href="schools.html">For Schools</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="mailto:hello@medgryd.com">hello@medgryd.com</a></li></ul>
+        <address>PO Box 70385<br />Rochester Hills, MI 48307</address>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li><li><a href="dpa.html">DPA / FERPA</a></li></ul>
       </div>
     </div>
-    <div style={{ maxWidth:1100, margin:'0 auto', display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:12 }}>
-      <span style={{ fontSize:12, color:'#334155' }}>© 2026 MedGryd. All rights reserved.</span>
-      <span style={{ fontSize:12, color:'#1e293b', fontFamily:'Oxanium' }}>Built with 🩺 for future physicians</span>
-    </div>
-  </footer>
-);
-
-function TermsPage() {
-  const toc = [
-    ['1','Acceptance of Terms'],['2','Who We Are'],['3','Description of Service'],
-    ['4','Account Registration'],['5','Acceptable Use'],['6','Content and Data'],
-    ['7','Institutional Use'],['8','Third-Party Integrations'],['9','Intellectual Property'],
-    ['10','Beta Disclaimer & No Warranty'],['11','Limitation of Liability'],['12','Indemnification'],
-    ['13','Termination'],['14','Governing Law & Disputes'],['15','Changes to These Terms'],['16','Entire Agreement'],
-  ];
-  return (
-    <main style={{flex:1,paddingTop:68}}>
-      <div style={S.hero}>
-        <div style={S.heroTag}>Legal</div>
-        <h1 style={S.heroTitle}>Terms of Service</h1>
-        <p style={S.heroSub}>Effective Date: May 24, 2026 · Last Updated: August 24, 2026</p>
-      </div>
-
-      <div style={S.body}>
-
-        <div style={S.toc}>
-          <div style={S.tocTitle}>Table of Contents</div>
-          <ul style={S.tocList}>
-            {toc.map(([n,t])=>(
-              <li key={n} style={S.tocItem}><a href={`#s${n}`} style={{color:'rgba(56,189,248,0.7)',textDecoration:'none'}}>{n}. {t}</a></li>
-            ))}
-          </ul>
-        </div>
-
-        <h2 id="s1" style={S.h2}>1. Acceptance of Terms</h2>
-        <p style={S.p}>By creating an account or using MedGryd ("the Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree, do not use the Service. These Terms apply to all users, including students using MedGryd independently and those accessing it through a licensed institution.</p>
-
-        <h2 id="s2" style={S.h2}>2. Who We Are</h2>
-        <p style={S.p}>MedGryd is an independent software product developed and operated by Raayed Saeed and Aaron Smith (co-developer, Quiz Mastery feature).</p>
-        <p style={S.p}>📧 <strong style={{color:'rgba(255,255,255,0.7)'}}>hello@medgryd.com</strong> — for legal inquiries, use subject "Legal Inquiry."</p>
-        <p style={S.p}>Mailing Address: MedGryd, PO Box 70385, Rochester Hills, MI 48307</p>
-
-        <h2 id="s3" style={S.h2}>3. Description of Service</h2>
-        <p style={S.p}>MedGryd is a productivity and study management platform for medical students, including: weekly planner and calendar integration, exam and goal tracking, grade calculator (Score Matrix), Skills Vault (OMM and clinical skills), research project management, Quiz Mastery, GrydRank gamification, Peer Board, and study resource companion tracker.</p>
-        <p style={S.p}><strong style={{color:'rgba(255,255,255,0.6)'}}>MedGryd is currently in beta.</strong> Features may change, be added, or be removed at any time without notice.</p>
-
-        <h2 id="s4" style={S.h2}>4. Account Registration</h2>
-        <h3 style={S.h3}>4.1 Google Sign-In</h3>
-        <p style={S.p}>You must sign in with a Google account to use MedGryd. By doing so, you authorize MedGryd to receive your email address, display name, and profile photo URL as described in our <a href="privacy.html">Privacy Policy</a>.</p>
-        <h3 style={S.h3}>4.2 Activation Code (Beta Access)</h3>
-        <p style={S.p}>During the beta period, a valid activation code is required. You may not share, sell, or transfer activation codes.</p>
-        <h3 style={S.h3}>4.3 Account Security & Integrity</h3>
-        <p style={S.p}>You are responsible for maintaining the security of your Google account. MedGryd is not liable for any loss resulting from unauthorized access. You may not create multiple accounts.</p>
-
-        <h2 id="s5" style={S.h2}>5. Acceptable Use</h2>
-        <p style={S.p}>You agree not to:</p>
-        <ul style={S.ul}>
-          <li>Use the Service for any unlawful purpose</li>
-          <li>Attempt to reverse engineer, decompile, or extract the source code of MedGryd</li>
-          <li>Use automated scripts, bots, or crawlers to access or interact with the Service</li>
-          <li>Upload or submit content that is defamatory, harassing, threatening, or violates any third party's rights</li>
-          <li>Share your account credentials or activation code with others</li>
-          <li>Attempt to gain unauthorized access to other users' data or infrastructure</li>
-          <li>Upload copyrighted exam question content you do not have the right to reproduce</li>
-          <li>Use the Peer Board for harassment, spam, or coordinated manipulation</li>
-        </ul>
-
-        <h2 id="s6" style={S.h2}>6. Content and Data</h2>
-        <h3 style={S.h3}>6.1 Your Content</h3>
-        <p style={S.p}>You retain ownership of all content you submit to MedGryd, including tasks, notes, quiz sets, research data, and Peer Board posts. By submitting content, you grant MedGryd a limited, non-exclusive license to store, process, and display it solely to provide the Service to you and, where applicable, to authorized members of your study groups or shared projects.</p>
-        <h3 style={S.h3}>6.2 Quiz Question Sets</h3>
-        <p style={S.p}>You represent that any quiz sets you upload are your original work, licensed for your use, or public domain. MedGryd does not review uploaded content for copyright compliance. You are solely responsible for ensuring uploads comply with applicable copyright law and your institution's academic policies.</p>
-        <h3 style={S.h3}>6.3 Peer Board</h3>
-        <p style={S.p}>The Peer Board is an anonymous discussion space. Posts carry no name and no user ID — nothing stored on a post links it back to your account, and we cannot determine who wrote a given post. You agree not to post content that identifies other individuals without their consent.</p>
-        <h3 style={S.h3}>6.4 Content Removal</h3>
-        <p style={S.p}>MedGryd reserves the right to remove any content that violates these Terms without notice. Repeated violations may result in account suspension or termination. Note that because Peer Board posts are not linked to any account (Section 6.3), we can remove a violating post but cannot attribute it to an author — Peer Board enforcement is limited to removing content.</p>
-
-        <h2 id="s7" style={S.h2}>7. Institutional Use</h2>
-        <p style={S.p}>If your school has licensed MedGryd, your school may receive aggregate (non-identifiable) usage statistics. Additional data agreements between MedGryd and your school govern educational record handling under FERPA. You remain subject to these Terms in addition to any institutional policies.</p>
-
-        <h2 id="s8" style={S.h2}>8. Third-Party Integrations</h2>
-        <p style={S.p}>MedGryd integrates with Google Calendar, Canvas, and AnkiConnect. Your use of those services is governed by their respective terms. MedGryd is not responsible for the availability, accuracy, or practices of third-party services.</p>
-        <ul style={S.ul}>
-          <li>Google Terms of Service: <a href="https://policies.google.com/terms" target="_blank" rel="noopener">policies.google.com/terms</a></li>
-          <li>Canvas (Instructure): governed by your institution's agreement</li>
-        </ul>
-
-        <h2 id="s9" style={S.h2}>9. Intellectual Property</h2>
-        <p style={S.p}>MedGryd and its original content, features, and design are owned by MedGryd and protected by applicable intellectual property laws. You may not copy, reproduce, or create derivative works without express written permission.</p>
-        <p style={S.p}>If you submit bug reports, feature requests, or other feedback, you grant MedGryd a perpetual, royalty-free license to use that feedback to improve the Service.</p>
-
-        <h2 id="s10" style={S.h2}>10. Beta Disclaimer & No Warranty</h2>
-        <div style={S.warn}>
-          <p style={S.warnText}>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTY OF ANY KIND. MEDGRYD EXPRESSLY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
-        </div>
-        <p style={S.p}>The Service is in beta — data loss, downtime, or service interruption may occur. We recommend maintaining independent records of critical study data (exam dates, grades, notes).</p>
-
-        <h2 id="s11" style={S.h2}>11. Limitation of Liability</h2>
-        <div style={S.warn}>
-          <p style={S.warnText}>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, MEDGRYD SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, PROFITS, OR REVENUE ARISING FROM YOUR USE OF THE SERVICE.</p>
-        </div>
-        <p style={S.p}>MedGryd's total liability for any claim shall not exceed $100 USD.</p>
-
-        <h2 id="s12" style={S.h2}>12. Indemnification</h2>
-        <p style={S.p}>You agree to defend, indemnify, and hold harmless MedGryd and its developers from any claims, damages, or expenses (including reasonable attorneys' fees) arising from your use of the Service, your violation of these Terms, your Content, or your violation of any third party's rights.</p>
-
-        <h2 id="s13" style={S.h2}>13. Termination</h2>
-        <p style={S.p}>You may stop using the Service at any time. To delete your account, contact <a href="mailto:hello@medgryd.com">hello@medgryd.com</a> with the subject "Account Deletion Request." We may suspend or terminate your access for violation of these Terms, with or without notice. Upon termination, your right to use the Service ends immediately and your data will be deleted as described in our <a href="privacy.html">Privacy Policy</a>.</p>
-
-        <h2 id="s14" style={S.h2}>14. Governing Law & Disputes</h2>
-        <p style={S.p}>These Terms are governed by the laws of the State of Michigan, without regard to conflict of law principles. Any disputes shall be resolved by binding arbitration under JAMS rules in Oakland County, Michigan, or in state or federal courts in Oakland County if arbitration is not required by applicable law. You agree to resolve disputes individually and waive the right to participate in any class action.</p>
-
-        <h2 id="s15" style={S.h2}>15. Changes to These Terms</h2>
-        <p style={S.p}>We may update these Terms as the Service evolves. Material changes will be announced in the app. Continued use after the announcement constitutes acceptance.</p>
-
-        <h2 id="s16" style={S.h2}>16. Entire Agreement</h2>
-        <p style={S.p}>These Terms, together with our <a href="privacy.html">Privacy Policy</a>, constitute the entire agreement between you and MedGryd regarding the Service.</p>
-
-        <div style={{marginTop:48,padding:'20px 24px',background:'rgba(56,189,248,0.04)',border:'1px solid rgba(56,189,248,0.1)',borderRadius:10}}>
-          <p style={{...S.p,marginBottom:4}}>Questions about these Terms? Contact us:</p>
-          <p style={{...S.p,marginBottom:0}}>📧 <a href="mailto:hello@medgryd.com">hello@medgryd.com</a> — subject: "Legal Inquiry"</p>
-          <p style={{...S.p,marginBottom:0,marginTop:6}}>For institutional licensing and DPA/FERPA inquiries, see our <a href="dpa.html">Data Processing Agreement & FERPA BAA</a>.</p>
-        </div>
-
-        <p style={{fontSize:12,color:'rgba(255,255,255,0.2)',marginTop:32,textAlign:'center'}}>These Terms were last reviewed on August 24, 2026.</p>
-      </div>
-    </main>
-  );
-}
-
-function App() {
-  return (
-    <div id="root" style={{display:'flex',flexDirection:'column',minHeight:'100vh'}}>
-      <Navbar />
-      <TermsPage />
-      <Footer />
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
+    <div class="footer-word" aria-hidden="true">MedGryd</div>
+    <div class="footer-bot"><span>© <span data-year>2026</span> MedGryd. All rights reserved.</span><span>Built with 🩺 for future physicians</span></div>
+  </div>
+</footer>
+<!--FOOTER:END-->
 </body>
 </html>

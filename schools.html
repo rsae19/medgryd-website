@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MedGryd for Schools — One platform for a whole cohort</title>
+  <meta name="description" content="License MedGryd for your medical school: cohort-wide exams and quiz passwords, LMS integration, board prep for every student, simulated patient encounters, and FERPA-ready data handling." />
+  <meta name="theme-color" content="#05060d" />
+  <link rel="canonical" href="https://medgryd.com/schools.html" />
+  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://medgryd.com/schools.html" />
+  <meta property="og:title" content="MedGryd for Schools" />
+  <meta property="og:description" content="One platform for a whole cohort — built with, and piloted by, medical students." />
+  <meta property="og:image" content="https://medgryd.com/uploads/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css?v=3" />
+  <link rel="stylesheet" href="assets/demos.css?v=3" />
+  <script src="assets/site.js?v=3" defer></script>
+  <script src="assets/planet.js?v=3" defer></script>
+  <style>
+    .cohort { display: grid; gap: 0; }
+    .cohort .row { display: grid; grid-template-columns: minmax(0, 1fr) 90px 70px; gap: 10px; align-items: center; padding: 9px 2px; border-top: 1px solid rgba(255,255,255,.06); font-size: 13.5px; color: #e4e6f3; }
+    .cohort .row:first-child { border-top: 0; }
+    .cohort .d { font-family: var(--display); font-weight: 300; text-align: right; font-variant-numeric: tabular-nums; }
+    .cohort .d small { font-size: .7em; font-weight: 500; margin-left: 1px; }
+    .cohort .dt { font-size: 12px; color: rgba(240,240,250,.5); text-align: right; }
+    .cohort .sit { display: block; margin-top: 3px; font-size: 11.5px; color: var(--warn); font-weight: 700; }
+    .steps { counter-reset: s; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--hair-2); border: 1px solid var(--hair-2); }
+    .steps li { list-style: none; background: var(--bg); padding: 30px 24px 32px; counter-increment: s; }
+    .steps li::before { content: "0" counter(s); display: block; font-family: var(--display); font-weight: 200; font-size: 44px; color: var(--accent); line-height: 1; margin-bottom: 16px; }
+    .steps h3 { font-family: var(--display); font-weight: 500; color: var(--ink); font-size: 19px; margin: 0 0 8px; }
+    .steps p { margin: 0; color: var(--dim); font-size: 15px; }
+    @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<!--NAV:START-->
+<header class="nav" data-page="schools">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="features.html">Features</a></li>
+        <li><a href="schools.html" aria-current="page">For Schools</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="pill solid sm" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-controls="nav-sheet" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="nav-sheet" id="nav-sheet">
+  <a href="features.html">Features</a>
+  <a href="schools.html" aria-current="page">For Schools</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+</div>
+<!--NAV:END-->
+
+<main id="main">
+  <section class="page-hero">
+    <div class="planetlet" aria-hidden="true"></div>
+    <canvas class="hero-canvas" data-planet="side" aria-hidden="true"></canvas>
+    <div class="shell">
+      <span class="eyebrow fade-up d0">For schools</span>
+      <h1 class="display fade-up d1" style="margin-top:22px">One platform for a <em>whole cohort.</em></h1>
+      <p class="lede fade-up d2">Your exams, your calendars and your curriculum loaded once — and every student gets the planner, question engine, patient simulator and board plan that go with them. Built with, and piloted by, the DO29 and DO30 classes at Noorda College of Osteopathic Medicine.</p>
+      <div class="hero-actions fade-up d3" style="justify-content:flex-start">
+        <a class="pill solid" href="contact.html?topic=school">Start a conversation <span class="arr" aria-hidden="true">→</span></a>
+        <a class="pill" href="dpa.html">Read our DPA / FERPA terms</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="shell">
+      <div class="feature">
+        <div class="feature-copy reveal">
+          <span class="idx">01 — Set up once</span>
+          <h2 class="h2">The school's calendar, in every student's week.</h2>
+          <p class="lede">Load a cohort's exams one time and they appear on every student's Exams card, counting down in the same urgency colours. Run an exam in two sittings? Students pick theirs, and the rest stop counting down.</p>
+          <ul class="ticks">
+            <li><b>Cohort-wide exams</b> that no student can accidentally delete.</li>
+            <li><b>Alternate sittings</b> declared once, chosen by each student.</li>
+            <li><b>Daily and weekly quiz passwords</b> delivered onto the task itself.</li>
+            <li><b>Canvas, D2L Brightspace</b> or any iCal feed, read automatically.</li>
+          </ul>
+        </div>
+        <div class="reveal" data-delay="120">
+          <div class="app"><div class="app-bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="title"><img src="uploads/logo-blue.png" alt="" />Exams</div><div class="meta">Cohort · DO29</div></div>
+            <div class="app-body">
+              <div class="cohort">
+                <div class="row"><span>OSCE: Hospital-Based Case<span class="sit">2 dates — which is yours?</span></span><span class="dt">Oct 13</span><span class="d" style="color:var(--warn)">6<small>d</small></span></div>
+                <div class="row"><span>Renal — Final Exam</span><span class="dt">Oct 21</span><span class="d" style="color:#fb923c">14<small>d</small></span></div>
+                <div class="row"><span>CEPA 201 — Practical</span><span class="dt">Nov 3</span><span class="d" style="color:var(--ok)">27<small>d</small></span></div>
+                <div class="row"><span style="color:var(--warn);font-weight:700">COMSAE — school-scheduled</span><span class="dt">Dec 5</span><span class="d" style="color:var(--warn);font-weight:500">59<small>d</small></span></div>
+                <div class="row"><span>MSK — Midterm</span><span class="dt">Jan 12</span><span class="d" style="color:var(--ok)">97<small>d</small></span></div>
+              </div>
+              <div class="demo-note" aria-hidden="true">Illustration</div>
+            </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <div><span class="idx">02 — What every student gets</span><h2 class="h2">The whole toolkit, <em>on day one.</em></h2></div>
+        <p class="lede">Nothing to assemble. The OMM protocols are written, the clinical checklists are loaded, and the board plan knows your course schedule.</p>
+      </div>
+      <div class="cards reveal">
+        <div class="card"><div class="k">Board prep</div><h3>Board Ops, pre-loaded</h3><p>Your block schedule and school-scheduled COMSAEs ship as a one-tap preset, so the day plan names what class is covering — and separates “not taught yet” from “weak”.</p></div>
+        <div class="card"><div class="k">Clinical</div><h3>CaseFlow patients</h3><p>Simulated encounters for OSCE and oral-presentation practice, graded against a rubric that can be matched to your school's.</p></div>
+        <div class="card"><div class="k">Retrieval</div><h3>Quiz Mastery</h3><p>Spaced, confidence-aware practice with questions written from your faculty's own lecture material — and nothing outside it.</p></div>
+        <div class="card"><div class="k">OMM</div><h3>Skills Vault</h3><p>227 OMM techniques with complete step-by-step protocols, plus 349 physical-exam tasks across 18 checklists.</p></div>
+        <div class="card"><div class="k">Grades</div><h3>Score Matrix</h3><p>Your courses' real weighting, drop rules included, so students know exactly what they need.</p></div>
+        <div class="card"><div class="k">Wellbeing</div><h3>A fair Productivity Score</h3><p>Every student is measured against their own baseline — never against a classmate — and features they don't use never count against them.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <div><span class="idx">03 — Privacy &amp; security</span><h2 class="h2">Student data stays the <em>student's.</em></h2></div>
+        <p class="lede">Built with FERPA in mind, with a Data Processing Agreement ready for your counsel to review.</p>
+      </div>
+      <div class="split reveal">
+        <div>
+          <ul class="ticks" style="margin-top:0">
+            <li><b>Per-user isolation</b> enforced by database security rules, not just the app.</li>
+            <li><b>Shared spaces are member-scoped:</b> a shared course, event or project is readable only by the people in it.</li>
+            <li><b>AI requests carry the question, never the student:</b> no names or accounts are sent to model providers.</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="ticks" style="margin-top:0">
+            <li><b>No peer comparison on board progress</b> — ever. Board-prep data is never ranked.</li>
+            <li><b>Opt-in only:</b> leaderboards are opt-in, with a fully anonymous mode.</li>
+            <li><b>A signed DPA and FERPA terms</b> for every licensing school — <a href="dpa.html" style="color:var(--accent)">read them here</a>.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <div><span class="idx">04 — How it works</span><h2 class="h2">From first call to a live cohort.</h2></div>
+      </div>
+      <ol class="steps reveal" style="padding:0;margin:0">
+        <li><h3>Talk</h3><p>A short call about your curriculum, your LMS and what your students struggle with most.</p></li>
+        <li><h3>Configure</h3><p>We load your exams, block schedule, quiz passwords and course presets for each cohort.</p></li>
+        <li><h3>Onboard</h3><p>Students activate and finish a ten-minute setup that pulls in their calendars and coursework.</p></li>
+        <li><h3>Support</h3><p>Priority support from the people who built it — medical students who know your calendar.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="closer">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="shell">
+      <span class="eyebrow reveal">Licensing</span>
+      <h2 class="display reveal" style="margin-top:22px">Bring MedGryd<br />to your school.</h2>
+      <p class="lede reveal">Pricing is per program. Tell us about your cohort and we'll set up a walkthrough.</p>
+      <div class="hero-actions reveal"><a class="pill solid" href="contact.html?topic=school">Contact us <span class="arr" aria-hidden="true">→</span></a><a class="pill" href="mailto:hello@medgryd.com">hello@medgryd.com</a></div>
+    </div>
+  </section>
+</main>
+
+<!--FOOTER:START-->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+        <p class="tagline">Mission Control for Medical School. Built by medical students, for medical students.</p>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="features.html">Features</a></li><li><a href="schools.html">For Schools</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="mailto:hello@medgryd.com">hello@medgryd.com</a></li></ul>
+        <address>PO Box 70385<br />Rochester Hills, MI 48307</address>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li><li><a href="dpa.html">DPA / FERPA</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-word" aria-hidden="true">MedGryd</div>
+    <div class="footer-bot"><span>© <span data-year>2026</span> MedGryd. All rights reserved.</span><span>Built with 🩺 for future physicians</span></div>
+  </div>
+</footer>
+<!--FOOTER:END-->
+</body>
+</html>

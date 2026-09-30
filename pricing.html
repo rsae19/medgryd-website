@@ -1,568 +1,176 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
-  <title>Pricing — MedGryd | Simple Plans for Students & Schools</title>
-  <meta name="description" content="MedGryd pricing for individual students and medical school institutions. Get started free or contact us to license MedGryd for your entire program." />
-  <meta name="robots" content="index, follow" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pricing — MedGryd</title>
+  <meta name="description" content="MedGryd is free for every student during the beta. Every plan includes every tool; plans differ only in weekly AI question generation. School licences are priced per program." />
+  <meta name="theme-color" content="#05060d" />
   <link rel="canonical" href="https://medgryd.com/pricing.html" />
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": "https://medgryd.com/pricing.html",
-    "url": "https://medgryd.com/pricing.html",
-    "name": "Pricing — MedGryd | Simple Plans for Students & Schools",
-    "description": "MedGryd pricing for individual students and medical school institutions. Get started free or contact us to license MedGryd for your entire program.",
-    "isPartOf": { "@id": "https://medgryd.com/#website" },
-    "publisher": { "@id": "https://medgryd.com/#organization" }
-  }
-  </script>
-
-  <!-- Open Graph -->
+  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://medgryd.com/pricing.html" />
-  <meta property="og:title" content="Pricing — MedGryd | Simple Plans for Students & Schools" />
-  <meta property="og:description" content="MedGryd pricing for individual students and medical school institutions. Get started free or contact us to license MedGryd for your entire program." />
+  <meta property="og:title" content="Pricing — MedGryd" />
+  <meta property="og:description" content="Free for every student during the beta. School licences priced per program." />
   <meta property="og:image" content="https://medgryd.com/uploads/og-image.png" />
-  <meta property="og:site_name" content="MedGryd" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Pricing — MedGryd | Simple Plans for Students & Schools" />
-  <meta name="twitter:description" content="MedGryd pricing for individual students and medical school institutions. Get started free or contact us to license MedGryd for your entire program." />
-  <meta name="twitter:image" content="https://medgryd.com/uploads/og-image.png" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-  <style>
-    /* Page-local only. Tokens, glass, motion curves and the reveal system
-       all live in medgryd-ui.css. */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { overflow-x: hidden; }
-    a, button { touch-action: manipulation; }
-
-    @keyframes fade-up      { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes shimmer-line { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-  </style>
-  <link rel="stylesheet" href="medgryd-ui.css?v=20260825-1" />
-  <script src="medgryd-ui.js?v=20260825-1" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css?v=3" />
+  <script src="assets/site.js?v=3" defer></script>
+  <script src="assets/planet.js?v=3" defer></script>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel">
-const { useState, useEffect, useRef } = React;
-const useWindowWidth = () => {
-  const [w, setW] = React.useState(window.innerWidth);
-  React.useEffect(() => {
-    const h = () => setW(window.innerWidth);
-    window.addEventListener('resize', h, { passive: true });
-    return () => window.removeEventListener('resize', h);
-  }, []);
-  return w;
-};
-
-
-/* ── NAVBAR ─────────────────────────────────────────────── */
-const Navbar = () => {
-  const [scrolled, setScrolled] = React.useState(false);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isMobile = useWindowWidth() < 768;
-  React.useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 48);
-    window.addEventListener('scroll', h, { passive: true });
-    return () => window.removeEventListener('scroll', h);
-  }, []);
-  React.useEffect(() => { if (!isMobile) setMobileOpen(false); }, [isMobile]);
-  const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
-  return (
-    <React.Fragment>
-      <nav style={{
-        position:'fixed', top:0, left:0, right:0, zIndex:100,
-        display:'flex', alignItems:'center', justifyContent:'space-between',
-        padding:'0 clamp(20px,4vw,60px)', height:68,
-        background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
-        borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        transition: 'background 0.35s, border-color 0.35s',
-      }}>
-        <a href="index.html" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none' }}>
-          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:44, display:'block' }} />
-          <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize: isMobile ? 20 : 26, color:'#e2e8f0', letterSpacing:'0.04em', lineHeight:1 }}>MedGryd</span>
-        </a>
-        {!isMobile && (
-          <div style={{ display:'flex', alignItems:'center', gap:32 }}>
-            {links.map(([l,h]) => (
-              <a key={l} href={h} style={{
-                fontFamily:'Oxanium', fontWeight:400, fontSize:13,
-                color: h === 'pricing.html' ? '#38bdf8' : 'rgba(226,232,240,0.6)',
-                letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none',
-                borderBottom: h === 'pricing.html' ? '1px solid #38bdf8' : '1px solid transparent',
-                paddingBottom:2, transition:'color 0.2s',
-              }}>{l}</a>
-            ))}
-          </div>
-        )}
-        {isMobile ? (
-          <button onClick={() => setMobileOpen(o => !o)} aria-label="Toggle menu" style={{
-            background:'none', border:'none', cursor:'pointer', padding:'8px',
-            display:'flex', flexDirection:'column', gap:5, alignItems:'center', justifyContent:'center',
-          }}>
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition:'transform 0.25s' }} />
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, opacity: mobileOpen ? 0 : 1, transition:'opacity 0.2s' }} />
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(-7px) rotate(-45deg)' : 'none', transition:'transform 0.25s' }} />
-          </button>
-        ) : (
-          <div style={{ display:'flex', alignItems:'center', gap:8 }}>
-            <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.5)';e.currentTarget.style.color='#38bdf8';e.currentTarget.style.background='rgba(56,189,248,0.12)';}}
-              onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.15)';e.currentTarget.style.color='rgba(226,232,240,0.5)';e.currentTarget.style.background='rgba(56,189,248,0.07)';}}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
-            <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.5)';e.currentTarget.style.color='#38bdf8';e.currentTarget.style.background='rgba(56,189,248,0.12)';}}
-              onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.15)';e.currentTarget.style.color='rgba(226,232,240,0.5)';e.currentTarget.style.background='rgba(56,189,248,0.07)';}}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </a>
-            <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
-              fontFamily:'Oxanium', fontWeight:600, fontSize:13,
-              letterSpacing:'0.1em', textTransform:'uppercase',
-              background:'#38bdf8', color:'#0a0a0f',
-              padding:'9px 22px', borderRadius:8, textDecoration:'none',
-              boxShadow:'0 0 18px rgba(56,189,248,0.35)',
-              transition:'box-shadow 0.2s, transform 0.15s',
-            }}
-            onMouseEnter={e=>{e.currentTarget.style.boxShadow='0 0 28px rgba(56,189,248,0.55)';e.currentTarget.style.transform='translateY(-1px)';}}
-            onMouseLeave={e=>{e.currentTarget.style.boxShadow='0 0 18px rgba(56,189,248,0.35)';e.currentTarget.style.transform='';}}>
-              Launch App
-            </a>
-          </div>
-        )}
-      </nav>
-      {isMobile && mobileOpen && (
-        <div style={{
-          position:'fixed', top:68, left:0, right:0, zIndex:99,
-          background:'rgba(10,10,15,0.97)',
-          borderBottom:'1px solid rgba(56,189,248,0.12)',
-          backdropFilter:'blur(16px)',
-          padding:'12px 24px 24px',
-          display:'flex', flexDirection:'column', gap:0,
-        }}>
-          {links.map(([l,h]) => (
-            <a key={l} href={h} style={{
-              fontFamily:'Oxanium', fontWeight:400, fontSize:15,
-              color:'rgba(226,232,240,0.8)',
-              letterSpacing:'0.08em', textTransform:'uppercase', textDecoration:'none',
-              padding:'14px 0',
-              borderBottom:'1px solid rgba(255,255,255,0.05)',
-              display:'block',
-            }}>{l}</a>
-          ))}
-          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
-            fontFamily:'Oxanium', fontWeight:600, fontSize:13,
-            letterSpacing:'0.1em', textTransform:'uppercase',
-            background:'#38bdf8', color:'#0a0a0f',
-            padding:'13px 22px', borderRadius:8, textDecoration:'none',
-            textAlign:'center', marginTop:12, display:'block',
-            boxShadow:'0 0 18px rgba(56,189,248,0.35)',
-          }}>Launch App</a>
-        </div>
-      )}
-    </React.Fragment>
-  );
-};
-
-/* ── CHECK ICON ─────────────────────────────────────────── */
-const Check = ({ dim }) => (
-  <div style={{
-    width:20, height:20, borderRadius:'50%', flexShrink:0,
-    background: dim ? 'rgba(56,189,248,0.06)' : 'rgba(56,189,248,0.12)',
-    border: `1px solid ${dim ? 'rgba(56,189,248,0.15)' : 'rgba(56,189,248,0.3)'}`,
-    display:'flex', alignItems:'center', justifyContent:'center',
-  }}>
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke={dim ? 'rgba(56,189,248,0.5)' : '#38bdf8'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 6L9 17l-5-5"/>
-    </svg>
-  </div>
-);
-
-/* ── PRICING CARDS ──────────────────────────────────────── */
-const studentFeatures = [
-  'Weekly Planner with Canvas + two-way Google Calendar sync',
-  'Quiz Mastery spaced-retrieval engine with confidence tracking',
-  'Skills Vault — 227 OMM protocols + 349 clinical skills tasks',
-  'OSCE Tracker with SOAP note templates',
-  'Score Matrix grade calculator and projections',
-  'GrydRank — 100 levels, 51 badges, leaderboards and groups',
-  'Research Hub with shared projects',
-  'Focus Mode, Anki integration and full stats',
-  'Companion Tracker, Quick Jot and Peer Board',
-  'Installable mobile app, themes and accent colours',
-];
-
-const institutionFeatures = [
-  'Everything in the Student Plan',
-  'Cohort-wide exam management',
-  'Automated quiz password distribution',
-  'Shared institutional data',
-  'Admin dashboard (coming soon)',
-  'Priority support',
-  'Custom onboarding',
-];
-
-/* Surface and hover-lift come from .mg-section-card in medgryd-ui.css. Its
-   !important declarations already outranked the inline values below, so the
-   React hover state was dead weight — and dropping the inline transform is
-   what lets .mg-reveal animate the card in. */
-const StudentCard = () => {
-  return (
-    <div
-      className="mg-section-card mg-reveal"
-      style={{
-        flex: '1 1 340px', maxWidth: 420,
-        borderRadius: 20,
-        padding: '36px 32px 32px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Top shimmer line */}
-      <div style={{ position:'absolute', top:0, left:0, right:0, height:2, background:'linear-gradient(90deg, transparent, #38bdf8, transparent)', overflow:'hidden' }}>
-        <div style={{ position:'absolute', inset:0, background:'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)', animation:'shimmer-line 2.5s ease-in-out infinite' }} />
-      </div>
-
-      {/* Recommended badge */}
-      <div style={{
-        position:'absolute', top:20, right:20,
-        fontFamily:'Oxanium', fontSize:10, fontWeight:600,
-        letterSpacing:'0.14em', textTransform:'uppercase',
-        background:'#38bdf8', color:'#0a0a0f',
-        padding:'4px 12px', borderRadius:100,
-      }}>Recommended</div>
-
-      {/* Ambient glow */}
-      <div style={{ position:'absolute', top:'-20%', left:'50%', transform:'translateX(-50%)', width:'80%', height:'60%', background:'radial-gradient(ellipse at top, rgba(56,189,248,0.08) 0%, transparent 70%)', pointerEvents:'none' }} />
-
-      <div style={{ position:'relative' }}>
-        <div style={{ fontFamily:'Oxanium', fontSize:11, fontWeight:500, letterSpacing:'0.14em', textTransform:'uppercase', color:'rgba(56,189,248,0.7)', marginBottom:10 }}>For Students</div>
-        <h2 style={{ fontFamily:'Oxanium', fontWeight:500, fontSize:26, color:'#f1f5f9', marginBottom:20 }}>Student Plan</h2>
-
-        {/* Price */}
-        <div style={{ marginBottom:8, display:'flex', alignItems:'baseline', gap:7, flexWrap:'wrap' }}>
-          <span style={{ fontFamily:'Oxanium', fontWeight:200, fontSize:52, color:'var(--accent)', letterSpacing:'-0.02em', lineHeight:1, fontVariantNumeric:'tabular-nums' }}>$5</span>
-          <span style={{ fontFamily:'var(--font-ui)', fontSize:15, color:'var(--text-dim)' }}>/ month</span>
-        </div>
-        <div style={{
-          display:'inline-flex', alignItems:'center', gap:7,
-          padding:'5px 11px', marginBottom:18, borderRadius:100,
-          background:'rgba(var(--accent-rgb),0.08)',
-          border:'1px solid rgba(var(--accent-rgb),0.22)'
-        }}>
-          <span style={{ width:5, height:5, borderRadius:'50%', background:'var(--accent)', boxShadow:'0 0 6px var(--accent)' }} />
-          <span style={{ fontFamily:'var(--font-display)', fontSize:10.5, fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--accent)' }}>Free while in beta</span>
-        </div>
-        <p style={{ fontSize:14, color:'#64748b', marginBottom:28 }}>Every tool on this site, no tiers, no locked features</p>
-
-        {/* Divider */}
-        <div style={{ height:1, background:'rgba(56,189,248,0.1)', marginBottom:24 }} />
-
-        {/* Features */}
-        <div style={{ display:'flex', flexDirection:'column', gap:12, marginBottom:32 }}>
-          {studentFeatures.map(f => (
-            <div key={f} style={{ display:'flex', alignItems:'center', gap:12 }}>
-              <Check />
-              <span style={{ fontSize:14, color:'#94a3b8', lineHeight:1.4 }}>{f}</span>
-            </div>
-          ))}
-        </div>
-
-        <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
-          display:'block', textAlign:'center',
-          fontFamily:'Oxanium', fontWeight:600, fontSize:14,
-          letterSpacing:'0.1em', textTransform:'uppercase',
-          background:'#38bdf8', color:'#0a0a0f',
-          padding:'14px 20px', borderRadius:12,
-          textDecoration:'none',
-          boxShadow:'0 0 24px rgba(56,189,248,0.35)',
-          transition:'box-shadow 0.2s, transform 0.15s',
-        }}
-        onMouseEnter={e=>{e.currentTarget.style.boxShadow='0 0 36px rgba(56,189,248,0.55)';e.currentTarget.style.transform='translateY(-1px)';}}
-        onMouseLeave={e=>{e.currentTarget.style.boxShadow='0 0 24px rgba(56,189,248,0.35)';e.currentTarget.style.transform='';}}>Get Started</a>
-      </div>
-    </div>
-  );
-};
-
-const InstitutionCard = () => {
-  return (
-    <div
-      className="mg-section-card mg-reveal"
-      style={{
-        flex: '1 1 340px', maxWidth: 420,
-        borderRadius: 20,
-        padding: '36px 32px 32px',
-      }}
-    >
-      <div style={{ fontFamily:'Oxanium', fontSize:11, fontWeight:500, letterSpacing:'0.14em', textTransform:'uppercase', color:'rgba(56,189,248,0.5)', marginBottom:10 }}>For Institutions</div>
-      <h2 style={{ fontFamily:'Oxanium', fontWeight:500, fontSize:26, color:'#f1f5f9', marginBottom:20 }}>School License</h2>
-
-      {/* Price */}
-      <div style={{ marginBottom:6 }}>
-        <span style={{ fontFamily:'Oxanium', fontWeight:200, fontSize:52, color:'#e2e8f0', letterSpacing:'-0.02em', lineHeight:1 }}>Custom</span>
-      </div>
-      <p style={{ fontSize:14, color:'#64748b', marginBottom:28 }}>MedGryd for your entire program</p>
-
-      {/* Divider */}
-      <div style={{ height:1, background:'rgba(255,255,255,0.06)', marginBottom:24 }} />
-
-      {/* Features */}
-      <div style={{ display:'flex', flexDirection:'column', gap:12, marginBottom:32 }}>
-        {institutionFeatures.map(f => (
-          <div key={f} style={{ display:'flex', alignItems:'center', gap:12 }}>
-            <Check dim />
-            <span style={{ fontSize:14, color:'#64748b', lineHeight:1.4 }}>{f}</span>
-          </div>
-        ))}
-      </div>
-
-      <a href="mailto:hello@medgryd.com?subject=School Licensing Inquiry" style={{
-        display:'block', textAlign:'center',
-        fontFamily:'Oxanium', fontWeight:600, fontSize:14,
-        letterSpacing:'0.1em', textTransform:'uppercase',
-        background:'transparent', color:'#38bdf8',
-        padding:'13px 20px', borderRadius:12,
-        textDecoration:'none',
-        border:'1.5px solid rgba(56,189,248,0.35)',
-        transition:'border-color 0.2s, background 0.2s',
-      }}
-      onMouseEnter={e=>{e.currentTarget.style.borderColor='#38bdf8';e.currentTarget.style.background='rgba(56,189,248,0.07)';}}
-      onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.35)';e.currentTarget.style.background='transparent';}}>Contact Us</a>
-    </div>
-  );
-};
-
-/* ── FAQ ────────────────────────────────────────────────── */
-const faqs = [
-  {
-    q: 'Can I try MedGryd before committing?',
-    a: 'Yes — sign up and explore the full platform. We want you to experience the value before you pay.',
-  },
-  {
-    q: 'What makes MedGryd different from other study tools?',
-    a: "MedGryd isn't just flashcards or a calendar. It's a complete study operating system that brings together planning, skills tracking, research management, grade calculation, and gamification in one integrated platform — built specifically for medical students.",
-  },
-  {
-    q: 'How does school licensing work?',
-    a: 'We work directly with your institution to deploy MedGryd for your cohort. This includes shared exam data, automated quiz passwords, and dedicated support. Contact us at hello@medgryd.com to start the conversation.',
-  },
-  {
-    q: 'Is my data secure?',
-    a: 'Yes. MedGryd uses Firebase Authentication and Firestore with per-user data isolation. Your study data is private and encrypted.',
-  },
-];
-
-const FaqItem = ({ q, a, open, onToggle, id }) => (
-  <div className="mg-reveal" style={{
-    borderBottom: '1px solid var(--border-muted)',
-  }}>
-    <button
-      onClick={onToggle}
-      aria-expanded={open}
-      aria-controls={id}
-      style={{
-        width:'100%', background:'none', border:'none', cursor:'pointer',
-        display:'flex', justifyContent:'space-between', alignItems:'center',
-        padding:'22px 0', gap:16, textAlign:'left',
-      }}
-    >
-      <span style={{ fontFamily:'Oxanium', fontWeight:400, fontSize:16, color: open ? 'var(--text-heading)' : 'var(--text-primary)', transition:'color 180ms ease', lineHeight:1.3 }}>{q}</span>
-      <div style={{
-        width:28, height:28, borderRadius:8, flexShrink:0,
-        background: open ? 'rgba(var(--accent-rgb),0.12)' : 'var(--surface-1)',
-        border: `1px solid ${open ? 'rgba(var(--accent-rgb),0.3)' : 'var(--border-subtle)'}`,
-        display:'flex', alignItems:'center', justifyContent:'center',
-        transition:'background 180ms ease, border-color 180ms ease, transform 260ms var(--ease-out)',
-        transform: open ? 'rotate(135deg)' : 'none',
-      }}>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={open ? 'var(--accent)' : 'var(--text-dim)'} strokeWidth="2.5" strokeLinecap="round" aria-hidden="true">
-          <path d="M12 5v14M5 12h14"/>
-        </svg>
-      </div>
-    </button>
-    {/* Opens on grid-template-rows 0fr → 1fr rather than a max-height
-        guess. The previous 200px cap silently clipped the longer answers,
-        and any future answer would have hit the same wall. */}
-    <div id={id} role="region" style={{
-      display: 'grid',
-      gridTemplateRows: open ? '1fr' : '0fr',
-      opacity: open ? 1 : 0,
-      transition: 'grid-template-rows 300ms var(--ease-out), opacity 220ms ease',
-    }}>
-      <div style={{ overflow: 'hidden' }}>
-        <p style={{ fontSize:15, color:'var(--text-dim)', lineHeight:1.8, paddingBottom:22 }}>{a}</p>
-      </div>
+<a class="skip" href="#main">Skip to content</a>
+<!--NAV:START-->
+<header class="nav" data-page="pricing">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="features.html">Features</a></li>
+        <li><a href="schools.html">For Schools</a></li>
+        <li><a href="pricing.html" aria-current="page">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="pill solid sm" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-controls="nav-sheet" aria-expanded="false"><span></span><span></span></button>
     </div>
   </div>
-);
+</header>
+<div class="nav-sheet" id="nav-sheet">
+  <a href="features.html">Features</a>
+  <a href="schools.html">For Schools</a>
+  <a href="pricing.html" aria-current="page">Pricing</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+</div>
+<!--NAV:END-->
 
-const FaqSection = () => {
-  const [openIdx, setOpenIdx] = useState(0);
-  return (
-    <section style={{ padding:'clamp(60px,8vw,96px) clamp(20px,5vw,80px)', background:'#0d0d14', position:'relative' }}>
-      <div style={{ position:'absolute', top:0, left:'8%', right:'8%', height:1, background:'rgba(56,189,248,0.07)' }} />
-      <div style={{ maxWidth:720, margin:'0 auto' }}>
-        <div className="mg-reveal" style={{ textAlign:'center', marginBottom:48 }}>
-          <span style={{ fontFamily:'Oxanium', fontSize:11, fontWeight:500, letterSpacing:'0.16em', textTransform:'uppercase', color:'#38bdf8', display:'block', marginBottom:12 }}>FAQ</span>
-          <h2 style={{ fontFamily:'Oxanium', fontWeight:300, fontSize:'clamp(26px,4vw,40px)', color:'#f1f5f9', letterSpacing:'-0.01em' }}>Common questions</h2>
-        </div>
-        <div data-mg-stagger>
-          {faqs.map((f, i) => (
-            <FaqItem
-              key={f.q} q={f.q} a={f.a} id={`faq-panel-${i}`}
-              open={openIdx === i}
-              onToggle={() => setOpenIdx(openIdx === i ? -1 : i)}
-            />
-          ))}
-        </div>
+<main id="main">
+  <section class="page-hero">
+    <div class="planetlet" aria-hidden="true"></div>
+    <canvas class="hero-canvas" data-planet="side" aria-hidden="true"></canvas>
+    <div class="shell">
+      <span class="eyebrow fade-up d0">Pricing</span>
+      <h1 class="display fade-up d1" style="margin-top:22px">Every tool. <em>Every plan.</em></h1>
+      <p class="lede fade-up d2">MedGryd is free for every student while it's in beta. Plans differ in one thing only: how many questions MedGryd's AI can write for you each week.</p>
+    </div>
+  </section>
 
-        {/* Still have questions */}
-        <div className="mg-reveal" style={{ marginTop:40, padding:'24px 28px', borderRadius:14, background:'rgba(56,189,248,0.04)', border:'1px solid rgba(56,189,248,0.12)', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:16 }}>
-          <div>
-            <div style={{ fontFamily:'Oxanium', fontWeight:500, fontSize:15, color:'#e2e8f0', marginBottom:4 }}>Still have questions?</div>
-            <div style={{ fontSize:13, color:'#64748b' }}>We're happy to chat. Reach out directly.</div>
-          </div>
-          <a href="contact.html" style={{
-            fontFamily:'Oxanium', fontWeight:600, fontSize:12,
-            letterSpacing:'0.1em', textTransform:'uppercase',
-            color:'#0a0a0f', background:'#38bdf8',
-            padding:'10px 22px', borderRadius:8, textDecoration:'none',
-            boxShadow:'0 0 16px rgba(56,189,248,0.3)',
-            whiteSpace:'nowrap',
-          }}>Email Us</a>
-        </div>
+  <section class="section tight" style="padding-top:0">
+    <div class="shell">
+      <div class="plans reveal">
+        <article class="plan">
+          <div class="k">Student</div><h3>Basic</h3>
+          <div class="price">Free<small>during the beta</small></div>
+          <div class="tokens"><b>15</b><span>AI tokens a week</span></div>
+          <ul>
+            <li>Every tool in MedGryd — nothing locked</li>
+            <li>About 15 course-style or 7 board-style questions a week</li>
+            <li>Deeper explanations, GrydGuide and CaseFlow</li>
+            <li>Import your own question banks, unlimited</li>
+          </ul>
+          <a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Start free <span class="arr" aria-hidden="true">→</span></a>
+        </article>
+        <article class="plan feat">
+          <div class="k">Student</div><h3>Plus</h3>
+          <div class="price">Beta access<small>pricing announced before the beta ends</small></div>
+          <div class="tokens"><b>80</b><span>AI tokens a week</span></div>
+          <ul>
+            <li>Everything in Basic</li>
+            <li>Two 20-question board-style sets a week — or 80 course-style questions</li>
+            <li>Board-style by Claude Opus 5.5, course-style by Claude Sonnet 5.5</li>
+            <li>Enough for a weekly set in every course</li>
+          </ul>
+          <a class="pill" href="contact.html?topic=plan">Ask about Plus</a>
+        </article>
+        <article class="plan">
+          <div class="k">Student</div><h3>Max</h3>
+          <div class="price">Beta access<small>pricing announced before the beta ends</small></div>
+          <div class="tokens"><b>150</b><span>AI tokens a week</span></div>
+          <ul>
+            <li>Everything in Plus</li>
+            <li>Nearly double the weekly generation of Plus</li>
+            <li>Seven 20-question board-style sets a fortnight</li>
+            <li>Built for dedicated and heavy exam blocks</li>
+          </ul>
+          <a class="pill" href="contact.html?topic=plan">Ask about Max</a>
+        </article>
       </div>
-    </section>
-  );
-};
+      <p class="small reveal" style="margin-top:18px">A token is one course-style question; a board-style question costs two. Your allowance refreshes weekly, and the app shows what a set will cost before it's written. Anyone already using MedGryd will be told well before paid plans begin.</p>
 
-/* ── FOOTER ─────────────────────────────────────────────── */
-const Footer = () => (
-  <footer style={{ background:'#060609', borderTop:'1px solid rgba(255,255,255,0.05)', padding:'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px' }}>
-    <div style={{ maxWidth:1100, margin:'0 auto', display:'flex', flexWrap:'wrap', justifyContent:'space-between', gap:32, paddingBottom:28, borderBottom:'1px solid rgba(255,255,255,0.05)', marginBottom:20 }}>
-      <div style={{ maxWidth:340 }}>
-        <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:10 }}>
-          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:28 }} />
-          <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize:16, color:'#e2e8f0' }}>MedGryd</span>
-        </div>
-        <p style={{ color:'#475569', fontSize:13, lineHeight:1.6 }}>Mission Control for Medical School.</p>
-        <div style={{ display:'flex', gap:10, marginTop:14 }}>
-          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-            style={{ display:'flex', alignItems:'center', justifyContent:'center', width:34, height:34, borderRadius:8, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.18)', color:'#64748b', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-            style={{ display:'flex', alignItems:'center', justifyContent:'center', width:34, height:34, borderRadius:8, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.18)', color:'#64748b', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-        </div>
-      </div>
-      <div style={{ display:'flex', gap:48, flexWrap:'wrap' }}>
+      <div class="split reveal" style="margin-top:clamp(64px,8vw,110px)">
         <div>
-          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:12 }}>Platform</div>
-          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
-            {[['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']].map(([l,h]) => (
-              <a key={l} href={h} style={{ fontSize:13, color:'#64748b', textDecoration:'none', transition:'color 0.2s' }}
-                onMouseEnter={e=>e.currentTarget.style.color='#94a3b8'}
-                onMouseLeave={e=>e.currentTarget.style.color='#64748b'}>{l}</a>
-            ))}
-          </div>
+          <div class="eyebrow">Institutions</div>
+          <h2 class="h2" style="margin-top:16px">School licence</h2>
+          <p class="lede" style="margin-top:16px">MedGryd for an entire program, priced per cohort. Every student on the plan you choose, plus the pieces only a school can set up.</p>
+          <div class="hero-actions" style="justify-content:flex-start"><a class="pill solid" href="contact.html?topic=school">Talk to us <span class="arr" aria-hidden="true">→</span></a><a class="pill" href="schools.html">What schools get</a></div>
         </div>
         <div>
-          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:12 }}>Legal</div>
-          <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
-            {[['Privacy Policy','privacy.html'],['Terms of Service','terms.html'],['DPA / FERPA BAA','dpa.html']].map(([l,h]) => (
-              <a key={l} href={h} style={{ fontSize:13, color:'#64748b', textDecoration:'none', transition:'color 0.2s' }}
-                onMouseEnter={e=>e.currentTarget.style.color='#94a3b8'}
-                onMouseLeave={e=>e.currentTarget.style.color='#64748b'}>{l}</a>
-            ))}
-          </div>
-        </div>
-        <div>
-          <div style={{ fontFamily:'Oxanium', fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#475569', marginBottom:12 }}>Contact</div>
-          <a href="mailto:hello@medgryd.com" style={{ fontSize:13, color:'#64748b', textDecoration:'none', display:'block', marginBottom:6 }}>hello@medgryd.com</a>
-          <p style={{ fontSize:13, color:'#475569', lineHeight:1.55, marginBottom:10 }}>PO Box 70385<br />Rochester Hills, MI 48307</p>
-          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily:'Oxanium', fontSize:12, fontWeight:600, color:'#38bdf8', textDecoration:'none', letterSpacing:'0.08em', textTransform:'uppercase' }}>Launch App →</a>
+          <ul class="ticks" style="margin-top:0">
+            <li><b>Cohort-wide exams</b> and alternate sittings</li>
+            <li><b>Automatic quiz password</b> delivery</li>
+            <li><b>Board Ops presets</b> with your block schedule and COMSAEs</li>
+            <li><b>LMS setup</b> for Canvas, Brightspace or any iCal feed</li>
+            <li><b>DPA and FERPA terms</b> for your counsel</li>
+            <li><b>Custom onboarding</b> and priority support</li>
+          </ul>
         </div>
       </div>
     </div>
-    <div style={{ maxWidth:1100, margin:'0 auto', display:'flex', justifyContent:'space-between', flexWrap:'wrap', gap:12 }}>
-      <span style={{ fontSize:12, color:'#334155' }}>© 2026 MedGryd. All rights reserved.</span>
-      <span style={{ fontSize:12, color:'#1e293b', fontFamily:'Oxanium' }}>Built with 🩺 for future physicians</span>
+  </section>
+
+  <section class="section band">
+    <div class="shell">
+      <div class="sec-head reveal"><div><span class="idx">— Questions</span><h2 class="h2">Asked often.</h2></div></div>
+      <div class="faq reveal">
+        <details><summary>Is it really free?</summary><div class="ans">Yes. Every student has full access to every tool for free during the beta. Paid plans only add weekly AI question generation, and nobody will be moved onto one without plenty of notice.</div></details>
+        <details><summary>What are AI tokens for?</summary><div class="ans">Writing new questions from your own lecture slides or Anki decks inside Quiz Mastery. Everything else — the planner, CaseFlow, Board Ops, GrydGuide, deeper explanations, importing question banks — works on every plan.</div></details>
+        <details><summary>Which AI models write the questions?</summary><div class="ans">Board-style vignettes are written by Claude Opus 5.5 and course-style questions by Claude Sonnet 5.5. Both are constrained to what your source material actually teaches.</div></details>
+        <details><summary>Does it work at my school?</summary><div class="ans">Yes. MedGryd reads Canvas, D2L Brightspace or any iCal feed, and Google Calendar. Cohort extras like shared exams and quiz passwords are set up per school.</div></details>
+        <details><summary>Is my data private?</summary><div class="ans">Your data is isolated to your account by database security rules. Leaderboards are opt-in, with an anonymous mode, and board-prep progress is never ranked against anyone. See the <a href="privacy.html" style="color:var(--accent)">Privacy Policy</a>.</div></details>
+        <details><summary>How does school licensing work?</summary><div class="ans">We work directly with your program to load its exams, calendars and curriculum for each cohort, then onboard students together. <a href="contact.html?topic=school" style="color:var(--accent)">Start the conversation</a>.</div></details>
+      </div>
     </div>
-  </footer>
-);
+  </section>
+</main>
 
-/* ── APP ────────────────────────────────────────────────── */
-const App = () => {
-  const [t] = useTweaks(/*EDITMODE-BEGIN*/{"accentColor":"#38bdf8"}/*EDITMODE-END*/);
-  return (
-    <div>
-      <Navbar />
-
-      {/* Page header */}
-      <header style={{
-        paddingTop: 68, background: '#0a0a0f', position: 'relative', overflow: 'hidden',
-        padding: 'clamp(80px,10vw,120px) clamp(20px,5vw,80px) clamp(60px,7vw,80px)',
-        textAlign: 'center',
-      }}>
-        {/* grid bg */}
-        <div style={{ position:'absolute', inset:0, backgroundImage:'linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px)', backgroundSize:'60px 60px', maskImage:'radial-gradient(ellipse 70% 80% at 50% 50%, black 30%, transparent 100%)' }} />
-        <div style={{ position:'relative', zIndex:1, animation:'fade-up 0.8s ease both' }}>
-          <span style={{ fontFamily:'Oxanium', fontSize:11, fontWeight:500, letterSpacing:'0.16em', textTransform:'uppercase', color:'#38bdf8', display:'block', marginBottom:16 }}>Pricing</span>
-          <h1 style={{ fontFamily:'Oxanium', fontWeight:200, fontSize:'clamp(30px,5vw,58px)', color:'#f1f5f9', lineHeight:1.1, marginBottom:14, letterSpacing:'-0.01em' }}>
-            Simple, Transparent Pricing
-          </h1>
-          <p style={{ fontSize:'clamp(15px,2vw,18px)', color:'#94a3b8', fontWeight:300, maxWidth:480, margin:'0 auto' }}>
-            Whether you're a student or a medical school,<br />we have a plan for you.
-          </p>
+<!--FOOTER:START-->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+        <p class="tagline">Mission Control for Medical School. Built by medical students, for medical students.</p>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a>
         </div>
-      </header>
-
-      {/* Cards */}
-      <section style={{ padding:'0 clamp(20px,5vw,80px) clamp(60px,8vw,96px)', background:'#0a0a0f' }}>
-        <div data-mg-stagger style={{ maxWidth:900, margin:'0 auto', display:'flex', gap:24, flexWrap:'wrap', justifyContent:'center' }}>
-          <StudentCard />
-          <InstitutionCard />
-        </div>
-
-        {/* Fine print */}
-        <p style={{ textAlign:'center', fontSize:13, color:'#334155', marginTop:28, fontFamily:'Aptos Narrow' }}>
-          MedGryd is free for every student while it is in beta. The $5/month student plan starts when the beta ends, and anyone already using the app will be told well before that happens.
-        </p>
-      </section>
-
-      <FaqSection />
-      <Footer />
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="features.html">Features</a></li><li><a href="schools.html">For Schools</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="mailto:hello@medgryd.com">hello@medgryd.com</a></li></ul>
+        <address>PO Box 70385<br />Rochester Hills, MI 48307</address>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li><li><a href="dpa.html">DPA / FERPA</a></li></ul>
+      </div>
     </div>
-  );
-};
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
+    <div class="footer-word" aria-hidden="true">MedGryd</div>
+    <div class="footer-bot"><span>© <span data-year>2026</span> MedGryd. All rights reserved.</span><span>Built with 🩺 for future physicians</span></div>
+  </div>
+</footer>
+<!--FOOTER:END-->
 </body>
 </html>

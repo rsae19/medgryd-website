@@ -1,1378 +1,366 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MedGryd — Mission Control for Medical School</title>
-  <meta name="description" content="The study operating system for medical students. A spaced-retrieval engine that tells knowing from guessing, 227 OMM techniques with full step-by-step protocols, 349 clinical skills tasks, weighted grade projections and a planner already wired to your coursework." />
-  <meta name="robots" content="index, follow" />
+  <meta name="description" content="The study operating system for medical students. A planner already wired to your coursework, a spaced-retrieval engine that separates knowing from guessing, AI question sets from your own slides, simulated patient encounters, a board-prep plan built on your own evidence, 227 OMM protocols and 349 clinical skills tasks." />
+  <meta name="theme-color" content="#05060d" />
   <link rel="canonical" href="https://medgryd.com/" />
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://medgryd.com/#website",
-        "url": "https://medgryd.com",
-        "name": "MedGryd",
-        "description": "Mission Control for Medical School",
-        "publisher": { "@id": "https://medgryd.com/#organization" }
-      },
-      {
-        "@type": "Organization",
-        "@id": "https://medgryd.com/#organization",
-        "name": "MedGryd",
-        "url": "https://medgryd.com",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://medgryd.com/uploads/logo-blue.png"
-        },
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "email": "hello@medgryd.com",
-          "contactType": "customer service"
-        },
-        "sameAs": [
-          "https://www.linkedin.com/company/medgryd",
-          "https://instagram.com/medgryd"
-        ]
-      },
-      {
-        "@type": "WebApplication",
-        "@id": "https://medgryd.com/#app",
-        "name": "MedGryd",
-        "url": "https://app.medgryd.com",
-        "description": "The study operating system for medical students. A spaced-retrieval engine that tells knowing from guessing, 227 OMM techniques with full step-by-step protocols, 349 clinical skills tasks, weighted grade projections and a planner already wired to your coursework.",
-        "applicationCategory": "EducationalApplication",
-        "operatingSystem": "Web",
-        "offers": [
-          {
-            "@type": "Offer",
-            "name": "Student",
-            "price": "5",
-            "priceCurrency": "USD",
-            "description": "Full access to every MedGryd tool. Free for the duration of the beta.",
-            "priceSpecification": {
-              "@type": "UnitPriceSpecification",
-              "price": "5",
-              "priceCurrency": "USD",
-              "referenceQuantity": {
-                "@type": "QuantitativeValue",
-                "value": "1",
-                "unitCode": "MON"
-              }
-            }
-          },
-          {
-            "@type": "Offer",
-            "name": "School Licence",
-            "description": "Institution-wide deployment with cohort exam management, shared data and priority support. Priced per programme.",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/PreOrder"
-          }
-        ],
-        "publisher": { "@id": "https://medgryd.com/#organization" }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Open Graph -->
+  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://medgryd.com/" />
   <meta property="og:title" content="MedGryd — Mission Control for Medical School" />
-  <meta property="og:description" content="The study operating system for medical students. A spaced-retrieval engine that tells knowing from guessing, 227 OMM techniques with full step-by-step protocols, 349 clinical skills tasks, weighted grade projections and a planner already wired to your coursework." />
+  <meta property="og:description" content="Planner, question bank, patient simulator, board plan, OMM protocols and grades — one account, built by medical students." />
   <meta property="og:image" content="https://medgryd.com/uploads/og-image.png" />
   <meta property="og:site_name" content="MedGryd" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="MedGryd — Mission Control for Medical School" />
-  <meta name="twitter:description" content="The study operating system for medical students. A spaced-retrieval engine that tells knowing from guessing, 227 OMM techniques with full step-by-step protocols, 349 clinical skills tasks, weighted grade projections and a planner already wired to your coursework." />
+  <meta name="twitter:description" content="Planner, question bank, patient simulator, board plan, OMM protocols and grades — one account, built by medical students." />
   <meta name="twitter:image" content="https://medgryd.com/uploads/og-image.png" />
-
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebSite","@id":"https://medgryd.com/#website","url":"https://medgryd.com","name":"MedGryd","description":"Mission Control for Medical School","publisher":{"@id":"https://medgryd.com/#organization"}},
+    {"@type":"Organization","@id":"https://medgryd.com/#organization","name":"MedGryd","url":"https://medgryd.com","logo":{"@type":"ImageObject","url":"https://medgryd.com/uploads/logo-blue.png"},"contactPoint":{"@type":"ContactPoint","email":"hello@medgryd.com","contactType":"customer service"},"sameAs":["https://www.linkedin.com/company/medgryd","https://instagram.com/medgryd"]},
+    {"@type":"WebApplication","@id":"https://medgryd.com/#app","name":"MedGryd","url":"https://app.medgryd.com","applicationCategory":"EducationalApplication","operatingSystem":"Web, iOS, Android (installable PWA)","description":"The study operating system for medical students.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","description":"Free for students during the beta."},"publisher":{"@id":"https://medgryd.com/#organization"}}
+  ]}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-  <style>
-    /* Page-local only. Tokens, glass, motion curves and the reveal system
-       all live in medgryd-ui.css. */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { overflow-x: hidden; }
-    a, button { touch-action: manipulation; }
-  </style>
-  <link rel="stylesheet" href="medgryd-ui.css?v=20260825-1" />
-  <script src="medgryd-ui.js?v=20260825-1" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css?v=3" />
+  <link rel="stylesheet" href="assets/demos.css?v=3" />
+  <script src="assets/site.js?v=3" defer></script>
+  <script src="assets/planet.js?v=3" defer></script>
+  <script src="assets/demos.js?v=3" defer></script>
 </head>
 <body>
-  <div id="root"></div>
-  <script type="text/babel" src="tweaks-panel.jsx"></script>
-  <script type="text/babel">
+<a class="skip" href="#main">Skip to content</a>
 
-const { useState, useEffect, useRef, useCallback } = React;
-const useWindowWidth = () => {
-  const [w, setW] = useState(window.innerWidth);
-  useEffect(() => {
-    const h = () => setW(window.innerWidth);
-    window.addEventListener('resize', h, { passive: true });
-    return () => window.removeEventListener('resize', h);
-  }, []);
-  return w;
-};
-
-
-/* ─── TWEAKS ─────────────────────────────────────────────── */
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accentColor": "#38bdf8",
-  "heroHeadline": "Mission Control for Medical School",
-  "heroSub": "A spaced-retrieval engine that knows what you guessed, 227 OMM protocols written out step by step, and a planner that already has your week in it.",
-  "showSocialProof": true,
-  "cardStyle": "glow",
-  "darkFooter": true
-} /*EDITMODE-END*/;
-
-/* ─── ICONS (inline SVG paths) ───────────────────────────── */
-const Icon = ({ name, size = 24, color = "#38bdf8" }) => {
-  const paths = {
-    calendar: "M8 2v3M16 2v3M3 9h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
-    shield: "M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z",
-    brain: "M9.5 2C7 2 5 4 5 6.5c0 .66.14 1.29.4 1.85C3.96 9.13 3 10.7 3 12.5c0 2.8 2.2 5 5 5h8c2.8 0 5-2.2 5-5 0-1.8-.96-3.37-2.4-4.15.26-.56.4-1.19.4-1.85C19 4 17 2 14.5 2c-1.08 0-2.06.37-2.83.98A4.03 4.03 0 0 0 9.5 2z",
-    flask: "M9 2v7L4.5 17A2 2 0 0 0 6.4 20h11.2a2 2 0 0 0 1.9-3L15 9V2M9 2h6M8 12h8",
-    star: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
-    layers: "M2 7l10-5 10 5-10 5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
-    zap: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
-    chart: "M3 3v18h18M18 9l-5 5-4-4-3 3",
-    trophy: "M6 9H3.5a2.5 2.5 0 0 1 0-5H6M18 9h2.5a2.5 2.5 0 0 0 0-5H18v5zM6 4h12v8a6 6 0 0 1-12 0V4zM12 20v-4M9 20h6",
-    book: "M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z",
-    activity: "M22 12h-4l-3 9L9 3l-3 9H2",
-    check: "M20 6L9 17l-5-5",
-    arrow: "M5 12h14M12 5l7 7-7 7",
-    stethoscope: "M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3M14 12a6 6 0 0 0 6 6 3 3 0 0 0 0-6",
-    chevron: "M6 9l6 6 6-6",
-    timer: "M12 22a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 8v5l3 2M9 2h6",
-    note: "M4 4a2 2 0 0 1 2-2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4zM14 2v6h6M8 13h8M8 17h5",
-    users: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
-    sync: "M21 2v6h-6M3 22v-6h6M21 8a9 9 0 0 0-15-3.5L3 8M3 16a9 9 0 0 0 15 3.5l3-3.5",
-    phone: "M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 19h2",
-    palette: "M12 22a10 10 0 1 1 0-20c5 0 9 3.6 9 8 0 2.5-2 4-4.5 4H15a2 2 0 0 0-1.4 3.4A2 2 0 0 1 12 22zM7.5 11a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM12 7.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM16.5 11a1 1 0 1 0 0-2 1 1 0 0 0 0 2z",
-    target: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z",
-    compass: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM16.2 7.8l-2.9 6.4-6.4 2.9 2.9-6.4 6.4-2.9z"
-  };
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d={paths[name] || paths.zap} />
-        </svg>);
-
-};
-
-/* ─── CANVAS HERO BG ─────────────────────────────────────── */
-const HeroBg = ({ accent }) => {
-  const canvasRef = useRef(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animId;
-    let t = 0;
-
-    const hexToRgb = (hex) => {
-      const r = parseInt(hex.slice(1, 3), 16);
-      const g = parseInt(hex.slice(3, 5), 16);
-      const b = parseInt(hex.slice(5, 7), 16);
-      return { r, g, b };
-    };
-    const { r, g, b } = hexToRgb(accent);
-
-    // ── Rocket ships ───────────────────────────────────────
-    const rockets = [];
-    let lastRocket = -8;
-
-    const spawnRocket = () => {
-      const fromLeft = Math.random() < 0.5;
-      const angleDeg = (Math.random() - 0.5) * 44;
-      const angleRad = (angleDeg * Math.PI) / 180;
-      const speed = Math.random() * 2.0 + 1.2;
-      const edgeY = Math.random() * H * 0.82 + H * 0.05;
-      const dir = fromLeft ? 1 : -1;
-      rockets.push({
-        x: fromLeft ? -80 : W + 80,
-        y: edgeY,
-        vx: dir * speed * Math.cos(Math.abs(angleRad)),
-        vy: speed * Math.sin(angleRad) * (Math.random() < 0.5 ? 1 : -1),
-        angle: fromLeft ? angleRad * (Math.random() < 0.5 ? 1 : -1) : Math.PI + angleRad * (Math.random() < 0.5 ? 1 : -1),
-        scale: Math.random() * 0.5 + 0.3,
-        alpha: 0,
-        bodyLen: Math.random() * 12 + 16,
-        bodyW:   Math.random() * 4  + 6,
-        noseLen: Math.random() * 10 + 12,
-        finSz:   Math.random() * 4  + 5,
-        windowR: Math.random() * 1.5 + 2.5,
-        hasStripe: Math.random() < 0.45,
-      });
-    };
-
-    const drawRocketShape = (ctx, rk) => {
-      const { bodyLen: bL, bodyW: bW, noseLen: nL, finSz: fS, hasStripe, windowR: wR } = rk;
-      const ac = (a) => `rgba(${r},${g},${b},${a})`;
-
-      // Body
-      ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(-bL, -bW, bL * 2, bW * 2, bW * 0.35);
-      else { ctx.rect(-bL, -bW, bL * 2, bW * 2); }
-      ctx.fillStyle = ac(0.10); ctx.fill();
-      ctx.strokeStyle = ac(0.55); ctx.lineWidth = 0.8; ctx.stroke();
-
-      // Nose cone — sharp pointed
-      ctx.beginPath();
-      ctx.moveTo(bL, -bW * 0.65);
-      ctx.lineTo(bL + nL, 0);
-      ctx.lineTo(bL, bW * 0.65);
-      ctx.closePath();
-      ctx.fillStyle = ac(0.40); ctx.fill();
-      ctx.strokeStyle = ac(0.65); ctx.lineWidth = 0.7; ctx.stroke();
-
-      // Delta fins
-      [[1], [-1]].forEach(([s]) => {
-        ctx.beginPath();
-        ctx.moveTo(-bL * 0.55, s * bW);
-        ctx.lineTo(-bL * 0.55 - fS * 0.4, s * (bW + fS));
-        ctx.lineTo(-bL * 0.15, s * bW);
-        ctx.closePath();
-        ctx.fillStyle = ac(0.32); ctx.fill();
-        ctx.strokeStyle = ac(0.50); ctx.lineWidth = 0.6; ctx.stroke();
-      });
-
-      // Stripe
-      if (hasStripe) {
-        ctx.beginPath();
-        ctx.moveTo(bL * 0.15, -bW); ctx.lineTo(bL * 0.15, bW);
-        ctx.strokeStyle = ac(0.28); ctx.lineWidth = 1.4; ctx.stroke();
-      }
-
-      // Window
-      ctx.beginPath(); ctx.arc(bL * 0.28, 0, wR, 0, Math.PI * 2);
-      ctx.fillStyle = ac(0.16); ctx.fill();
-      ctx.strokeStyle = ac(0.50); ctx.lineWidth = 0.6; ctx.stroke();
-      // inner glint
-      ctx.beginPath(); ctx.arc(bL * 0.28 - wR * 0.3, -wR * 0.3, wR * 0.35, 0, Math.PI * 2);
-      ctx.fillStyle = ac(0.30); ctx.fill();
-
-      // Exhaust flame
-      const flicker = 0.75 + 0.25 * Math.sin(t * 20 + rk.y * 0.05);
-      const exLen = bL * 0.85 * flicker + 8;
-      const exGrad = ctx.createLinearGradient(-bL, 0, -bL - exLen, 0);
-      exGrad.addColorStop(0,   ac(0.60));
-      exGrad.addColorStop(0.4, ac(0.28));
-      exGrad.addColorStop(1,   ac(0));
-      ctx.beginPath();
-      ctx.moveTo(-bL, -bW * 0.42);
-      ctx.quadraticCurveTo(-bL - exLen * 0.55, 0, -bL - exLen, 0);
-      ctx.quadraticCurveTo(-bL - exLen * 0.55, 0, -bL,  bW * 0.42);
-      ctx.fillStyle = exGrad; ctx.fill();
-
-      // Bright core
-      const cGrad = ctx.createLinearGradient(-bL, 0, -bL - exLen * 0.4, 0);
-      cGrad.addColorStop(0, ac(0.85)); cGrad.addColorStop(1, ac(0));
-      ctx.beginPath();
-      ctx.moveTo(-bL, -bW * 0.16);
-      ctx.quadraticCurveTo(-bL - exLen * 0.32, 0, -bL - exLen * 0.4, 0);
-      ctx.quadraticCurveTo(-bL - exLen * 0.32, 0, -bL,  bW * 0.16);
-      ctx.fillStyle = cGrad; ctx.fill();
-    };
-
-    const drawRockets = () => {
-      if (t - lastRocket > (Math.random() * 7 + 5)) {
-        spawnRocket();
-        lastRocket = t;
-      }
-      for (let i = rockets.length - 1; i >= 0; i--) {
-        const rk = rockets[i];
-        rk.x += rk.vx;
-        rk.y += rk.vy;
-        if (rk.alpha < 1) rk.alpha = Math.min(1, rk.alpha + 0.025);
-        const prog = rk.vx > 0 ? rk.x / W : (W - rk.x) / W;
-        if (prog > 0.82) rk.alpha = Math.max(0, 1 - (prog - 0.82) / 0.18);
-        if (rk.x > W + 130 || rk.x < -130 || rk.y > H + 100 || rk.y < -100) { rockets.splice(i, 1); continue; }
-        ctx.save();
-        ctx.translate(rk.x, rk.y);
-        ctx.rotate(rk.angle);
-        ctx.scale(rk.scale, rk.scale);
-        ctx.globalAlpha = rk.alpha;
-        ctx.shadowColor = `rgba(${r},${g},${b},0.55)`;
-        ctx.shadowBlur = 5;
-        drawRocketShape(ctx, rk);
-        ctx.restore();
-      }
-    };
-
-    // ── Shooting stars ─────────────────────────────────────
-    const shootingStars = [];
-    const spawnShootingStar = () => {
-      shootingStars.push({
-        x: Math.random() * W,
-        y: Math.random() * H * 0.5,
-        len: Math.random() * 120 + 60,
-        speed: Math.random() * 6 + 5,
-        angle: Math.PI / 6 + Math.random() * Math.PI / 3,  // 30–90° varied trajectories
-        alpha: 1,
-        tail: []
-      });
-    };
-    let lastShoot = 0;
-
-    const drawShootingStars = () => {
-      // One shooting star every 5–7 seconds
-      if (t - lastShoot > (Math.random() * 2 + 5)) {
-        spawnShootingStar();
-        lastShoot = t;
-      }
-      for (let i = shootingStars.length - 1; i >= 0; i--) {
-        const s = shootingStars[i];
-        s.x += Math.cos(s.angle) * s.speed;
-        s.y += Math.sin(s.angle) * s.speed;
-        s.alpha -= 0.018;
-        if (s.alpha <= 0 || s.x > W + 50 || s.y > H + 50) {
-          shootingStars.splice(i, 1);
-          continue;
-        }
-        const tailX = s.x - Math.cos(s.angle) * s.len;
-        const tailY = s.y - Math.sin(s.angle) * s.len;
-        const grad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
-        grad.addColorStop(0, `rgba(${r},${g},${b},0)`);
-        grad.addColorStop(0.7, `rgba(${r},${g},${b},${s.alpha * 0.4})`);
-        grad.addColorStop(1, `rgba(${r},${g},${b},${s.alpha})`);
-        ctx.beginPath();
-        ctx.moveTo(tailX, tailY);
-        ctx.lineTo(s.x, s.y);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 1.5;
-        ctx.shadowColor = `rgba(${r},${g},${b},${s.alpha * 0.8})`;
-        ctx.shadowBlur = 6;
-        ctx.stroke();
-        ctx.shadowBlur = 0;
-        // bright head dot
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r},${g},${b},${s.alpha})`;
-        ctx.fill();
-      }
-    };
-
-    // ── Stars ──────────────────────────────────────────────
-    const makeStars = (W, H) => Array.from({ length: 220 }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      radius: Math.random() * 1.2 + 0.2,
-      twinkleSpeed: Math.random() * 2 + 0.5,
-      twinkleOffset: Math.random() * Math.PI * 2,
-      // small fraction are blue-tinted accent stars
-      accent: Math.random() < 0.12
-    }));
-
-    // ── Drifting dust particles ────────────────────────────
-    const makeParticles = (W, H) => Array.from({ length: 38 }, () => ({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.12,
-      vy: (Math.random() - 0.5) * 0.06,
-      size: Math.random() * 1.8 + 0.4,
-      alpha: Math.random() * 0.4 + 0.1
-    }));
-
-    let W = 0,H = 0,stars = [],particles = [];
-
-    const resize = () => {
-      W = canvas.width = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-      stars = makeStars(W, H);
-      particles = makeParticles(W, H);
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    // ── Sparse grid ────────────────────────────────────────
-    const drawGrid = () => {
-      const gs = 64;
-      ctx.strokeStyle = `rgba(${r},${g},${b},0.04)`;
-      ctx.lineWidth = 0.5;
-      for (let x = 0; x < W; x += gs) {
-        ctx.beginPath();ctx.moveTo(x, 0);ctx.lineTo(x, H);ctx.stroke();
-      }
-      for (let y = 0; y < H; y += gs) {
-        ctx.beginPath();ctx.moveTo(0, y);ctx.lineTo(W, y);ctx.stroke();
-      }
-    };
-
-    // ── Star field ─────────────────────────────────────────
-    const drawStars = () => {
-      stars.forEach((s) => {
-        const twinkle = 0.45 + 0.55 * Math.sin(t * s.twinkleSpeed + s.twinkleOffset);
-        const alpha = twinkle * (s.accent ? 0.85 : 0.55);
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-        if (s.accent) {
-          ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
-          // tiny glow for accent stars
-          ctx.shadowColor = `rgba(${r},${g},${b},${alpha * 0.6})`;
-          ctx.shadowBlur = 4;
-        } else {
-          ctx.fillStyle = `rgba(200,220,255,${alpha})`;
-          ctx.shadowBlur = 0;
-        }
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      });
-    };
-
-    // ── Dust / nebula particles ────────────────────────────
-    const drawParticles = () => {
-      particles.forEach((p) => {
-        p.x += p.vx;p.y += p.vy;
-        if (p.x < 0) p.x = W;if (p.x > W) p.x = 0;
-        if (p.y < 0) p.y = H;if (p.y > H) p.y = 0;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha * 0.6})`;
-        ctx.fill();
-      });
-    };
-
-    // ── Nebula glow blobs ──────────────────────────────────
-    const drawNebula = () => {
-      // Two soft nebula clouds — upper-left & lower-right
-      const blobs = [
-      { cx: W * 0.18, cy: H * 0.28, rx: W * 0.28, ry: H * 0.22, alpha: 0.055 },
-      { cx: W * 0.82, cy: H * 0.72, rx: W * 0.24, ry: H * 0.20, alpha: 0.04 }];
-
-      blobs.forEach((blob) => {
-        const grad = ctx.createRadialGradient(blob.cx, blob.cy, 0, blob.cx, blob.cy, Math.max(blob.rx, blob.ry));
-        grad.addColorStop(0, `rgba(${r},${g},${b},${blob.alpha})`);
-        grad.addColorStop(0.5, `rgba(${r},${g},${b},${blob.alpha * 0.4})`);
-        grad.addColorStop(1, `rgba(${r},${g},${b},0)`);
-        ctx.save();
-        ctx.scale(blob.rx / Math.max(blob.rx, blob.ry), blob.ry / Math.max(blob.rx, blob.ry));
-        ctx.beginPath();
-        ctx.arc(
-          blob.cx * (Math.max(blob.rx, blob.ry) / blob.rx),
-          blob.cy * (Math.max(blob.rx, blob.ry) / blob.ry),
-          Math.max(blob.rx, blob.ry), 0, Math.PI * 2
-        );
-        ctx.fillStyle = grad;
-        ctx.fill();
-        ctx.restore();
-      });
-    };
-
-    // ── Orbit ring (references logo motif) ────────────────
-    const drawOrbit = () => {
-      const cx = W * 0.5,cy = H * 0.5;
-      const rx = W * 0.38,ry = H * 0.10;
-      const spin = t * 0.06;
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(spin);
-      ctx.scale(1, ry / rx);
-      ctx.beginPath();
-      ctx.arc(0, 0, rx, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(${r},${g},${b},0.07)`;
-      ctx.lineWidth = 0.8;
-      ctx.stroke();
-      // small dot travelling the orbit
-      const dotAngle = t * 0.5;
-      const dx = rx * Math.cos(dotAngle);
-      const dy = rx * Math.sin(dotAngle);
-      ctx.beginPath();
-      ctx.arc(dx, dy, 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${r},${g},${b},0.55)`;
-      ctx.shadowColor = `rgba(${r},${g},${b},0.8)`;
-      ctx.shadowBlur = 8;
-      ctx.fill();
-      ctx.shadowBlur = 0;
-      ctx.restore();
-    };
-
-    // ── Pulse rings ────────────────────────────────────────
-    const pulses = [{ phase: 0 }, { phase: 0.4 }, { phase: 0.75 }];
-    const drawPulses = () => {
-      pulses.forEach((p) => {
-        const prog = (t * 0.3 + p.phase) % 1;
-        const maxR = Math.max(W, H) * 0.65;
-        const radius = prog * maxR;
-        const alpha = (1 - prog) * 0.09;
-        ctx.beginPath();
-        ctx.arc(W * 0.5, H * 0.5, radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      });
-    };
-
-    // ── EKG waveform function ──────────────────────────────
-    // Returns y-offset for a given phase [0..1] within one heartbeat cycle
-    const ekgY = (phase) => {
-      // P wave: small bump ~0.10–0.18
-      if (phase > 0.10 && phase < 0.18) {
-        const p = (phase - 0.10) / 0.08;
-        return -10 * Math.sin(p * Math.PI);
-      }
-      // PR segment: flat 0.18–0.26
-      if (phase >= 0.18 && phase < 0.26) return 0;
-      // Q dip: 0.26–0.30
-      if (phase >= 0.26 && phase < 0.30) {
-        const p = (phase - 0.26) / 0.04;
-        return 14 * Math.sin(p * Math.PI);
-      }
-      // R spike up: 0.30–0.36
-      if (phase >= 0.30 && phase < 0.36) {
-        const p = (phase - 0.30) / 0.06;
-        return -78 * Math.sin(p * Math.PI);
-      }
-      // S dip: 0.36–0.42
-      if (phase >= 0.36 && phase < 0.42) {
-        const p = (phase - 0.36) / 0.06;
-        return 28 * Math.sin(p * Math.PI);
-      }
-      // ST segment: flat 0.42–0.52
-      if (phase >= 0.42 && phase < 0.52) return 0;
-      // T wave: broad bump 0.52–0.72
-      if (phase >= 0.52 && phase < 0.72) {
-        const p = (phase - 0.52) / 0.20;
-        return -22 * Math.sin(p * Math.PI);
-      }
-      // baseline
-      return 0;
-    };
-
-    // ── EKG write-head state ───────────────────────────────
-    // writeX: current pixel column of the moving head
-    // yBuffer: stores y-offset for each pixel column
-    let writeX = 0;
-    let yBuffer = [];
-    const EKG_CYCLE_PX = () => W * 0.32; // one heartbeat = 32% of screen width
-    const EKG_CY = () => H * 0.87;
-    const EKG_SPEED = 1.4; // pixels per frame
-
-    const drawEkg = () => {
-      const cy = EKG_CY();
-      const cyc = EKG_CYCLE_PX();
-
-      // Advance write head
-      writeX += EKG_SPEED;
-      if (writeX >= W) {writeX = 0;yBuffer = [];}
-
-      // Fill yBuffer up to writeX
-      while (yBuffer.length <= Math.floor(writeX)) {
-        const px = yBuffer.length;
-        const phase = px / cyc % 1;
-        yBuffer.push(ekgY(phase));
-      }
-
-      // ── Draw the trace ──────────────────────────────────
-      // Split into segments with alpha fade based on distance behind head
-      const TAIL = Math.min(W * 0.85, yBuffer.length - 1);
-      const fadeStart = writeX - TAIL;
-
-      if (yBuffer.length < 2) return;
-
-      // Build gradient along the line
-      const grad = ctx.createLinearGradient(Math.max(0, fadeStart), 0, writeX, 0);
-      grad.addColorStop(0, `rgba(${r},${g},${b},0)`);
-      grad.addColorStop(0.25, `rgba(${r},${g},${b},0.15)`);
-      grad.addColorStop(0.75, `rgba(${r},${g},${b},0.55)`);
-      grad.addColorStop(1, `rgba(${r},${g},${b},0.85)`);
-
-      ctx.beginPath();
-      const startPx = Math.max(0, Math.floor(fadeStart));
-      ctx.moveTo(startPx, cy + (yBuffer[startPx] || 0));
-      for (let px = startPx + 1; px <= Math.floor(writeX) && px < yBuffer.length; px++) {
-        ctx.lineTo(px, cy + yBuffer[px]);
-      }
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = 1.6;
-      ctx.shadowColor = `rgba(${r},${g},${b},0.7)`;
-      ctx.shadowBlur = 7;
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-
-      // ── Glowing cursor dot at write head ──────────────
-      const headY = cy + (yBuffer[Math.floor(writeX)] || 0);
-      ctx.beginPath();
-      ctx.arc(writeX, headY, 3, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${r},${g},${b},0.95)`;
-      ctx.shadowColor = `rgba(${r},${g},${b},1)`;
-      ctx.shadowBlur = 14;
-      ctx.fill();
-      ctx.shadowBlur = 0;
-
-      // ── Black wipe ahead of cursor (monitor sweep look) ─
-      if (writeX < W - 1) {
-        ctx.fillStyle = 'rgba(10,10,15,0.92)';
-        ctx.fillRect(writeX + 1, cy - 110, Math.min(60, W - writeX - 1), 220);
-      }
-    };
-
-    const draw = () => {
-      t += 0.007;
-      ctx.clearRect(0, 0, W, H);
-
-      drawNebula();
-      drawGrid();
-      // Stars and shooting stars are drawn by the site-wide #mg-starfield
-      // (medgryd-ui.js) so the field is continuous from the hero all the
-      // way down the page, the way it is in the app. Drawing them here too
-      // would double the density inside the hero and leave a visible seam
-      // at its bottom edge.
-      drawRockets();
-      drawParticles();
-      drawOrbit();
-      drawPulses();
-      drawEkg();
-
-      animId = requestAnimationFrame(draw);
-    };
-
-    draw();
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', resize);
-    };
-  }, [accent]);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="mg-hero-stars"
-      aria-hidden="true" />);
-
-
-};
-
-/* ─── NAVBAR ─────────────────────────────────────────────── */
-const Navbar = ({ page, setPage, accent }) => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const isMobile = useWindowWidth() < 768;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  useEffect(() => { if (!isMobile) setMobileOpen(false); }, [isMobile]);
-
-  const linkHrefs = { features: 'features.html', pricing: 'pricing.html', about: 'about.html', contact: 'contact.html' };
-  const links = ['Features', 'Pricing', 'About', 'Contact'];
-
-  return (
-    <React.Fragment>
-      <nav style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 clamp(20px, 4vw, 60px)',
-        height: 68,
-        background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
-        borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        transition: 'background 0.35s ease, border-color 0.35s ease'
-      }}>
-        {/* Logo */}
-        <div
-          onClick={() => { setPage('home'); window.scrollTo({ top: 0 }); }}
-          style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', userSelect: 'none' }}>
-          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 44, display: 'block' }} />
-          <span style={{
-            fontFamily: 'Oxanium, sans-serif',
-            fontWeight: 600, fontSize: isMobile ? 20 : 26,
-            color: '#e2e8f0', letterSpacing: '0.04em', lineHeight: 1
-          }}>MedGryd</span>
-        </div>
-
-        {/* Desktop nav links — centered */}
-        {!isMobile && (
-          <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 36 }}>
-            {links.map((l) =>
-              <a
-                key={l}
-                href={linkHrefs[l.toLowerCase()]}
-                style={{
-                  fontFamily: 'Oxanium, sans-serif',
-                  fontWeight: 400, fontSize: 13,
-                  color: 'rgba(226,232,240,0.65)',
-                  letterSpacing: '0.12em', textTransform: 'uppercase',
-                  textDecoration: 'none',
-                  transition: 'color 0.2s',
-                  padding: '4px 2px',
-                  borderBottom: '1px solid transparent'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.color = '#e2e8f0'}
-                onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(226,232,240,0.65)'}>
-                {l}
-              </a>
-            )}
-          </div>
-        )}
-
-        {/* Right: Launch App (desktop) or hamburger (mobile) */}
-        {isMobile ? (
-          <button
-            onClick={() => setMobileOpen(o => !o)}
-            aria-label="Toggle menu"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ display: 'block', width: 22, height: 2, background: '#e2e8f0', borderRadius: 2, transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition: 'transform 0.25s' }} />
-            <span style={{ display: 'block', width: 22, height: 2, background: '#e2e8f0', borderRadius: 2, opacity: mobileOpen ? 0 : 1, transition: 'opacity 0.2s' }} />
-            <span style={{ display: 'block', width: 22, height: 2, background: '#e2e8f0', borderRadius: 2, transform: mobileOpen ? 'translateY(-7px) rotate(-45deg)' : 'none', transition: 'transform 0.25s' }} />
-          </button>
-        ) : (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 32, height: 32, borderRadius: 7, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.15)', color: 'rgba(226,232,240,0.5)', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.15)'; e.currentTarget.style.color = 'rgba(226,232,240,0.5)'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
-            <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 32, height: 32, borderRadius: 7, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.15)', color: 'rgba(226,232,240,0.5)', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.15)'; e.currentTarget.style.color = 'rgba(226,232,240,0.5)'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </a>
-            <a
-              href="https://app.medgryd.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                fontFamily: 'Oxanium, sans-serif',
-                fontWeight: 600, fontSize: 13,
-                letterSpacing: '0.1em', textTransform: 'uppercase',
-                background: accent,
-                color: '#0a0a0f',
-                padding: '9px 22px',
-                borderRadius: 8,
-                textDecoration: 'none',
-                boxShadow: '0 0 18px rgba(56,189,248,0.35)',
-                transition: 'box-shadow 0.2s, transform 0.15s',
-                display: 'inline-block'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 28px rgba(56,189,248,0.55)';
-                e.currentTarget.style.transform = 'translateY(-1px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 18px rgba(56,189,248,0.35)';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}>
-              Launch App
-            </a>
-          </div>
-        )}
-      </nav>
-
-      {/* Mobile menu overlay */}
-      {isMobile && mobileOpen && (
-        <div style={{
-          position: 'fixed', top: 68, left: 0, right: 0, zIndex: 99,
-          background: 'rgba(10,10,15,0.97)',
-          borderBottom: '1px solid rgba(56,189,248,0.12)',
-          backdropFilter: 'blur(16px)',
-          padding: '12px 24px 24px',
-          display: 'flex', flexDirection: 'column', gap: 0,
-        }}>
-          {links.map((l) => (
-            <a
-              key={l}
-              href={linkHrefs[l.toLowerCase()]}
-              onClick={() => setMobileOpen(false)}
-              style={{
-                fontFamily: 'Oxanium, sans-serif', fontWeight: 400, fontSize: 15,
-                color: 'rgba(226,232,240,0.8)',
-                letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none',
-                padding: '14px 0',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
-                display: 'block',
-              }}>{l}</a>
-          ))}
-          <a
-            href="https://app.medgryd.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: 'Oxanium, sans-serif', fontWeight: 600, fontSize: 13,
-              letterSpacing: '0.1em', textTransform: 'uppercase',
-              background: accent, color: '#0a0a0f',
-              padding: '13px 22px', borderRadius: 8, textDecoration: 'none',
-              textAlign: 'center', marginTop: 12, display: 'block',
-              boxShadow: '0 0 18px rgba(56,189,248,0.35)',
-            }}>Launch App</a>
-        </div>
-      )}
-    </React.Fragment>
-  );
-};
-
-/* ─── HERO ───────────────────────────────────────────────── */
-const PlannerTask = ({ children, done = false }) => (
-  <div className={`mg-task${done ? ' mg-task-done' : ''}`}>
-    <span className="mg-check" />
-    <span>{children}</span>
-  </div>
-);
-
-const PlannerDay = ({ label, date, today = false, children }) => (
-  <div className={`mg-day${today ? ' mg-day-today' : ''}`}>
-    <div className="mg-day-head">
-      <span>{label} — {date}</span>
-      {today && <span className="mg-badge">TODAY</span>}
+<!--NAV:START-->
+<header class="nav" data-page="home">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="features.html">Features</a></li>
+        <li><a href="schools.html">For Schools</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="pill solid sm" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-controls="nav-sheet" aria-expanded="false"><span></span><span></span></button>
     </div>
-    {children}
   </div>
-);
+</header>
+<div class="nav-sheet" id="nav-sheet">
+  <a href="features.html">Features</a>
+  <a href="schools.html">For Schools</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+</div>
+<!--NAV:END-->
 
-const PlannerPreview = () => (
-  <div className="mg-preview-wrap" aria-label="Preview of the MedGryd weekly planner interface">
-    <div className="mg-planner mg-glass">
-      <div className="mg-planner-topbar">
-        <div className="mg-planner-brand">
-          <img src="uploads/logo-blue.png" alt="" />
+<main id="main">
+
+  <!-- ─── HERO ─────────────────────────────────────────────────────── -->
+  <section class="hero" aria-label="Introduction">
+    <div class="hero-fallback" aria-hidden="true"></div>
+    <canvas class="hero-canvas" data-planet aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <div class="eyebrow fade-up d0">Now in beta · Built by DO students</div>
+      <h1 class="hero-title">
+        <span class="line"><span>Mission Control</span></span>
+        <span class="line"><span>for Medical School</span></span>
+      </h1>
+      <p class="hero-sub fade-up d1">Your week, your question bank, your patients, your board plan and your grades — in one orbit. Built between lectures by the students who needed it.</p>
+      <div class="hero-actions fade-up d2">
+        <a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch MedGryd <span class="arr" aria-hidden="true">→</span></a>
+        <a class="pill" href="#tour">Try it on this page</a>
+      </div>
+    </div>
+
+    <a class="scroll-badge fade-up d3" href="#tour" aria-label="Scroll to the tour">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" /></defs>
+        <text><textPath href="#circ">Scroll to explore · Mission control · </textPath></text>
+      </svg>
+      <span class="core"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 4v16M6 14l6 6 6-6"/></svg></span>
+    </a>
+
+    <div class="telemetry fade-up d3" data-telemetry aria-hidden="true">
+      <div><span class="live"></span><b>4 days</b>to next exam</div>
+      <div><b>18 / 27</b>Tasks today</div>
+      <div><b>2h 14m</b>Focus logged</div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-label="Tools in MedGryd">
+    <div class="marquee-track">
+      <span>Weekly Planner</span><span>Quiz Mastery</span><span>CaseFlow</span><span>Board Ops</span><span>GrydGuide</span><span>Skills Vault</span><span>OSCE Tracker</span><span>Score Matrix</span><span>GrydRank</span><span>Research Hub</span><span>Focus Mode</span><span>Companion Tracker</span><span>Quick Jot</span><span>Peer Board</span><span>Stats</span>
+    </div>
+  </div>
+
+  <!-- ─── MANIFESTO ────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="shell">
+      <span class="idx reveal">— What it is</span>
+      <p class="manifesto" data-manifesto style="margin-top:26px">Most study apps hand you an empty box. MedGryd ships the week already <em>loaded,</em> the protocols already <em>written,</em> the questions drawn from <em>your own slides,</em> and a board plan that reads your <em>evidence</em> instead of your guesses.</p>
+
+      <div class="stats reveal">
+        <div class="stat"><b data-count="227">227</b><span>OMM techniques, each with its full protocol</span></div>
+        <div class="stat"><b data-count="349">349</b><span>Clinical skills tasks across 18 checklists</span></div>
+        <div class="stat"><b data-count="311">311</b><span>Exam maneuvers you can perform in CaseFlow</span></div>
+        <div class="stat"><b data-count="59">59</b><span>Orderable tests with deterministic results</span></div>
+        <div class="stat"><b data-count="120" data-suffix="d">120d</b><span>Longest spaced-review interval</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TOUR ─────────────────────────────────────────────────────── -->
+  <section class="section band" id="tour">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <div>
+          <span class="idx">— The tour</span>
+          <h2 class="h2">Don't read about it. <em>Click it.</em></h2>
+        </div>
+        <p class="lede">Every panel below is a working miniature of the real app — same colours, same rules, same behaviour. Tick the tasks, answer the question, interview the patient.</p>
+      </div>
+
+      <!-- 01 Planner -->
+      <article class="feature" aria-labelledby="f-plan">
+        <div class="feature-copy reveal">
+          <span class="idx">01 — The week</span>
+          <h3 class="h2" id="f-plan">A planner that already has your week in it.</h3>
+          <p class="lede">Canvas or Brightspace assignments, Google Calendar events and quiz passwords land on their own. Subtasks count as real units of work, so ten Anki decks score as ten — not one.</p>
+          <ul class="ticks">
+            <li><b>Two-way Google Calendar</b> — edit here, it changes there.</li>
+            <li><b>Subtask groups</b> with done-out-of-total counts and live progress.</li>
+            <li><b>Quiz reviews and board blocks</b> place themselves on the right day.</li>
+            <li><b>A personal Productivity Score</b> measured against your own average.</li>
+          </ul>
+          <p class="try">Tick a task — or open the Anki group</p>
+        </div>
+        <div class="reveal" data-delay="120"><div data-demo="planner"></div></div>
+      </article>
+
+      <!-- 02 Quiz Mastery -->
+      <article class="feature flip" aria-labelledby="f-qm">
+        <div class="feature-copy reveal">
+          <span class="idx">02 — Quiz Mastery</span>
+          <h3 class="h2" id="f-qm">It knows the difference between knowing and <em>guessing.</em></h3>
+          <p class="lede">Upload your slides and MedGryd writes the questions — board-style vignettes by Claude Opus 5.5, course-style by Sonnet 5.5 — constrained to what your lecture actually taught. Then it schedules each one on your planner.</p>
+          <ul class="ticks">
+            <li><b>Confidence on every answer</b> — a lucky guess is not a mastered concept.</li>
+            <li><b>Choice-by-choice teaching:</b> why not here, and when it would be right.</li>
+            <li><b>Exam Mode</b> with flags, a scratchpad, highlights and a timer.</li>
+            <li><b>GrydGuide</b> turns your misses into a branded PDF study guide.</li>
+          </ul>
+          <p class="try">Pick an answer, say how sure you are, check it</p>
+        </div>
+        <div class="reveal" data-delay="120"><div data-demo="quiz"></div></div>
+      </article>
+
+      <!-- 03 CaseFlow -->
+      <article class="feature" aria-labelledby="f-cf">
+        <div class="feature-copy reveal">
+          <span class="idx">03 — CaseFlow</span>
+          <h3 class="h2" id="f-cf">A patient who answers back.</h3>
+          <p class="lede">An AI patient with a hidden diagnosis and a hidden worry. Take the history, examine with 311 real maneuvers, order from 59 tests, write the SOAP note, present the case out loud — then get graded on what you gathered.</p>
+          <ul class="ticks">
+            <li><b>Voice in, voice out</b> — speak to the patient, hear them answer.</li>
+            <li><b>Exact history coverage:</b> every fact you uncovered is tracked.</li>
+            <li><b>Oral presentation scoring</b> for pace, fillers and structure.</li>
+            <li><b>Targets your weak spots</b> from Quiz Mastery and Skills Vault.</li>
+          </ul>
+          <p class="try">Ask the patient a question</p>
+        </div>
+        <div class="reveal" data-delay="120"><div data-demo="caseflow"></div></div>
+      </article>
+
+      <!-- 04 Board Ops -->
+      <article class="feature flip" aria-labelledby="f-bo">
+        <div class="feature-copy reveal">
+          <span class="idx">04 — Board Ops</span>
+          <h3 class="h2" id="f-bo">Board prep for the pass/fail era.</h3>
+          <p class="lede">COMLEX Level 1 and Step 1 are pass/fail, so Board Ops plans for <em>margin</em>, not throughput. It reads your QBank blocks, school exams, Anki and Quiz Mastery — each on its own scale — and builds today from what the evidence says.</p>
+          <ul class="ticks">
+            <li><b>A comfort margin</b> you choose, not the bare passing line.</li>
+            <li><b>Content vs. process:</b> a miss tally no QBank can give you.</li>
+            <li><b>Day lanes</b> matched to what class is teaching this week.</li>
+            <li><b>Full-length simulations</b> with a stamina read, block by block.</li>
+          </ul>
+          <p class="try">Switch the phase, hover a system</p>
+        </div>
+        <div class="reveal" data-delay="120"><div data-demo="boards"></div></div>
+      </article>
+
+      <!-- 05 Skills + Grades -->
+      <article class="feature" aria-labelledby="f-sv">
+        <div class="feature-copy reveal">
+          <span class="idx">05 — Skills Vault & Score Matrix</span>
+          <h3 class="h2" id="f-sv">The protocols are written. The math is done.</h3>
+          <p class="lede">227 OMM techniques with full step-by-step protocols and 349 physical-exam tasks — spin the wheel when you don't know what to practise. And the grade calculator that knows which quiz gets dropped.</p>
+          <ul class="ticks">
+            <li><b>Confidence 0–5</b>, notes and a practice timer on every technique.</li>
+            <li><b>Print any selection</b> as a folded, saddle-stitched booklet.</li>
+            <li><b>“What do I need on the final?”</b> for every letter grade.</li>
+          </ul>
+          <p class="try">Spin, then drag the midterm</p>
+        </div>
+        <div class="reveal" data-delay="120"><div class="demo-pair"><div data-demo="wheel"></div><div data-demo="grades"></div></div></div>
+      </article>
+
+      <!-- 06 GrydRank -->
+      <article class="feature flip" aria-labelledby="f-gr">
+        <div class="feature-copy reveal">
+          <span class="idx">06 — GrydRank</span>
+          <h3 class="h2" id="f-gr">Week nine of a hard block needs momentum.</h3>
+          <p class="lede">The work you were doing anyway turns into XP, levels and badges. Opt into your cohort board, or keep it to a private group of friends who'll notice when you go quiet.</p>
+          <ul class="ticks">
+            <li><b>100 named levels</b> across ten tiers, and 51 badges.</li>
+            <li><b>Profiles</b> with personal bests and a 30-day record.</li>
+            <li><b>Private groups</b>, weekly challenges and streaks.</li>
+          </ul>
+          <p class="try">Earn some XP</p>
+        </div>
+        <div class="reveal" data-delay="120"><div data-demo="rank"></div></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ─── EVERYTHING ELSE: ORBIT ──────────────────────────────────── -->
+  <section class="section" id="orbit">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <div>
+          <span class="idx">— Everything else in orbit</span>
+          <h2 class="h2">One account. <em>Every tool</em> shares it.</h2>
+        </div>
+        <p class="lede">Finish a Focus session and your XP, your streak, your stats and your board log all move — without opening anything else. Pick a tool to see what it does.</p>
+      </div>
+      <div class="orbit-wrap reveal" data-demo="orbit"></div>
+    </div>
+  </section>
+
+  <!-- ─── AUDIENCES ────────────────────────────────────────────────── -->
+  <section class="section band" id="who">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <div>
+          <span class="idx">— Who it's for</span>
+          <h2 class="h2">For the student at 11pm. <em>And the school</em> that wants them to pass.</h2>
+        </div>
+      </div>
+      <div class="split reveal">
+        <div>
+          <div class="eyebrow">Students</div>
+          <h3 class="h3" style="margin:16px 0 12px;font-size:clamp(24px,2.6vw,34px);font-weight:300">Ten minutes of setup. Then it runs itself.</h3>
+          <p class="lede">Connect your calendar and LMS feed, pick a theme, and the week fills in. Free for every student during the beta, installable on iPhone and Android.</p>
+          <ul class="ticks">
+            <li>Works with Canvas, D2L Brightspace and any iCal feed.</li>
+            <li>Connects to Anki on your laptop for live card counts.</li>
+            <li>Dark, light or sunrise-to-sunset themes, any accent colour.</li>
+          </ul>
+          <div class="hero-actions" style="justify-content:flex-start"><a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Start free <span class="arr" aria-hidden="true">→</span></a></div>
+        </div>
+        <div>
+          <div class="eyebrow">Schools</div>
+          <h3 class="h3" style="margin:16px 0 12px;font-size:clamp(24px,2.6vw,34px);font-weight:300">One platform for a whole cohort.</h3>
+          <p class="lede">Load exams once for everyone, distribute quiz passwords automatically, and give every student the same board-prep engine — with a signed DPA and FERPA terms.</p>
+          <ul class="ticks">
+            <li>Cohort-wide exams, alternate sittings and quiz passwords.</li>
+            <li>Per-user data isolation enforced by database security rules.</li>
+            <li>Built with and piloted by DO29 and DO30 at Noorda COM.</li>
+          </ul>
+          <div class="hero-actions" style="justify-content:flex-start"><a class="pill" href="schools.html">MedGryd for schools <span class="arr" aria-hidden="true">→</span></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOUNDERS ─────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <div>
+          <span class="idx">— Built in the trenches</span>
+          <h2 class="h2">Written between lectures, <em>tested before exams.</em></h2>
+        </div>
+        <p class="lede">Every feature started as a problem its authors had that week. That's why it fits how medical school actually runs — not how productivity apps assume it does.</p>
+      </div>
+      <div class="people reveal">
+        <div class="person">
+          <img src="uploads/raayed-crop.png" alt="Raayed Saeed" width="112" height="112" loading="lazy" />
           <div>
-            <div className="mg-week">AUG 23–29</div>
-            <div className="mg-date">Monday, August 24, 2026</div>
+            <div class="role">Founder · Lead developer</div>
+            <h3>Raayed Saeed</h3>
+            <p>OMS-2 at Noorda College of Osteopathic Medicine and Student Government Treasurer. Built MedGryd from a weekly planner into the whole system.</p>
           </div>
         </div>
-        <div className="mg-planner-tools">
-          <span className="mg-tool">Quick Jot</span>
-          <span className="mg-tool mg-tool-accent">↻ Sync</span>
-          <span className="mg-tool">☰ Menu</span>
-        </div>
-      </div>
-      <div className="mg-planner-body">
-        <div className="mg-key">
-          <span style={{color:'#d96a5f'}}><i /> Personal</span>
-          <span style={{color:'#4fc3f7'}}><i /> School Calendar</span>
-          <span style={{color:'#ffd75a'}}><i /> Exam / Quiz</span>
-        </div>
-        <div className="mg-days">
-          <PlannerDay label="SUN" date="23">
-            <div className="mg-event"><time>9:00 AM</time><span>Systems Review</span></div>
-            <div className="mg-divider" />
-            <PlannerTask done>Review lecture notes</PlannerTask>
-            <PlannerTask>Finish Anki deck</PlannerTask>
-            <PlannerTask>Outline research abstract</PlannerTask>
-          </PlannerDay>
-          <PlannerDay label="MON" date="24" today>
-            <div className="mg-event"><time>8:00 AM</time><span>Quick Check Quiz</span></div>
-            <div className="mg-event"><time>1:00 PM</time><span>OMM Lab</span></div>
-            <div className="mg-divider" />
-            <PlannerTask done>Daily quiz review</PlannerTask>
-            <PlannerTask>Pathoma Ch. 4</PlannerTask>
-            <PlannerTask>Practice cardiac exam</PlannerTask>
-          </PlannerDay>
-          <PlannerDay label="TUE" date="25">
-            <div className="mg-event"><time>10:30 AM</time><span>Clinical Skills</span></div>
-            <div className="mg-event"><time>3:00 PM</time><span>Research Meeting</span></div>
-            <div className="mg-divider" />
-            <PlannerTask>Question bank — 40</PlannerTask>
-            <PlannerTask>Quiz Mastery review</PlannerTask>
-            <PlannerTask>Prepare SOAP note</PlannerTask>
-          </PlannerDay>
-        </div>
-        <div className="mg-status-line">
-          <div className="mg-status-card">
-            <div className="mg-status-label">Tasks complete</div>
-            <div className="mg-status-value"><span>18</span> / 27</div>
-          </div>
-          <div className="mg-status-card">
-            <div className="mg-status-label">Study time</div>
-            <div className="mg-status-value">6h 42m</div>
-          </div>
-          <div className="mg-status-card">
-            <div className="mg-status-label">Next exam</div>
-            <div className="mg-status-value"><span>4d</span></div>
+        <div class="person">
+          <img src="uploads/aaron-crop.png" alt="Aaron Smith" width="112" height="112" loading="lazy" />
+          <div>
+            <div class="role">Co-founder · Quiz Mastery</div>
+            <h3>Aaron Smith</h3>
+            <p>OMS-2 at Noorda College of Osteopathic Medicine. Built Quiz Mastery, the spaced-retrieval engine at the centre of the app, and co-built CaseFlow.</p>
           </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ─── CLOSER ───────────────────────────────────────────────────── -->
+  <section class="closer">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="shell">
+      <span class="eyebrow reveal">Now in beta</span>
+      <h2 class="display reveal" style="margin-top:22px">Your next block<br />starts either way.</h2>
+      <p class="lede reveal">Bring it into one place before it does. Setup takes about ten minutes — most of it is waiting for your LMS to hand over the schedule.</p>
+      <div class="hero-actions reveal">
+        <a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch MedGryd <span class="arr" aria-hidden="true">→</span></a>
+        <a class="pill" href="contact.html">Talk to us about your school</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!--FOOTER:START-->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+        <p class="tagline">Mission Control for Medical School. Built by medical students, for medical students.</p>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="features.html">Features</a></li><li><a href="schools.html">For Schools</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="mailto:hello@medgryd.com">hello@medgryd.com</a></li></ul>
+        <address>PO Box 70385<br />Rochester Hills, MI 48307</address>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li><li><a href="dpa.html">DPA / FERPA</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-word" aria-hidden="true">MedGryd</div>
+    <div class="footer-bot"><span>© <span data-year>2026</span> MedGryd. All rights reserved.</span><span>Built with 🩺 for future physicians</span></div>
   </div>
-);
-
-const Hero = ({ accent, headline, sub }) => (
-  <section className="mg-hero">
-    <HeroBg accent={accent} />
-    <div className="mg-hero-vignette" aria-hidden="true" />
-    <div className="mg-hero-shell">
-      <div className="mg-hero-copy">
-        <div className="mg-eyebrow">Now in beta</div>
-        <h1 className="mg-hero-title">{headline}</h1>
-        <p className="mg-hero-subtitle">{sub}</p>
-        <div className="mg-hero-actions">
-          <a className="mg-btn mg-btn-primary" href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer">
-            Launch App <Icon name="arrow" size={15} color="#06121a" />
-          </a>
-          <a className="mg-btn mg-btn-secondary" href="features.html">Explore Features</a>
-        </div>
-      </div>
-      <PlannerPreview />
-    </div>
-  </section>
-);
-
-
-/* ─── SOCIAL PROOF BAR ───────────────────────────────────── */
-/* The old copy here — "Built for and by medical students" — said the same
-   thing the Why section says two screens later, so it spent a full band of
-   page on a repeat. A specific, checkable claim does more work. */
-const SocialProofBar = ({ show, accent }) => {
-  if (!show) return null;
-  return (
-    <div style={{
-      padding: '20px clamp(20px,5vw,80px)',
-      borderTop: '1px solid rgba(var(--accent-rgb),0.12)',
-      borderBottom: '1px solid rgba(var(--accent-rgb),0.12)',
-      background: 'rgba(var(--accent-rgb),0.03)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      gap: 14, flexWrap: 'wrap', textAlign: 'center'
-    }}>
-      <Icon name="stethoscope" size={17} color="rgba(var(--accent-rgb),0.55)" />
-      <span style={{
-        fontFamily: 'var(--font-ui)',
-        fontSize: 14,
-        color: 'var(--text-dim)',
-        letterSpacing: '0.02em'
-      }}>One account replaces the planner, the tracker, the calculator and the spreadsheet</span>
-      <Icon name="stethoscope" size={17} color="rgba(var(--accent-rgb),0.55)" />
-    </div>);
-
-};
-
-/* ─── FEATURE CARDS ──────────────────────────────────────── */
-const featureData = [
-{
-  icon: 'brain',
-  title: 'Quiz Mastery',
-  tag: 'Learning science',
-  desc: 'A spaced-retrieval engine, not a flashcard pile. Every answer is tagged with how sure you were, so it can separate what you know from what you guessed — and it refuses to count a repeat as real practice unless twenty hours have passed.',
-  bullets: ['Intervals stretch 1 → 3 → 7 → 14 → 30 → 60 → 120 days', 'Flags confidently-wrong answers — the dangerous ones', 'Scores recall and transfer as two separate things']
-},
-{
-  icon: 'shield',
-  title: 'Skills Vault',
-  tag: 'Clinical',
-  desc: '227 OMM techniques, and every single one carries its full step-by-step protocol — not just a name to rate yourself against. Plus 349 clinical skills tasks across 18 physical exam checklists.',
-  bullets: ['227 techniques with written protocols, 4 semesters', '349 skills tasks, 18 checklists, 66 categories', 'Print any selection as a folded, saddle-stitched booklet']
-},
-{
-  icon: 'calendar',
-  title: 'Weekly Planner',
-  tag: 'Core',
-  desc: 'The seven-day grid the rest of the app hangs off. Drag tasks between days or across whole weeks, and watch anything overdue age from yellow through orange to red until you deal with it.',
-  bullets: ['Canvas and two-way Google Calendar sync built in', 'Triple-state tasks with priority and "Good Enough" mode', 'Recurring events, shared events, PDF schedule import']
-},
-{
-  icon: 'layers',
-  title: 'Anki → Concept Lessons',
-  tag: 'Nobody else does this',
-  desc: 'MedGryd reads which Anki cards you keep failing, groups them into concepts, ranks them by how much trouble they are actually giving you, and builds a NotebookLM packet that turns them into one narrated lesson.',
-  bullets: ['Finds cards you rated Again or Hard', 'Groups by concept rather than by deck', 'Generates the source packet and the prompt for you']
-},
-{
-  icon: 'stethoscope',
-  title: 'OSCE Tracker',
-  tag: 'Clinical',
-  desc: 'A full SOAP note, not a text box. Eighteen review-of-systems categories, vitals, physical exam sections, and 22 lab values that flag themselves when a result falls outside its reference range.',
-  bullets: ['22 labs across CBC, BMP, CMP with normal ranges', '18 ROS categories and 7 exam sections', 'Export any station as a printable patient card']
-},
-{
-  icon: 'chart',
-  title: 'Score Matrix',
-  tag: 'Grades',
-  desc: 'Weighted grade calculation that understands how your courses are actually marked, including the lowest scores that get dropped — then tells you the score you need on everything left.',
-  bullets: ['Multi-component weighting with automatic drops', 'Target projection for every letter grade', 'Current standing and weighted partial totals']
-},
-{
-  icon: 'trophy',
-  title: 'GrydRank',
-  tag: 'Momentum',
-  desc: 'A hundred named levels across ten tiers, from Pre-Med to Prestige, and 51 badges earned from work you were doing anyway. Your avatar visibly changes form as you climb.',
-  bullets: ['100 named levels, 10 tiers, 51 badges', 'Avatar evolves through 5 forms with unlockable gear', 'Cohort leaderboard, private groups, weekly challenges']
-},
-{
-  icon: 'flask',
-  title: 'Research Hub',
-  tag: 'Collaborate',
-  desc: 'Every project, idea and deadline on one board. Capture a hypothesis in Ideas, promote it to a real project, then invite co-authors and split the task list between you.',
-  bullets: ['Seven-stage pipeline from idea to published', 'Shared projects with assignable, dated tasks', 'Countdown panel across every deadline you have']
-},
-{
-  icon: 'timer',
-  title: 'Focus Mode',
-  tag: 'Deep work',
-  desc: 'Timed study sessions that log themselves into your stats and your rank, so the hours you actually put in are visible rather than vanishing the moment you close the laptop.',
-  bullets: ['Session timer with automatic logging', 'Feeds study-time analytics and XP', 'Pairs with "Good Enough" mode on heavy weeks']
-},
-{
-  icon: 'activity',
-  title: 'Stats & Analytics',
-  tag: 'Analytics',
-  desc: 'Daily and weekly study breakdowns, Anki review history, task completion graphs and login streaks — the evidence for whether the way you are studying is working.',
-  bullets: ['Study time by day and by week', 'Anki review history and card counts', 'Completion trends and streak tracking']
-},
-{
-  icon: 'book',
-  title: 'Companion Tracker',
-  tag: 'Resources',
-  desc: 'Pathoma chapters and Sketchy videos ticked off as you finish them, with progress bars that show how much of each resource is genuinely behind you.',
-  bullets: ['Pathoma, SketchyPharm and SketchyMicro', 'Visual per-series progress', 'Counts toward XP as you go']
-},
-{
-  icon: 'note',
-  title: 'Quick Jot',
-  tag: 'Capture',
-  desc: 'A rich-text scratchpad one click from the planner, split into as many named sections as you keep separate thoughts. For the thing you need to park right now.',
-  bullets: ['Unlimited named sections', 'Rich text with inline rename', 'Always one keystroke from the planner']
-}];
-
-/* Verified counts from the app source. Every figure here is something a
-   reader can go and check inside the product. */
-const statData = [
-  { n: '227', label: 'OMM protocols, step by step' },
-  { n: '349', label: 'Clinical skills tasks' },
-  { n: '51', label: 'Badges across 100 levels' },
-  { n: '7', label: 'Spaced review intervals' },
-  { n: '21', label: 'Tools, one account' }
-];
-
-
-/* Surface, border, shadow and hover-lift all come from .mg-section-card in
-   medgryd-ui.css, whose !important declarations already outrank an inline
-   style — so the old React hover state was computing values the cascade
-   threw away. Dropping it also frees the element's inline transform, which
-   .mg-reveal needs in order to animate the card into place. */
-const FeatureCard = ({ icon, title, desc, tag, bullets, accent, cardStyle }) => (
-  <article className={`mg-section-card mg-feature mg-reveal${cardStyle === 'glow' ? '' : ' mg-section-card-flat'}`}>
-    <div className="mg-feature-icon"><Icon name={icon} size={20} color={accent} /></div>
-    <div className="mg-feature-head">
-      <h3>{title}</h3>
-      <span className="mg-tag">{tag}</span>
-    </div>
-    <p>{desc}</p>
-    {bullets && (
-      <ul>{bullets.map((b) => <li key={b}>{b}</li>)}</ul>
-    )}
-  </article>
-);
-
-/* A row of real figures, sitting between the hero and the feature grid.
-   It is the fastest way to establish that this is a large, finished
-   product rather than a landing page for an idea. */
-const StatStrip = () => (
-  <section className="mg-section-tight">
-    <div className="mg-shell">
-      <div className="mg-stats mg-reveal">
-        {statData.map((s) => (
-          <div className="mg-stat" key={s.label}>
-            <b>{s.n}</b>
-            <span>{s.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-const FeaturesSection = ({ accent, cardStyle }) => (
-  <section id="features" className="mg-section mg-band">
-    <div className="mg-shell">
-      <div className="mg-head mg-reveal">
-        <div className="mg-eyebrow">The platform</div>
-        <h2 className="mg-title">Twenty-one tools, and none of them<br />are a to-do list with a stethoscope.</h2>
-        <p className="mg-lede">
-          Most study apps hand you an empty box and a subscription. MedGryd ships the
-          content too — every OMM protocol written out, every checklist, a retrieval
-          engine tuned against cramming, and your actual timetable already loaded.
-        </p>
-      </div>
-
-      {/* data-mg-stagger cascades the tiles in DOM order rather than
-          landing them as one block — see medgryd-ui.js */}
-      <div className="mg-grid" data-mg-stagger style={{ '--min': '288px', '--gap': '18px' }}>
-        {featureData.map((f) => (
-          <FeatureCard key={f.title} {...f} accent={accent} cardStyle={cardStyle} />
-        ))}
-      </div>
-
-      <div className="mg-reveal" style={{ marginTop: 44, textAlign: 'center' }}>
-        <a className="mg-btn mg-btn-secondary" href="features.html">
-          See every tool in detail <Icon name="arrow" size={15} color="currentColor" />
-        </a>
-      </div>
-    </div>
-  </section>
-);
-
-
-/* ─── WHY MEDGRYD ────────────────────────────────────────── */
-const whyData = [
-{
-  icon: 'star',
-  title: 'Written between lectures',
-  desc: 'Every feature here started as a problem its author had that week. MedGryd is written by osteopathic medical students during their own pre-clinical years — which is why it fits the way medical school actually runs rather than the way productivity apps assume it does.'
-},
-{
-  icon: 'layers',
-  title: 'One place, not eleven',
-  desc: 'Planner, skills tracker, question bank, grade calculator, research board, OSCE log and stats — sharing one account and one set of data. Finishing a task moves your XP, your streak and your stats without you opening anything else.'
-},
-{
-  icon: 'zap',
-  title: 'Momentum, engineered',
-  desc: 'GrydRank turns the work you were already doing into XP, ranks and badges. Not because points are magic, but because on week nine of a hard block, visible progress is the difference between opening the app and not.'
-}];
-
-
-const WhySection = ({ accent }) => (
-  <section className="mg-section">
-    <div className="mg-shell">
-      <div className="mg-head mg-reveal">
-        <div className="mg-eyebrow">Why MedGryd</div>
-        <h2 className="mg-title">Built different. By design.</h2>
-      </div>
-      <div className="mg-grid" data-mg-stagger style={{ '--min': '292px', '--gap': '22px' }}>
-        {whyData.map((w, i) => (
-          <article key={w.title} className="mg-section-card mg-reveal" style={{
-            position: 'relative',
-            padding: '32px 28px',
-            borderRadius: 16,
-            overflow: 'hidden'
-          }}>
-            <div style={{
-              position: 'absolute', top: 0, right: 0,
-              width: 90, height: 90,
-              background: 'radial-gradient(circle at top right, rgba(var(--accent-rgb),0.1), transparent 70%)',
-              pointerEvents: 'none'
-            }} />
-            <div style={{
-              fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 13,
-              fontVariantNumeric: 'tabular-nums',
-              color: 'rgba(var(--accent-rgb),0.38)',
-              letterSpacing: '0.06em', marginBottom: 18
-            }}>0{i + 1}</div>
-            <div style={{ marginBottom: 14 }}>
-              <Icon name={w.icon} size={24} color={accent} />
-            </div>
-            <h3 style={{
-              fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 18,
-              color: 'var(--text-heading)', marginBottom: 10
-            }}>{w.title}</h3>
-            <p style={{ color: 'var(--text-dim)', fontSize: 14, lineHeight: 1.72 }}>{w.desc}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-/* ─── CTA BANNER ─────────────────────────────────────────── */
-const CtaBanner = ({ accent }) => (
-  <section className="mg-section">
-    <div className="mg-shell" style={{ maxWidth: 920 }}>
-      <div className="mg-glass mg-reveal" style={{
-        position: 'relative',
-        borderRadius: 24,
-        padding: 'clamp(40px,6vw,72px)',
-        textAlign: 'center',
-        border: '1px solid rgba(var(--accent-rgb),0.18)',
-        overflow: 'hidden'
-      }}>
-        <div style={{
-          position: 'absolute', top: '-30%', left: '50%', transform: 'translateX(-50%)',
-          width: '60%', height: '100%',
-          background: 'radial-gradient(ellipse at top, rgba(var(--accent-rgb),0.09) 0%, transparent 70%)',
-          pointerEvents: 'none'
-        }} />
-
-        <div className="mg-eyebrow" style={{ marginBottom: 18 }}>Now in beta</div>
-
-        <h2 className="mg-title" style={{ fontSize: 'clamp(28px,3.5vw,44px)' }}>
-          Your next block starts<br />in a few days either way.
-        </h2>
-
-        <p className="mg-lede" style={{ maxWidth: 470 }}>
-          Bring it into one place before it starts. Setup takes about ten minutes,
-          most of which is waiting for Canvas to hand over your schedule.
-        </p>
-
-        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginTop: 34 }}>
-          <a className="mg-btn mg-btn-primary" href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer">
-            Launch MedGryd <Icon name="arrow" size={15} color="currentColor" />
-          </a>
-          <a className="mg-btn mg-btn-secondary" href="contact.html">
-            Licence for your school
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-/* ─── FOOTER ─────────────────────────────────────────────── */
-const Footer = ({ setPage, accent, dark }) =>
-<footer style={{
-  background: dark ? '#060609' : '#0a0a0f',
-  borderTop: '1px solid rgba(255,255,255,0.05)',
-  padding: 'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px'
-}}>
-        <div style={{
-    maxWidth: 1100, margin: '0 auto',
-    display: 'flex', flexWrap: 'wrap',
-    justifyContent: 'space-between', gap: 32,
-    paddingBottom: 32,
-    borderBottom: '1px solid rgba(255,255,255,0.05)',
-    marginBottom: 24
-  }}>
-          {/* Brand */}
-          <div style={{ maxWidth: 340 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-              <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 30 }} />
-              <span style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 16, color: '#e2e8f0' }}>MedGryd</span>
-            </div>
-            <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.65 }}>Mission Control for Medical School.</p>
-            <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
-              <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 8, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.18)', color: '#64748b', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-              </a>
-              <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 8, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.18)', color: '#64748b', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
-                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-              </a>
-            </div>
-          </div>
-
-          {/* Links */}
-          <div style={{ display: 'flex', gap: 56, flexWrap: 'wrap' }}>
-            <div>
-              <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 14 }}>Platform</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {[['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']].map(([l,h]) =>
-          <a key={l} href={h} style={{
-            fontSize: 13, color: '#64748b',
-            textDecoration: 'none',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>
-            {l}</a>
-          )}
-              </div>
-            </div>
-            <div>
-              <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 14 }}>Legal</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <a href="/privacy.html" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>Privacy Policy</a>
-                <a href="/terms.html" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>Terms of Service</a>
-                <a href="/dpa.html" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>DPA / FERPA BAA</a>
-              </div>
-            </div>
-            <div>
-              <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 14 }}>Contact</div>
-              <a href="mailto:hello@medgryd.com" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', display: 'block', marginBottom: 10, transition: 'color 0.2s' }}
-        onMouseEnter={(e) => e.currentTarget.style.color = accent}
-        onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>
-          hello@medgryd.com</a>
-              <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.55, marginBottom: 10 }}>PO Box 70385<br />Rochester Hills, MI 48307</p>
-              <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
-          fontFamily: 'Oxanium', fontSize: 12, fontWeight: 600,
-          color: accent, textDecoration: 'none',
-          letterSpacing: '0.08em', textTransform: 'uppercase'
-        }}>Launch App →</a>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-          <span style={{ fontSize: 12, color: '#334155' }}>© 2026 MedGryd. All rights reserved.</span>
-          <span style={{ fontSize: 12, color: '#1e293b', fontFamily: 'Oxanium' }}>Built with 🩺 for future physicians</span>
-        </div>
-      </footer>;
-
-
-/* ─── HOME PAGE ──────────────────────────────────────────── */
-const HomePage = ({ accent, headline, sub, showSocialProof, cardStyle, setPage }) =>
-<>
-        <Hero accent={accent} headline={headline} sub={sub} setPage={setPage} />
-        <SocialProofBar show={showSocialProof} accent={accent} />
-        <StatStrip />
-        <FeaturesSection accent={accent} cardStyle={cardStyle} />
-        <WhySection accent={accent} />
-        <CtaBanner accent={accent} />
-      </>;
-
-
-/* ─── ROOT APP ───────────────────────────────────────────── */
-const App = () => {
-  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
-  const [page, setPage] = useState('home');
-
-  const { accentColor: accent, heroHeadline, heroSub, showSocialProof, cardStyle, darkFooter } = tweaks;
-
-  const handleSetPage = (p) => {
-    setPage(p);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const renderPage = () => (
-    <HomePage
-      accent={accent}
-      headline={heroHeadline}
-      sub={heroSub}
-      showSocialProof={showSocialProof}
-      cardStyle={cardStyle}
-      setPage={handleSetPage} />
-  );
-
-  return (
-    <div>
-          <Navbar page={page} setPage={handleSetPage} accent={accent} />
-          {renderPage()}
-          <Footer setPage={handleSetPage} accent={accent} dark={darkFooter} />
-
-          <TweaksPanel>
-            <TweakSection label="Brand">
-              <TweakColor id="accentColor" label="Accent Color" value={accent} onChange={(v) => setTweak('accentColor', v)} />
-            </TweakSection>
-            <TweakSection label="Hero">
-              <TweakText id="heroHeadline" label="Headline" value={heroHeadline} onChange={(v) => setTweak('heroHeadline', v)} />
-              <TweakText id="heroSub" label="Subheadline" value={heroSub} onChange={(v) => setTweak('heroSub', v)} />
-              <TweakToggle id="showSocialProof" label="Social Proof Bar" value={showSocialProof} onChange={(v) => setTweak('showSocialProof', v)} />
-            </TweakSection>
-            <TweakSection label="Cards">
-              <TweakRadio id="cardStyle" label="Hover Effect" value={cardStyle} options={['glow', 'flat']} onChange={(v) => setTweak('cardStyle', v)} />
-            </TweakSection>
-            <TweakSection label="Footer">
-              <TweakToggle id="darkFooter" label="Extra Dark Footer" value={darkFooter} onChange={(v) => setTweak('darkFooter', v)} />
-            </TweakSection>
-          </TweaksPanel>
-        </div>);
-
-};
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
+</footer>
+<!--FOOTER:END-->
 </body>
 </html>

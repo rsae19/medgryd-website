@@ -1,473 +1,182 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
-  <title>About — MedGryd | Built by Medical Students</title>
-  <meta name="description" content="MedGryd was built by OMS-1 students at Noorda College of Osteopathic Medicine to solve the real organizational chaos of medical school. Our mission: one platform for everything." />
-  <meta name="robots" content="index, follow" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About — MedGryd</title>
+  <meta name="description" content="MedGryd is built by osteopathic medical students at Noorda College of Osteopathic Medicine — a study operating system that started as a weekly planner." />
+  <meta name="theme-color" content="#05060d" />
   <link rel="canonical" href="https://medgryd.com/about.html" />
-
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "@id": "https://medgryd.com/about.html",
-    "url": "https://medgryd.com/about.html",
-    "name": "About — MedGryd | Built by Medical Students",
-    "description": "MedGryd was built by OMS-1 students at Noorda College of Osteopathic Medicine to solve the real organizational chaos of medical school. Our mission: one platform for everything.",
-    "isPartOf": { "@id": "https://medgryd.com/#website" },
-    "publisher": { "@id": "https://medgryd.com/#organization" }
-  }
-  </script>
-
-  <!-- Open Graph -->
+  <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://medgryd.com/about.html" />
-  <meta property="og:title" content="About — MedGryd | Built by Medical Students" />
-  <meta property="og:description" content="MedGryd was built by OMS-1 students at Noorda College of Osteopathic Medicine to solve the real organizational chaos of medical school. Our mission: one platform for everything." />
+  <meta property="og:title" content="About — MedGryd" />
+  <meta property="og:description" content="Built in the trenches of medical school." />
   <meta property="og:image" content="https://medgryd.com/uploads/og-image.png" />
-  <meta property="og:site_name" content="MedGryd" />
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="About — MedGryd | Built by Medical Students" />
-  <meta name="twitter:description" content="MedGryd was built by OMS-1 students at Noorda College of Osteopathic Medicine to solve the real organizational chaos of medical school. Our mission: one platform for everything." />
-  <meta name="twitter:image" content="https://medgryd.com/uploads/og-image.png" />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css?v=3" />
+  <script src="assets/site.js?v=3" defer></script>
+  <script src="assets/planet.js?v=3" defer></script>
   <style>
-    /* Page-local only. Tokens, glass, motion curves and the reveal system
-       all live in medgryd-ui.css. */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { overflow-x: hidden; }
-    a, button { touch-action: manipulation; }
-
-    @keyframes fade-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes spin    { to { transform: rotate(360deg); } }
+    .story { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--hair-2); border: 1px solid var(--hair-2); }
+    .story div { background: var(--bg); padding: 30px 24px 34px; }
+    .story .n { font-family: var(--display); font-weight: 200; font-size: 44px; color: var(--accent); line-height: 1; }
+    .story h3 { font-family: var(--display); font-weight: 500; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin: 16px 0 10px; }
+    .story p { margin: 0; color: var(--dim); font-size: 15.5px; }
+    @media (max-width: 900px) { .story { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) { .story { grid-template-columns: minmax(0, 1fr); } }
+    .road { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--hair); position: relative; }
+    .road li { padding: 26px 18px 0 0; position: relative; color: var(--dim); }
+    .road li::before { content: ""; position: absolute; top: -6px; left: 0; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 1px solid var(--muted); }
+    .road li.now::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 14px var(--accent); }
+    .road b { display: block; font-family: var(--display); font-weight: 400; font-size: 20px; color: var(--ink); margin-bottom: 6px; }
+    @media (max-width: 760px) { .road { grid-template-columns: minmax(0, 1fr); border-top: 0; border-left: 1px solid var(--hair); margin-left: 6px; } .road li { padding: 0 0 26px 24px; } .road li::before { left: -6px; top: 6px; } }
+    .quote { font-family: var(--display); font-weight: 300; font-size: clamp(26px, 3.4vw, 46px); line-height: 1.2; color: var(--ink); max-width: 26ch; margin: 0; }
+    .quote::before { content: "“"; color: var(--accent); }
+    .quote::after { content: "”"; color: var(--accent); }
   </style>
-  <link rel="stylesheet" href="medgryd-ui.css?v=20260825-1" />
-  <script src="medgryd-ui.js?v=20260825-1" defer></script>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel">
+<a class="skip" href="#main">Skip to content</a>
+<!--NAV:START-->
+<header class="nav" data-page="about">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="features.html">Features</a></li>
+        <li><a href="schools.html">For Schools</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="about.html" aria-current="page">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="pill solid sm" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+      <button class="nav-burger" type="button" aria-label="Menu" aria-controls="nav-sheet" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="nav-sheet" id="nav-sheet">
+  <a href="features.html">Features</a>
+  <a href="schools.html">For Schools</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="about.html" aria-current="page">About</a>
+  <a href="contact.html">Contact</a>
+  <a class="pill solid" href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App <span class="arr" aria-hidden="true">→</span></a>
+</div>
+<!--NAV:END-->
 
-const { useState, useEffect, useRef } = React;
-const useWindowWidth = () => {
-  const [w, setW] = React.useState(window.innerWidth);
-  React.useEffect(() => {
-    const h = () => setW(window.innerWidth);
-    window.addEventListener('resize', h, { passive: true });
-    return () => window.removeEventListener('resize', h);
-  }, []);
-  return w;
-};
+<main id="main">
+  <section class="page-hero">
+    <div class="planetlet" aria-hidden="true"></div>
+    <canvas class="hero-canvas" data-planet="side" aria-hidden="true"></canvas>
+    <div class="shell">
+      <span class="eyebrow fade-up d0">Our story</span>
+      <h1 class="display fade-up d1" style="margin-top:22px">Built in the <em>trenches</em> of medical school.</h1>
+      <p class="lede fade-up d2">A real problem, and a solution built by the people who live it — between lectures, and tested before exams.</p>
+    </div>
+  </section>
 
+  <section class="section tight" style="padding-top:0">
+    <div class="shell">
+      <div class="story reveal">
+        <div><div class="n">01</div><h3>The problem</h3><p>As a first-year osteopathic student at Noorda College of Osteopathic Medicine, Raayed Saeed was drowning in disconnected tools — a calendar here, flashcards there, a spreadsheet for grades, another for research. Nothing talked to anything else.</p></div>
+        <div><div class="n">02</div><h3>The decision</h3><p>So he built something that did. It started as a weekly planner, wired to the school's own calendar.</p></div>
+        <div><div class="n">03</div><h3>The build</h3><p>Classmates started using it. Aaron Smith built Quiz Mastery; together they added a patient simulator, a board plan and everything around them. It became a study operating system.</p></div>
+        <div><div class="n">04</div><h3>The standard</h3><p>Every feature was born from a real pain point and tested in real coursework. MedGryd isn't designed in a vacuum — it's designed in the library at 11pm before a shelf exam.</p></div>
+      </div>
+    </div>
+  </section>
 
-/* ── NAVBAR ─────────────────────────────────────────────── */
-const Navbar = () => {
-  const [scrolled, setScrolled] = React.useState(false);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const isMobile = useWindowWidth() < 768;
-  React.useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 48);
-    window.addEventListener('scroll', h, { passive: true });
-    return () => window.removeEventListener('scroll', h);
-  }, []);
-  React.useEffect(() => { if (!isMobile) setMobileOpen(false); }, [isMobile]);
-  const links = [['Features','features.html'],['Pricing','pricing.html'],['About','about.html'],['Contact','contact.html']];
-  return (
-    <React.Fragment>
-      <nav style={{
-        position:'fixed', top:0, left:0, right:0, zIndex:100,
-        display:'flex', alignItems:'center', justifyContent:'space-between',
-        padding:'0 clamp(20px,4vw,60px)', height:68,
-        background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
-        borderBottom: scrolled ? '1px solid rgba(56,189,248,0.1)' : '1px solid transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        transition: 'background 0.35s, border-color 0.35s',
-      }}>
-        <a href="index.html" style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none' }}>
-          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height:44, display:'block' }} />
-          <span style={{ fontFamily:'Oxanium', fontWeight:600, fontSize: isMobile ? 20 : 26, color:'#e2e8f0', letterSpacing:'0.04em', lineHeight:1 }}>MedGryd</span>
-        </a>
-        {!isMobile && (
-          <div style={{ display:'flex', alignItems:'center', gap:32 }}>
-            {links.map(([l,h]) => (
-              <a key={l} href={h} style={{
-                fontFamily:'Oxanium', fontWeight:400, fontSize:13,
-                color: h === 'about.html' ? '#38bdf8' : 'rgba(226,232,240,0.6)',
-                letterSpacing:'0.12em', textTransform:'uppercase', textDecoration:'none',
-                borderBottom: h === 'about.html' ? '1px solid #38bdf8' : '1px solid transparent',
-                paddingBottom:2, transition:'color 0.2s',
-              }}>{l}</a>
-            ))}
+  <section class="section band">
+    <div class="shell">
+      <span class="idx reveal">— Mission</span>
+      <p class="quote reveal" style="margin-top:24px">Give every medical student one powerful platform for the chaos of their academic life — so they can focus on becoming great physicians.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell">
+      <div class="sec-head reveal"><div><span class="idx">— The team</span><h2 class="h2">The people behind MedGryd.</h2></div></div>
+      <div class="people reveal">
+        <div class="person">
+          <img src="uploads/raayed-crop.png" alt="Raayed Saeed" width="112" height="112" loading="lazy" />
+          <div>
+            <div class="role">Founder · Lead developer</div>
+            <h3>Raayed Saeed</h3>
+            <p>OMS-2 at Noorda College of Osteopathic Medicine (DO29) and Student Government Treasurer. Built MedGryd from scratch to solve the problems he faced every day in medical school.</p>
           </div>
-        )}
-        {isMobile ? (
-          <button onClick={() => setMobileOpen(o => !o)} aria-label="Toggle menu" style={{
-            background:'none', border:'none', cursor:'pointer', padding:'8px',
-            display:'flex', flexDirection:'column', gap:5, alignItems:'center', justifyContent:'center',
-          }}>
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(7px) rotate(45deg)' : 'none', transition:'transform 0.25s' }} />
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, opacity: mobileOpen ? 0 : 1, transition:'opacity 0.2s' }} />
-            <span style={{ display:'block', width:22, height:2, background:'#e2e8f0', borderRadius:2, transform: mobileOpen ? 'translateY(-7px) rotate(-45deg)' : 'none', transition:'transform 0.25s' }} />
-          </button>
-        ) : (
-          <div style={{ display:'flex', alignItems:'center', gap:8 }}>
-            <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.5)';e.currentTarget.style.color='#38bdf8';e.currentTarget.style.background='rgba(56,189,248,0.12)';}}
-              onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.15)';e.currentTarget.style.color='rgba(226,232,240,0.5)';e.currentTarget.style.background='rgba(56,189,248,0.07)';}}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
-            <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-              style={{ display:'flex', alignItems:'center', justifyContent:'center', width:32, height:32, borderRadius:7, background:'rgba(56,189,248,0.07)', border:'1px solid rgba(56,189,248,0.15)', color:'rgba(226,232,240,0.5)', textDecoration:'none', transition:'border-color 0.2s, color 0.2s, background 0.2s' }}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.5)';e.currentTarget.style.color='#38bdf8';e.currentTarget.style.background='rgba(56,189,248,0.12)';}}
-              onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,0.15)';e.currentTarget.style.color='rgba(226,232,240,0.5)';e.currentTarget.style.background='rgba(56,189,248,0.07)';}}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </a>
-            <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
-              fontFamily:'Oxanium', fontWeight:600, fontSize:13,
-              letterSpacing:'0.1em', textTransform:'uppercase',
-              background:'#38bdf8', color:'#0a0a0f',
-              padding:'9px 22px', borderRadius:8, textDecoration:'none',
-              boxShadow:'0 0 18px rgba(56,189,248,0.35)',
-              transition:'box-shadow 0.2s, transform 0.15s',
-            }}
-            onMouseEnter={e=>{e.currentTarget.style.boxShadow='0 0 28px rgba(56,189,248,0.55)';e.currentTarget.style.transform='translateY(-1px)';}}
-            onMouseLeave={e=>{e.currentTarget.style.boxShadow='0 0 18px rgba(56,189,248,0.35)';e.currentTarget.style.transform='';}}>
-              Launch App
-            </a>
-          </div>
-        )}
-      </nav>
-      {isMobile && mobileOpen && (
-        <div style={{
-          position:'fixed', top:68, left:0, right:0, zIndex:99,
-          background:'rgba(10,10,15,0.97)',
-          borderBottom:'1px solid rgba(56,189,248,0.12)',
-          backdropFilter:'blur(16px)',
-          padding:'12px 24px 24px',
-          display:'flex', flexDirection:'column', gap:0,
-        }}>
-          {links.map(([l,h]) => (
-            <a key={l} href={h} style={{
-              fontFamily:'Oxanium', fontWeight:400, fontSize:15,
-              color:'rgba(226,232,240,0.8)',
-              letterSpacing:'0.08em', textTransform:'uppercase', textDecoration:'none',
-              padding:'14px 0',
-              borderBottom:'1px solid rgba(255,255,255,0.05)',
-              display:'block',
-            }}>{l}</a>
-          ))}
-          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{
-            fontFamily:'Oxanium', fontWeight:600, fontSize:13,
-            letterSpacing:'0.1em', textTransform:'uppercase',
-            background:'#38bdf8', color:'#0a0a0f',
-            padding:'13px 22px', borderRadius:8, textDecoration:'none',
-            textAlign:'center', marginTop:12, display:'block',
-            boxShadow:'0 0 18px rgba(56,189,248,0.35)',
-          }}>Launch App</a>
         </div>
-      )}
-    </React.Fragment>
-  );
-};
-
-/* ── HERO HEADER ─────────────────────────────────────────── */
-const PageHeader = () =>
-<header style={{
-  background: '#0a0a0f', position: 'relative', overflow: 'hidden',
-  padding: 'clamp(110px,13vw,148px) clamp(20px,5vw,80px) clamp(64px,7vw,80px)',
-  textAlign: 'center'
-}}>
-    {/* Soft radial glow */}
-    <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 60% 60% at 50% 0%, rgba(56,189,248,0.07) 0%, transparent 70%)', pointerEvents: 'none' }} />
-    {/* Grid */}
-    <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(56,189,248,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.035) 1px, transparent 1px)', backgroundSize: '60px 60px', maskImage: 'radial-gradient(ellipse 80% 90% at 50% 0%, black 20%, transparent 90%)', pointerEvents: 'none' }} />
-    <div style={{ position: 'relative', zIndex: 1, animation: 'fade-up 0.8s ease both' }}>
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 100, border: '1px solid rgba(56,189,248,0.25)', background: 'rgba(56,189,248,0.06)', marginBottom: 24 }}>
-        <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 6px #38bdf8' }} />
-        <span style={{ fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#38bdf8' }}>Our Story</span>
-      </div>
-      <h1 style={{ fontFamily: 'Oxanium', fontWeight: 200, fontSize: 'clamp(30px,5vw,60px)', color: '#f1f5f9', lineHeight: 1.08, marginBottom: 16, letterSpacing: '-0.01em', textWrap: 'balance' }}>
-        Built in the Trenches<br />of Medical School
-      </h1>
-      <p style={{ fontSize: 'clamp(14px,1.8vw,17px)', color: '#64748b', fontWeight: 300, maxWidth: 420, margin: '0 auto' }}>
-        A real problem. A real solution. Built by the people who live it.
-      </p>
-    </div>
-  </header>;
-
-
-/* ── STORY SECTION ───────────────────────────────────────── */
-const StorySection = () => {
-  const beats = [
-  {
-    num: '01',
-    label: 'The Problem',
-    text: 'As a first-year osteopathic medical student at Noorda College of Osteopathic Medicine, Raayed Saeed found himself drowning in disconnected tools — a calendar here, flashcards there, a spreadsheet for grades, another for research deadlines. Nothing talked to each other. Nothing was built for how medical students actually work.'
-  },
-  {
-    num: '02',
-    label: 'The Decision',
-    text: 'So he built something that was.',
-    large: true
-  },
-  {
-    num: '03',
-    label: 'The Build',
-    text: 'What started as a simple weekly planner evolved into a full study operating system — one platform that handles everything from daily task management and clinical skills tracking to research project coordination and exam preparation.'
-  },
-  {
-    num: '04',
-    label: 'The Standard',
-    text: 'Every feature was born from a real pain point, tested in the fire of actual coursework. MedGryd isn\'t designed in a vacuum — it\'s designed in the library at 11pm before a shelf exam.'
-  }];
-
-
-  return (
-    <section style={{ padding: '0 clamp(20px,5vw,80px) clamp(72px,9vw,104px)' }}>
-      {/* Each beat reveals through the shared .mg-reveal system rather than
-          spinning up its own observer. That puts the timeline on the same
-          curve as every other section, and it takes the useState/useEffect
-          calls back out of a .map() callback — hooks inside a loop only
-          held together here because the array length happens to be fixed. */}
-      <div data-mg-stagger style={{ maxWidth: 800, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 0 }}>
-        {beats.map((b, i) => {
-          return (
-            <div key={b.num} className="mg-reveal" style={{
-              display: 'grid', gridTemplateColumns: '64px 1fr',
-              gap: '0 32px'
-            }}>
-              {/* Timeline spine */}
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(56,189,248,0.08)', border: '1.5px solid rgba(56,189,248,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, zIndex: 1 }}>
-                  <span style={{ fontFamily: 'Oxanium', fontSize: 11, fontWeight: 600, color: 'rgba(56,189,248,0.7)', letterSpacing: '0.04em' }}>{b.num}</span>
-                </div>
-                {i < beats.length - 1 &&
-                <div style={{ flex: 1, width: 1, background: 'linear-gradient(to bottom, rgba(56,189,248,0.2), rgba(56,189,248,0.04))', minHeight: 48, margin: '8px 0' }} />
-                }
-              </div>
-              {/* Content */}
-              <div style={{ paddingBottom: i < beats.length - 1 ? 48 : 0, paddingTop: 4 }}>
-                <div style={{ fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(56,189,248,0.6)', marginBottom: 8 }}>{b.label}</div>
-                {b.large ?
-                <p style={{ fontFamily: 'Oxanium', fontWeight: 300, fontSize: 'clamp(22px,3vw,36px)', color: '#e2e8f0', lineHeight: 1.3 }}>{b.text}</p> :
-                <p style={{ fontSize: 15, color: '#64748b', lineHeight: 1.85, fontWeight: 300 }}>{b.text}</p>
-                }
-              </div>
-            </div>);
-
-        })}
-      </div>
-    </section>);
-
-};
-
-/* ── MISSION SECTION ─────────────────────────────────────── */
-const MissionSection = () =>
-<section style={{ background: '#0d0d14', padding: 'clamp(64px,8vw,96px) clamp(20px,5vw,80px)', position: 'relative' }}>
-    <div style={{ position: 'absolute', top: 0, left: '8%', right: '8%', height: 1, background: 'rgba(56,189,248,0.07)' }} />
-    <div style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center' }}>
-      <span style={{ fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#38bdf8', display: 'block', marginBottom: 16 }}>Mission</span>
-      <h2 style={{ fontFamily: 'Oxanium', fontWeight: 200, fontSize: 'clamp(22px,3.5vw,42px)', color: '#f1f5f9', lineHeight: 1.2, marginBottom: 0, letterSpacing: '-0.01em', textWrap: 'balance' }}>
-        "To give every medical student a single, powerful platform that eliminates the chaos of managing their academic life — so they can focus on what matters: becoming great physicians."
-      </h2>
-    </div>
-  </section>;
-
-
-/* ── TEAM SECTION ────────────────────────────────────────── */
-/* Reveal and hover both come from the shared system now — .mg-reveal for
-   the entrance (so it eases on the same curve as every other section) and
-   .mg-section-card for the surface and lift. */
-const TeamCard = ({ photo, name, role, bio }) => (
-    <div className="mg-section-card mg-reveal"
-    style={{
-      flex: '1 1 300px', maxWidth: 400,
-      borderRadius: 20, padding: '32px 28px'
-    }}>
-
-      {/* Avatar with photo */}
-      <div style={{ marginBottom: 22 }}>
-        <div style={{ position: 'relative', width: 110, height: 110 }}>
-          {/* Dashed orbit ring */}
-          <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', border: '1px dashed rgba(56,189,248,0.22)' }} />
-          {/* Spinning dot wrapper — rotates around the ring */}
-          <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', animation: 'spin 6s linear infinite' }}>
-            <div style={{ position: 'absolute', top: -4, left: '50%', marginLeft: -4, width: 8, height: 8, borderRadius: '50%', background: '#38bdf8', boxShadow: '0 0 8px #38bdf8' }} />
-          </div>
-          {/* Photo — inset 9px to sit inside the ring */}
-          <div style={{ position: 'absolute', inset: 9, borderRadius: '50%', overflow: 'hidden', border: '2px solid rgba(56,189,248,0.35)' }}>
-            <img src={photo} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+        <div class="person">
+          <img src="uploads/aaron-crop.png" alt="Aaron Smith" width="112" height="112" loading="lazy" />
+          <div>
+            <div class="role">Co-founder · Quiz Mastery</div>
+            <h3>Aaron Smith</h3>
+            <p>OMS-2 at Noorda College of Osteopathic Medicine (DO29). Built Quiz Mastery, MedGryd's adaptive retrieval engine, and co-built CaseFlow.</p>
           </div>
         </div>
       </div>
-      <div style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 20, color: '#f1f5f9', marginBottom: 4 }}>{name}</div>
-      <div style={{ fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#38bdf8', marginBottom: 14 }}>{role}</div>
-      <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.8, fontWeight: 300 }}>{bio}</p>
     </div>
-);
+  </section>
 
-const TeamSection = () =>
-<section style={{ padding: 'clamp(64px,8vw,96px) clamp(20px,5vw,80px)' }}>
-    <div style={{ maxWidth: 900, margin: '0 auto' }}>
-      <div className="mg-reveal" style={{ textAlign: 'center', marginBottom: 52 }}>
-        <span style={{ fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#38bdf8', display: 'block', marginBottom: 12 }}>The Team</span>
-        <h2 style={{ fontFamily: 'Oxanium', fontWeight: 300, fontSize: 'clamp(26px,4vw,42px)', color: '#f1f5f9', letterSpacing: '-0.01em' }}>The people behind MedGryd</h2>
+  <section class="section band">
+    <div class="shell">
+      <div class="sec-head reveal">
+        <div><span class="idx">— Where we're going</span><h2 class="h2">From one cohort to <em>every</em> cohort.</h2></div>
+        <p class="lede">We built it for our own class first. Now we're talking to programs about licensing it for theirs — starting with osteopathic schools.</p>
       </div>
-      <div data-mg-stagger style={{ display: 'flex', gap: 24, flexWrap: 'wrap', justifyContent: 'center' }}>
-        <TeamCard
-        photo="uploads/raayed-crop.png"
-        name="Raayed Saeed"
-        role="Founder & Lead Developer"
-        bio="OMS-1 at Noorda College of Osteopathic Medicine (DO29). Student Government Treasurer. Built MedGryd from scratch to solve the problems he faced every day in medical school." />
-
-        <TeamCard
-        photo="uploads/aaron-crop.png"
-        name="Aaron Smith"
-        role="Co-Founder & Quiz Mastery Lead"
-        bio="OMS-1 at Noorda College of Osteopathic Medicine (DO29). Developed Quiz Mastery, MedGryd's AI-powered adaptive quizzing engine." />
-
-      </div>
+      <ol class="road reveal">
+        <li class="now"><b>Built &amp; in beta</b>DO29 and DO30 at Noorda, testing daily.</li>
+        <li><b>Osteopathic programs</b>Licensing to DO schools, cohort by cohort.</li>
+        <li><b>Allopathic programs</b>The same platform, with USMLE-first board prep.</li>
+        <li><b>The standard</b>The study operating system medical students expect.</li>
+      </ol>
     </div>
-  </section>;
+  </section>
 
-
-/* ── VISION SECTION ──────────────────────────────────────── */
-const VisionSection = () =>
-<section style={{ background: '#0d0d14', padding: 'clamp(64px,8vw,96px) clamp(20px,5vw,80px)', position: 'relative' }}>
-    <div style={{ position: 'absolute', top: 0, left: '8%', right: '8%', height: 1, background: 'rgba(56,189,248,0.07)' }} />
-    <div style={{ maxWidth: 760, margin: '0 auto' }}>
-      <div style={{ marginBottom: 48 }}>
-        <span style={{ fontFamily: 'Oxanium', fontSize: 11, fontWeight: 500, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#38bdf8', display: 'block', marginBottom: 14 }}>Vision</span>
-        <h2 style={{ fontFamily: 'Oxanium', fontWeight: 300, fontSize: 'clamp(26px,4vw,42px)', color: '#f1f5f9', marginBottom: 22, letterSpacing: '-0.01em' }}>Where We're Going</h2>
-        <p style={{ fontSize: 16, color: '#64748b', lineHeight: 1.85, fontWeight: 300, maxWidth: 620 }}>
-          Our vision is to become the standard study operating system for medical schools nationwide — starting with osteopathic programs and expanding from there. We built it for our own cohort first, and we are now talking to programs about licensing it for theirs.
-        </p>
-      </div>
-
-      {/* Roadmap pills */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 40 }}>
-        {[
-      { label: 'Built and in testing', done: true },
-      { label: 'Osteopathic expansion', done: false },
-      { label: 'Allopathic programs', done: false },
-      { label: 'Nationwide standard', done: false }].
-      map((item, i) =>
-      <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', borderRadius: 100, background: item.done ? 'rgba(56,189,248,0.1)' : 'rgba(255,255,255,0.03)', border: `1px solid ${item.done ? 'rgba(56,189,248,0.35)' : 'rgba(255,255,255,0.08)'}` }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: item.done ? '#38bdf8' : '#334155', boxShadow: item.done ? '0 0 6px #38bdf8' : 'none' }} />
-            <span style={{ fontFamily: 'Aptos Narrow', fontSize: 13, color: item.done ? '#94a3b8' : '#475569' }}>{item.label}</span>
-          </div>
-      )}
-      </div>
-
-      <div style={{ padding: '24px 28px', borderRadius: 14, background: 'rgba(56,189,248,0.04)', border: '1px solid rgba(56,189,248,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
-        <p style={{ fontSize: 15, color: '#94a3b8', fontWeight: 300 }}>Interested in bringing MedGryd to your school?</p>
-        <a href="contact.html" style={{
-        fontFamily: 'Oxanium', fontWeight: 600, fontSize: 12,
-        letterSpacing: '0.1em', textTransform: 'uppercase',
-        color: '#0a0a0f', background: '#38bdf8',
-        padding: '10px 22px', borderRadius: 8, textDecoration: 'none',
-        boxShadow: '0 0 16px rgba(56,189,248,0.3)', whiteSpace: 'nowrap',
-        transition: 'box-shadow 0.2s'
-      }}
-      onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 24px rgba(56,189,248,0.5)'}
-      onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 16px rgba(56,189,248,0.3)'}>Get in Touch</a>
-      </div>
+  <section class="closer">
+    <div class="glow" aria-hidden="true"></div>
+    <div class="shell">
+      <h2 class="display reveal">Bring it to<br />your school.</h2>
+      <div class="hero-actions reveal"><a class="pill solid" href="contact.html?topic=school">Get in touch <span class="arr" aria-hidden="true">→</span></a><a class="pill" href="schools.html">MedGryd for schools</a></div>
     </div>
-  </section>;
+  </section>
+</main>
 
-
-/* ── FOOTER ─────────────────────────────────────────────── */
-const Footer = () =>
-<footer style={{ background: '#060609', borderTop: '1px solid rgba(255,255,255,0.05)', padding: 'clamp(40px,5vw,60px) clamp(20px,5vw,80px) 28px' }}>
-    <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: 32, paddingBottom: 28, borderBottom: '1px solid rgba(255,255,255,0.05)', marginBottom: 20 }}>
-      <div style={{ maxWidth: 340 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-          <img src="uploads/logo-blue.png" alt="MedGryd" style={{ height: 28 }} />
-          <span style={{ fontFamily: 'Oxanium', fontWeight: 600, fontSize: 16, color: '#e2e8f0' }}>MedGryd</span>
-        </div>
-        <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.6 }}>Mission Control for Medical School.</p>
-        <div style={{ display: 'flex', gap: 10, marginTop: 14 }}>
-          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 8, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.18)', color: '#64748b', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 34, height: 34, borderRadius: 8, background: 'rgba(56,189,248,0.07)', border: '1px solid rgba(56,189,248,0.18)', color: '#64748b', textDecoration: 'none', transition: 'border-color 0.2s, color 0.2s, background 0.2s' }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.5)'; e.currentTarget.style.color = '#38bdf8'; e.currentTarget.style.background = 'rgba(56,189,248,0.12)'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(56,189,248,0.18)'; e.currentTarget.style.color = '#64748b'; e.currentTarget.style.background = 'rgba(56,189,248,0.07)'; }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
+<!--FOOTER:START-->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="/" aria-label="MedGryd home"><img src="uploads/logo-blue.png" alt="" width="40" height="40" /><span>MedGryd</span></a>
+        <p class="tagline">Mission Control for Medical School. Built by medical students, for medical students.</p>
+        <div class="socials">
+          <a href="https://www.linkedin.com/company/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="https://instagram.com/medgryd" target="_blank" rel="noopener" aria-label="MedGryd on Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a>
         </div>
       </div>
-      <div style={{ display: 'flex', gap: 48, flexWrap: 'wrap' }}>
-        <div>
-          <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 12 }}>Platform</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[['Features', 'features.html'], ['Pricing', 'pricing.html'], ['About', 'about.html'], ['Contact', 'contact.html']].map(([l, h]) =>
-          <a key={l} href={h} style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>{l}</a>
-          )}
-          </div>
-        </div>
-        <div>
-          <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 12 }}>Legal</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {[['Privacy Policy', 'privacy.html'], ['Terms of Service', 'terms.html'], ['DPA / FERPA BAA', 'dpa.html']].map(([l, h]) =>
-          <a key={l} href={h} style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
-          onMouseEnter={(e) => e.currentTarget.style.color = '#94a3b8'}
-          onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}>{l}</a>
-          )}
-          </div>
-        </div>
-        <div>
-          <div style={{ fontFamily: 'Oxanium', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#475569', marginBottom: 12 }}>Contact</div>
-          <a href="mailto:hello@medgryd.com" style={{ fontSize: 13, color: '#64748b', textDecoration: 'none', display: 'block', marginBottom: 6 }}>hello@medgryd.com</a>
-          <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.55, marginBottom: 10 }}>PO Box 70385<br />Rochester Hills, MI 48307</p>
-          <a href="https://app.medgryd.com" target="_blank" rel="noopener noreferrer" style={{ fontFamily: 'Oxanium', fontSize: 12, fontWeight: 600, color: '#38bdf8', textDecoration: 'none', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Launch App →</a>
-        </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="features.html">Features</a></li><li><a href="schools.html">For Schools</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="https://app.medgryd.com" target="_blank" rel="noopener">Launch App</a></li></ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="mailto:hello@medgryd.com">hello@medgryd.com</a></li></ul>
+        <address>PO Box 70385<br />Rochester Hills, MI 48307</address>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Service</a></li><li><a href="dpa.html">DPA / FERPA</a></li></ul>
       </div>
     </div>
-    <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-      <span style={{ fontSize: 12, color: '#334155' }}>© 2026 MedGryd. All rights reserved.</span>
-      <span style={{ fontSize: 12, color: '#1e293b', fontFamily: 'Oxanium' }}>Built with 🩺 for future physicians</span>
-    </div>
-  </footer>;
-
-
-/* ── APP ─────────────────────────────────────────────────── */
-const App = () => {
-  useTweaks(/*EDITMODE-BEGIN*/{ "accentColor": "#38bdf8" } /*EDITMODE-END*/);
-  return (
-    <div>
-      <Navbar />
-      <PageHeader />
-      <StorySection />
-      <MissionSection />
-      <TeamSection />
-      <VisionSection />
-      <Footer />
-    </div>);
-
-};
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
+    <div class="footer-word" aria-hidden="true">MedGryd</div>
+    <div class="footer-bot"><span>© <span data-year>2026</span> MedGryd. All rights reserved.</span><span>Built with 🩺 for future physicians</span></div>
+  </div>
+</footer>
+<!--FOOTER:END-->
 </body>
 </html>
