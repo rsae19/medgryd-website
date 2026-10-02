@@ -56,7 +56,7 @@
     <div class="shell">
       <span class="eyebrow fade-up d0">Legal</span>
       <h1 class="display fade-up d1" style="margin-top:22px;font-size:clamp(40px,6.4vw,96px)">Privacy Policy</h1>
-      <p class="lede fade-up d2">Effective Date: May 24, 2026 · Last Updated: August 24, 2026</p>
+      <p class="lede fade-up d2">Effective Date: May 24, 2026 · Last Updated: October 1, 2026</p>
     </div>
   </section>
   <section class="section tight" style="padding-top:0">
@@ -65,94 +65,132 @@
 <h2>1. Introduction</h2>
 <p>MedGryd ("we," "us," or "our") is a student productivity platform built for medical students. This Privacy Policy explains what information we collect when you use MedGryd, how we use it, who we share it with, and your rights over your data.</p>
 <p>By creating an account or using MedGryd, you agree to the practices described in this policy. If you are using MedGryd through your medical school's license, your school may have additional data agreements with us — refer to your school's privacy notices as well.</p>
+<p>Some features are optional and send data to outside services only when you use them. Section 5 lists every one of those services and exactly what each receives.</p>
 <h2>2. Who We Are</h2>
 <p>MedGryd is an independent software product developed by Raayed Saeed and Aaron Smith (co-developer, Quiz Mastery feature). We are the data controllers for all personal information processed through the app.</p>
-
 <div class="callout"><p>📧 <strong>hello@medgryd.com</strong> — for privacy requests, use subject line "Privacy Request."</p></div>
 <h2>3. Information We Collect</h2>
 <h3>3.1 Account Information (via Google Sign-In)</h3>
-<p>When you sign in with Google, we receive your Google account email address, display name, profile photo URL, and a unique Firebase user ID (UID). We do not receive your Google password, payment information, or any other Google account data.</p>
+<p>When you sign in with Google, we receive your Google account email address, display name, profile photo URL, and a unique Firebase user ID (UID). We do not receive your Google password or any other Google account data. Your email address is saved to your account so our servers can send the emails described in Section 3.13.</p>
 <h3>3.2 Study &amp; Planner Data</h3>
 <p>We store the following in Firebase Firestore under your account:</p>
-<ul><li>Weekly planner tasks — titles, times, completion status, notes, links, and priority</li>
-<li>Calendar events — synced from Google Calendar for your weekly view</li>
+<ul><li>Weekly planner tasks — titles, times, completion status, notes, links, priority, and subtasks</li>
+<li>Calendar events — synced from Google Calendar and from your school's LMS calendar feed</li>
 <li>Exams and goals — names, dates, and personal study goals you enter</li>
-<li>Study session time — cumulative hours tracked by date</li>
-<li>Anki flashcard counts — daily review counts only (no card content)</li>
+<li>Study session (Focus) time — time tracked by date and by session, including time spent in Quiz Mastery and CaseFlow</li>
+<li>Anki counts — daily review counts, and (if you use Board Ops) counts of cards by deck or tag. Never card content</li>
 <li>Skills Vault — confidence ratings and notes for OMM techniques and clinical skills checklists</li>
 <li>Score Matrix — assessment scores and grade projections you enter</li>
-<li>OSCE Tracker — notes and scores from OSCE practice sessions</li>
-<li>Quick Jot — rich text notes organized in sections</li>
+<li>OSCE Tracker — notes and scores from practice sessions</li>
+<li>Quick Jot — rich text notes organized in sections, including notes you pin to the screen</li>
+<li>Board Ops — board exam dates, your study capacity, question-bank names and totals you report, logged question blocks (counts, accuracy, notes on misses), your course schedule, and practice-exam scores</li>
 <li>App settings and preferences — theme, colors, calendar configurations, and other UI preferences</li>
 <li>School and cohort — whether you attend a partner school and which class year/cohort, used to show you the right exams, passwords, and leaderboard</li>
 </ul>
 <h3>3.3 Quiz Mastery Data</h3>
-<p>If you use the Quiz Mastery feature: uploaded quiz sets (questions, answer choices, explanations), your answers, confidence ratings, attempt history, and per-topic mastery scores.</p>
-<h3>3.4 Research Hub Data</h3>
-<p>Personal research projects (title, status, co-authors, journal, links, task lists, deadlines). Shared projects are stored in a shared collection accessible only to members you invite via invite code.</p>
-<h3>3.5 GrydRank / Leaderboard Data</h3>
-<p>XP, level, badges, and aggregate study/task/Anki totals. <strong>Leaderboard participation is opt-in.</strong> If you opt in, your display name, profile photo, and stats are visible to cohort members. You may enable anonymous mode to display as "Anonymous." Study group members can see your stats within the group.</p>
-<h3>3.6 Peer Board</h3>
-<p>Posts and replies carry no name and <strong>no user ID</strong> — nothing stored on a post links it back to your account. The only record that a post is yours lives in your own account data, on your side. This means posts are genuinely anonymous to other students and to us: we can remove a post, but we cannot tell who wrote it.</p>
-<h3>3.7 Presence Information</h3>
+<p>Quiz sets you import or generate (questions, answer choices, explanations), source coverage maps, your answers, confidence ratings, attempt history, per-topic mastery scores, saved GrydGuide study guides, and a weekly count of the AI generation tokens you have used.</p>
+<h3>3.4 CaseFlow Data</h3>
+<p>For the simulated patient cases you run: your conversation with the simulated patient, the exams and tests you order, your SOAP note, your oral-presentation transcript, timing, and the scores and feedback you receive. We keep full records of your 25 most recent cases; older cases keep only a summary.</p>
+<p>Using the microphone is optional. If you record a presentation, the audio is sent for transcription (Section 5.8) and is <strong>not stored by MedGryd</strong> — only the text transcript is saved. If you use your browser's built-in dictation, your browser provider (such as Google or Apple) processes that audio under its own privacy policy.</p>
+<h3>3.5 Research Hub Data</h3>
+<p>Personal research projects (title, status, co-authors, journal, links, task lists, deadlines). Shared projects can be read only by the project's owner, its members, and people with a pending invitation. If you import literature from a Google Sheets link, MedGryd reads that sheet through Google and adds the rows you confirm.</p>
+<h3>3.6 GrydRank, Profiles &amp; Study Groups</h3>
+<p>XP, level, badges, streak, activity totals (study time, tasks, Anki cards, quiz questions, CaseFlow cases), daily activity for roughly the last 40 days, average Productivity Score, and — if you choose to add them — a short bio and up to three specialty interests.</p>
+<ul><li><strong>Cohort leaderboard (opt-in).</strong> If you opt in, signed-in students can see your display name, photo, stats, and profile card (bio, specialty interests, last-30-day totals, personal bests, and recent daily activity). Anonymous mode shows you as "Anonymous" and hides your name, photo, bio, and specialty interests.</li>
+<li><strong>Study groups.</strong> If you join a group, its members can see your display name, photo, and the same stats and profile — whether or not you opted into the cohort leaderboard, and even if you use anonymous mode there. Leave a group to stop sharing with it.</li>
+</ul>
+<h3>3.7 Sharing &amp; Invitations</h3>
+<p>When you share a calendar event, an On My Radar goal, a research project, or a Quiz Mastery course, or invite someone to a study group, the people you invite see your display name and the shared item. Members of a shared Quiz Mastery course can see your display name and the question sets you add to it. An invitation includes your display name and the item's name, and may also be emailed to the person you invited (Section 3.13).</p>
+<h3>3.8 Peer Board</h3>
+<p>Posts show no name or account information to other students. So that you — and only you — can delete your own post, we keep a private record of which account wrote each post, stored separately from the post. Other users cannot read it. Our development team can access it through our database administration tools, and does so only to investigate a serious violation of our Terms or when required by law.</p>
+<p>Replies and upvotes are recorded on the post with your account ID (never shown in the app, but readable by other signed-in users who inspect the app's data). Replies and upvotes are therefore not fully anonymous. Treat anything you post on the Peer Board as public.</p>
+<h3>3.9 Presence Information</h3>
 <p>When active, your online/offline status, display name, and last-seen timestamp are written to Firebase Realtime Database for group features.</p>
-<h3>3.8 Activation Data</h3>
-<p>Your activation code, display name, and Firebase UID are sent to our activation validation service (a Google Apps Script) to verify and claim your code. MedGryd itself does not retain this data after validation; the validation service keeps a record of which code was claimed so a code cannot be reused.</p>
-<h3>3.9 Quiz Password Cache (Partner Schools)</h3>
+<h3>3.10 Activation &amp; Plan Records</h3>
+<p>Your activation code, display name, email address, and Firebase UID are sent to our activation service (a Google Apps Script backed by a Google Sheet that only our team can access). The sheet records which account claimed each code, with that account's email and plan, so a code cannot be reused and your plan can be applied.</p>
+<h3>3.11 Payments</h3>
+<p>If you buy a paid plan, checkout is handled by Stripe. Where shown at checkout, Link (a Stripe service) sells the plan as reseller and merchant of record. Stripe and Link collect your payment details, billing email, and the location information needed for tax, and process them under their own privacy policies. <strong>MedGryd never sees or stores your card number.</strong> We store a Stripe customer ID, your plan, billing period, subscription status, and renewal date.</p>
+<h3>3.12 Quiz Password Cache (Partner Schools)</h3>
 <p>Where a school distributes quiz passwords to its cohort, MedGryd fetches and caches them in a shared Firestore document visible to students in that same cohort, as operational data for coursework.</p>
+<h3>3.13 Email</h3>
+<p>We use your email address to send (a) notifications when someone shares something with you or invites you, and (b) a weekly study summary on Sunday evenings. Both are on by default and can be turned off in Settings → Account. We may also email you about your account or a paid plan; payment receipts come from Stripe or Link.</p>
+<h3>3.14 Browser Storage</h3>
+<p>MedGryd keeps some data in your browser's local storage — preferences, cached AI explanations, an in-progress CaseFlow case, and XP waiting to be saved — so the app loads quickly and survives a reload. We do not use advertising or cross-site tracking cookies. The support chat (Tawk.to) and error monitoring (Sentry) may set their own storage, as described in Section 5.</p>
 <h2>4. How We Use Your Information</h2>
 <ul><li><strong>Provide the service</strong> — display your planner, sync calendar events, track study progress</li>
 <li><strong>Personalize your experience</strong> — apply your settings, theme, and preferences</li>
-<li><strong>Power social/collaborative features</strong> — leaderboard, peer board, study groups, shared research</li>
+<li><strong>Power social/collaborative features</strong> — leaderboard, profiles, peer board, study groups, shared courses, events, goals, and research</li>
+<li><strong>Run AI features you use</strong> — send the specific content listed in Section 5.8 to generate questions, explanations, study guides, and simulated patient cases</li>
+<li><strong>Process payments</strong> — apply the plan you bought and keep it in sync with Stripe</li>
+<li><strong>Send email</strong> — invitations and the weekly summary, unless you turn them off</li>
 <li><strong>Improve the app</strong> — diagnose errors and bugs using error reports</li>
-<li><strong>Enforce our terms</strong> — detect abuse of the peer board or activation system</li>
+<li><strong>Enforce our terms</strong> — detect abuse of the peer board, AI usage limits, or the activation system</li>
 <li><strong>Understand feature usage</strong> — we look at whether and how often each feature is used, both per account and across the cohort, to decide what to build and fix. This shows us usage counts and frequency only — never the contents of your notes, grades, tasks, or scores</li>
 <li><strong>License to medical schools</strong> — aggregate non-identifiable usage patterns may be shared with licensed institutions</li>
 </ul>
 <p>We do <strong>not</strong> use your data for advertising, sell your data to third parties, or use it for purposes unrelated to providing MedGryd.</p>
 <h2>5. Third-Party Services</h2>
 <h3>5.1 Google / Firebase</h3>
-<p>Firebase Authentication, Firestore, Realtime Database, and Storage are used as our backend. Data is stored in the United States. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy →</a></p>
+<p>Firebase Authentication, Firestore, and Realtime Database are used as our backend. Data is stored in the United States. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy →</a></p>
 <h3>5.2 Google Calendar &amp; Tasks API</h3>
 <p>We access your Google Calendar (read and write) to sync events into your planner and to push events you create or edit in MedGryd back to your Google Calendar. We also request read and write access to Google Tasks, used to read your task lists and update tasks you manage through MedGryd. Calendar and Tasks data are not shared with any party other than Google and Firebase.</p>
 <h3>5.3 Sentry (Error Monitoring &amp; Session Replay)</h3>
-<p>We use Sentry for error tracking. Sentry may collect JavaScript errors, network request metadata, browser information, and — because we send default personal data — your IP address and account identifiers. <strong>Approximately 10% of sessions are recorded as interactive replays; 100% of sessions in which an error occurs are recorded.</strong> Our current configuration masks neither on-screen text nor images, so content you enter (task names, notes) and anything visible on screen may appear in error reports and replays visible to our development team. We are evaluating stricter masking before broader institutional deployment. <a href="https://sentry.io/privacy/" target="_blank" rel="noopener">Sentry Privacy Policy →</a></p>
+<p>We use Sentry for error tracking. Sentry may collect JavaScript errors, network request metadata, browser information, and — because we send default personal data — your IP address and account identifiers. <strong>Approximately 10% of sessions are recorded as interactive replays; 100% of sessions in which an error occurs are recorded.</strong> Our current configuration masks neither on-screen text nor images, so content you enter (task names, notes) and anything visible on screen — including AI explanations, study guides, and CaseFlow conversations — may appear in error reports and replays visible to our development team. We are evaluating stricter masking before broader institutional deployment. <a href="https://sentry.io/privacy/" target="_blank" rel="noopener">Sentry Privacy Policy →</a></p>
 <h3>5.4 Tawk.to (Support Chat)</h3>
-<p>If you use the in-app support chat, your conversation and session metadata are processed by Tawk.to. <a href="https://www.tawk.to/privacy-policy/" target="_blank" rel="noopener">Tawk.to Privacy Policy →</a></p>
+<p>If you use the support chat, your conversation and session metadata are processed by Tawk.to. <a href="https://www.tawk.to/privacy-policy/" target="_blank" rel="noopener">Tawk.to Privacy Policy →</a></p>
 <h3>5.5 Vercel (Hosting)</h3>
-<p>MedGryd is hosted on Vercel, which may log standard request metadata (IP address, user agent, timestamps). <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel Privacy Policy →</a></p>
+<p>MedGryd is hosted on Vercel, which also runs our server functions — the ones that pass requests to the AI, email, and payment services below. Vercel may log standard request metadata (IP address, user agent, timestamps). <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Vercel Privacy Policy →</a></p>
 <h3>5.6 AnkiConnect (Local, Optional)</h3>
-<p>Anki integration communicates only with AnkiConnect running on your own computer (localhost). No Anki data is sent to external servers — only daily review counts are stored in MedGryd.</p>
-<h3>5.7 Canvas (via Google Calendar)</h3>
-<p>MedGryd does not connect to Canvas directly and has no Canvas login or API access. Your Canvas assignments reach MedGryd only through the Canvas calendar feed you subscribe to in your own Google Calendar, and arrive as ordinary calendar events.</p>
-<h3>5.8 AI Question Generation (Quiz Mastery)</h3>
-<p>Quiz Mastery’s question generation runs in <strong>the AI tool you choose</strong> — ChatGPT, Claude, Gemini, or another. MedGryd gives you a prompt to paste in yourself and imports the .json file the tool returns. <strong>MedGryd never sends your lecture material, notes, or any other data to an AI provider.</strong> Whatever you paste into that tool is governed by that tool’s own privacy policy and your school’s academic policies.</p>
+<p>Anki integration talks only to AnkiConnect on your own computer (localhost). No Anki data is sent to external servers — only review counts are stored in MedGryd.</p>
+<h3>5.7 Your School's LMS (via Google Calendar)</h3>
+<p>MedGryd does not connect to Canvas, D2L Brightspace, or any other learning management system directly, and has no LMS login or API access. Your assignments reach MedGryd only through the LMS calendar feed you subscribe to in your own Google Calendar, and arrive as ordinary calendar events.</p>
+<h3>5.8 AI Features</h3>
+<p>Several optional features send content to AI providers through our servers. They run only when you use the feature, and only the content listed below is sent — <strong>never your name or email address</strong>. Each provider processes that content under its own terms and privacy policy.</p>
+<ul><li><strong>Quiz Mastery question generation</strong> → Anthropic (Claude): the source material you provide (such as lecture text) and its coverage map. The questions it writes are saved to your account. <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic Privacy Policy →</a></li>
+<li><strong>Deeper explanation</strong> (Quiz Mastery) → Google (Gemini), with Groq as a backup: the question, its answer choices, the keyed answer, and the stored explanation.</li>
+<li><strong>GrydGuide study guides</strong> → Google (Gemini), with Groq as a backup: the concepts you are being asked to relearn, up to four questions you missed for each (with the answer you chose and the stored explanation), and topic names and descriptions from your source coverage map.</li>
+<li><strong>CaseFlow</strong> → Google (Gemini), with Groq as a backup: your case choices (level, course or topic, and the names of any weak concepts or skills you pick to focus on), your conversation with the simulated patient, and — for grading — your SOAP note and presentation transcript. Presentation recordings → Groq (Whisper) for transcription. The simulated patient's replies (text written by the AI, not by you) → Microsoft Azure AI Speech, to produce the patient's voice.</li>
+</ul>
+<p><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy →</a> · <a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener">Groq Privacy Policy →</a> · <a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener">Microsoft Privacy Statement →</a></p>
+<p>Where MedGryd instead gives you a prompt to paste into an AI tool you choose (ChatGPT, Claude, Gemini, or another), whatever you paste there is governed by that tool's own privacy policy and your school's academic policies. <strong>Never enter real patient information into any MedGryd feature.</strong></p>
+<h3>5.9 Stripe &amp; Link (Payments)</h3>
+<p>Paid plans are purchased through Stripe Checkout and managed in Stripe's billing portal, as described in Section 3.11. <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy →</a> · <a href="https://link.com/privacy" target="_blank" rel="noopener">Link Privacy Policy →</a></p>
+<h3>5.10 Resend (Email Delivery)</h3>
+<p>Emails described in Section 3.13 are delivered by Resend, which receives your email address and the message content (for example, the sender's display name and the shared item's name, or your weekly study totals). <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Resend Privacy Policy →</a></p>
 <h2>6. Educational Records &amp; FERPA</h2>
 <p>If you use MedGryd through a medical school with a data agreement, certain data (grades, study time, self-assessed competency) may constitute educational records under FERPA. In such cases, we act as a school official with a legitimate educational interest and do not disclose records without consent except as permitted by FERPA.</p>
 <p><strong>Currently (beta period):</strong> MedGryd is used independently — no educational record sharing occurs.</p>
 <h2>7. Data Security</h2>
 <ul><li>All data transmitted over HTTPS (TLS encryption in transit)</li>
 <li>Firebase Firestore uses Google's infrastructure (data encrypted at rest)</li>
-<li>Firestore Security Rules tie your data to your Firebase UID — no other student can read or write it</li>
-<li>The developer can access account data for the usage review described in Section 4, and for support and debugging when you ask for help</li>
-<li>Peer Board posts are stored in one shared document that any signed-in MedGryd user can read — it is a public anonymous board by design, so treat anything you post there as public</li>
-<li>Only the development team has access to Sentry error reports and session replays</li>
+<li>Firestore Security Rules tie your personal data to your Firebase UID — no other student can read or write it</li>
+<li>Shared items (Quiz Mastery courses, calendar events, goals, research projects, study groups) can be read only by their owner, members, and people with a pending invitation</li>
+<li>The leaderboard (if you opt in) and Peer Board posts can be read by any signed-in MedGryd user — treat anything you post on the Peer Board as public</li>
+<li>The developer can access account data for the usage review described in Section 4, for support and debugging when you ask for help, and as described in Section 3.8</li>
+<li>Only the development team has access to Sentry error reports and replays</li>
 <li>We maintain nightly encrypted database backups for disaster recovery, retained for up to 30 days</li>
 </ul>
 <p>No internet service is 100% secure. We recommend a strong Google account password and two-factor authentication.</p>
 <h2>8. Your Rights &amp; Choices</h2>
 <ul><li><strong>Access:</strong> View your data in the app; request a machine-readable export by email.</li>
 <li><strong>Correction:</strong> Edit or delete tasks, notes, goals, etc. at any time through the app.</li>
-<li><strong>Deletion:</strong> Email hello@medgryd.com with subject "Account Deletion Request." We will delete your Firestore documents within 30 days. Your data may also persist in an encrypted backup for up to 30 days after that before it is purged in the normal backup rotation cycle. Peer Board posts are never linked to your account, so they are already anonymous and cannot be found and removed for you after the fact — delete any you no longer want from the Peer Board yourself while still signed in.</li>
-<li><strong>Opt-out of Leaderboard:</strong> Disable participation or enable anonymous mode in Settings → GrydRank.</li>
+<li><strong>Deletion:</strong> Email hello@medgryd.com with subject "Account Deletion Request." We will delete your Firestore documents within 30 days. Your data may also persist in an encrypted backup for up to 30 days after that before it is purged in the normal backup rotation cycle. If you have a paid plan, cancel it in Settings → Account → Manage billing first, or ask us to cancel it as part of your request; Stripe and Link keep the transaction records they are legally required to keep. You can delete your own Peer Board posts yourself, or ask us to remove your posts and replies as part of your deletion request.</li>
+<li><strong>Opt-out of Leaderboard:</strong> Disable participation or enable anonymous mode in Settings → GrydRank. Leave a study group to stop sharing your stats with it.</li>
+<li><strong>Email:</strong> Turn invitation emails and the weekly summary on or off in Settings → Account.</li>
+<li><strong>Microphone:</strong> Optional, used only in CaseFlow when you press record. You can revoke it in your browser's settings at any time.</li>
 <li><strong>Opt-out of Sentry replay:</strong> No per-user opt-out currently available. Contact us if this is a concern.</li>
 </ul>
 <h2>9. Data Retention</h2>
 <ul><li>Personal data is retained while your account is active. Inactive accounts may be purged after 24 months.</li>
-<li>Leaderboard entries are removed when you delete your account.</li>
-<li>Peer Board posts are soft-deleted (body cleared) when you delete them from the board yourself; the post shell may remain.</li>
-<li>Sentry error reports are retained per Sentry's standard retention period (90 days for session replays).</li>
-<li>Activation validation data is not retained by MedGryd after validation.</li>
+<li>Leaderboard entries and study-group stats are removed when you delete your account.</li>
+<li>Peer Board posts are deleted when you delete them from the board yourself; replies you made to someone else's post stay until that post is deleted, unless you ask us to remove them.</li>
+<li>CaseFlow keeps full records of your 25 most recent cases and a summary of older ones. Presentation audio is not retained by MedGryd.</li>
+<li>GrydGuide keeps your newest 3 study guides per course branch, up to 15 in total.</li>
+<li>MedGryd does not keep a copy of AI requests beyond the results saved to your account. Our servers may briefly hold an explanation in memory so the same question asked again doesn't trigger a new request. AI providers retain request data according to their own policies.</li>
+<li>Plan and subscription records are kept while your account exists, and afterward only as long as needed for accounting and legal obligations. Stripe and Link retain payment records under their own policies.</li>
+<li>Activation and plan records in our activation sheet are kept while your account is active.</li>
+<li>Resend keeps email delivery logs according to its own retention period.</li>
+<li>Sentry error reports are retained per Sentry's standard retention period (90 days for replays).</li>
 <li>Nightly database backups are retained on a rolling 30-day basis, then automatically purged.</li>
 </ul>
 <h2>10. Children's Privacy</h2>
@@ -160,10 +198,8 @@
 <h2>11. Changes to This Policy</h2>
 <p>We may update this policy as the app evolves. Material changes will be announced in the app. Continued use after the notice constitutes acceptance.</p>
 <h2>12. Contact</h2>
-
-<div class="callout"><p>📧 <a href="mailto:hello@medgryd.com">hello@medgryd.com</a></p></div>
-<p>Subject line: "MedGryd Privacy" · PO Box 70385, Rochester Hills, MI 48307</p>
-<p>Last reviewed August 24, 2026</p>
+<div class="callout"><p>📧 <strong>hello@medgryd.com</strong> — Subject: "MedGryd Privacy" · PO Box 70385, Rochester Hills, MI 48307</p></div>
+<p>Last reviewed October 1, 2026</p>
       </article>
     </div>
   </section>
