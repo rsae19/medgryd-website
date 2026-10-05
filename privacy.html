@@ -70,9 +70,10 @@
 <p>MedGryd is an independent software product developed by Raayed Saeed and Aaron Smith (co-developer, Quiz Mastery feature). We are the data controllers for all personal information processed through the app.</p>
 <div class="callout"><p>📧 <strong>hello@medgryd.com</strong> — for privacy requests, use subject line "Privacy Request."</p></div>
 <h2>3. Information We Collect</h2>
-<h3>3.1 Account Information (Google or Apple Sign-In)</h3>
+<h3>3.1 Account Information (Google, Apple or Email Sign-In)</h3>
 <p>When you sign in with Google, we receive your Google account email address, display name, profile photo URL, and a unique Firebase user ID (UID). We do not receive your Google password or any other Google account data. Your email address is saved to your account so our servers can send the emails described in Section 3.13.</p>
 <p>You can also sign in with Apple, and add Apple or Google as a second sign-in method for the same account in Settings → Account. With Apple we receive the email address Apple shares with us (which may be a private relay address that forwards to you), your name if you choose to share it, and a Firebase UID. We do not receive your Apple ID password.</p>
+<p>You can also sign in with an email address and password, or add a password to an account you made with Google or Apple. With email sign-in we receive the email address and the name you enter, and a Firebase UID. Your password is handled by Firebase Authentication (Google), which keeps only a salted hash of it; MedGryd never sees or stores your password. We send one email to verify the address, and a password-reset email only when you ask for one.</p>
 <h3>3.2 Study &amp; Planner Data</h3>
 <p>We store the following in Firebase Firestore under your account:</p>
 <ul><li>Weekly planner tasks — titles, times, completion status, notes, links, priority, and subtasks</li>
