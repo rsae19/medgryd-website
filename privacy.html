@@ -56,7 +56,7 @@
     <div class="shell">
       <span class="eyebrow fade-up d0">Legal</span>
       <h1 class="display fade-up d1" style="margin-top:22px;font-size:clamp(40px,6.4vw,96px)">Privacy Policy</h1>
-      <p class="lede fade-up d2">Effective Date: May 24, 2026 · Last Updated: October 1, 2026</p>
+      <p class="lede fade-up d2">Effective Date: May 24, 2026 · Last Updated: October 5, 2026</p>
     </div>
   </section>
   <section class="section tight" style="padding-top:0">
@@ -70,8 +70,9 @@
 <p>MedGryd is an independent software product developed by Raayed Saeed and Aaron Smith (co-developer, Quiz Mastery feature). We are the data controllers for all personal information processed through the app.</p>
 <div class="callout"><p>📧 <strong>hello@medgryd.com</strong> — for privacy requests, use subject line "Privacy Request."</p></div>
 <h2>3. Information We Collect</h2>
-<h3>3.1 Account Information (via Google Sign-In)</h3>
+<h3>3.1 Account Information (Google or Apple Sign-In)</h3>
 <p>When you sign in with Google, we receive your Google account email address, display name, profile photo URL, and a unique Firebase user ID (UID). We do not receive your Google password or any other Google account data. Your email address is saved to your account so our servers can send the emails described in Section 3.13.</p>
+<p>In the MedGryd iPhone app you can sign in with Apple instead. We then receive the email address Apple shares with us (which may be a private relay address that forwards to you), your name if you choose to share it, and a Firebase UID. We do not receive your Apple ID password.</p>
 <h3>3.2 Study &amp; Planner Data</h3>
 <p>We store the following in Firebase Firestore under your account:</p>
 <ul><li>Weekly planner tasks — titles, times, completion status, notes, links, priority, and subtasks</li>
@@ -115,7 +116,7 @@
 <h3>3.13 Email</h3>
 <p>We use your email address to send (a) notifications when someone shares something with you or invites you, and (b) a weekly study summary on Sunday evenings. Both are on by default and can be turned off in Settings → Account. We may also email you about your account or a paid plan; payment receipts come from Stripe or Link.</p>
 <h3>3.14 Browser Storage</h3>
-<p>MedGryd keeps some data in your browser's local storage — preferences, cached AI explanations, an in-progress CaseFlow case, and XP waiting to be saved — so the app loads quickly and survives a reload. We do not use advertising or cross-site tracking cookies. The support chat (Tawk.to) and error monitoring (Sentry) may set their own storage, as described in Section 5.</p>
+<p>MedGryd keeps some data in your browser's local storage — preferences, cached AI explanations, an in-progress CaseFlow case, and XP waiting to be saved — so the app loads quickly and survives a reload. We do not use advertising or cross-site tracking cookies. The support chat (Tawk.to) and error monitoring (Sentry) may set their own storage, as described in Section 5. The MedGryd phone apps keep the same kinds of data in the app's own storage on your device.</p>
 <h2>4. How We Use Your Information</h2>
 <ul><li><strong>Provide the service</strong> — display your planner, sync calendar events, track study progress</li>
 <li><strong>Personalize your experience</strong> — apply your settings, theme, and preferences</li>
@@ -134,6 +135,7 @@
 <p>Firebase Authentication, Firestore, and Realtime Database are used as our backend. Data is stored in the United States. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy →</a></p>
 <h3>5.2 Google Calendar &amp; Tasks API</h3>
 <p>We access your Google Calendar (read and write) to sync events into your planner and to push events you create or edit in MedGryd back to your Google Calendar. We also request read and write access to Google Tasks, used to read your task lists and update tasks you manage through MedGryd. Calendar and Tasks data are not shared with any party other than Google and Firebase.</p>
+<p>When you connect Google Calendar, Google issues MedGryd a long-lived authorization (a refresh token) so you stay connected on every device without signing in to Google again. We store it encrypted (AES-256) on our servers, where no app or browser can read it, and use it only to get short-lived access to your own calendar and tasks when MedGryd syncs. Disconnecting in Settings → Account, or deleting your account, deletes it and revokes it at Google. You can also revoke it at any time at myaccount.google.com/permissions.</p>
 <h3>5.3 Sentry (Error Monitoring &amp; Session Replay)</h3>
 <p>We use Sentry for error tracking. Sentry may collect JavaScript errors, network request metadata, browser information, and — because we send default personal data — your IP address and account identifiers. <strong>Approximately 10% of sessions are recorded as interactive replays; 100% of sessions in which an error occurs are recorded.</strong> Our current configuration masks neither on-screen text nor images, so content you enter (task names, notes) and anything visible on screen — including AI explanations, study guides, and CaseFlow conversations — may appear in error reports and replays visible to our development team. We are evaluating stricter masking before broader institutional deployment. <a href="https://sentry.io/privacy/" target="_blank" rel="noopener">Sentry Privacy Policy →</a></p>
 <h3>5.4 Tawk.to (Support Chat)</h3>
@@ -157,6 +159,8 @@
 <p>Paid plans are purchased through Stripe Checkout and managed in Stripe's billing portal, as described in Section 3.11. <a href="https://stripe.com/privacy" target="_blank" rel="noopener">Stripe Privacy Policy →</a> · <a href="https://link.com/privacy" target="_blank" rel="noopener">Link Privacy Policy →</a></p>
 <h3>5.10 Resend (Email Delivery)</h3>
 <p>Emails described in Section 3.13 are delivered by Resend, which receives your email address and the message content (for example, the sender's display name and the shared item's name, or your weekly study totals). <a href="https://resend.com/legal/privacy-policy" target="_blank" rel="noopener">Resend Privacy Policy →</a></p>
+<h3>5.11 Apple &amp; Google App Stores and Phone Notifications</h3>
+<p>If you use the MedGryd app from the App Store or Google Play, Apple or Google distributes it and may collect download, purchase and crash information under its own privacy policy. Sign in with Apple is processed by Apple. Reminders on this phone are scheduled by your phone's operating system: event titles and times stay on your device and are not sent to MedGryd or to any push-notification service. The apps do not sell plans or token packs; those are bought on the MedGryd website.</p>
 <h2>6. Educational Records &amp; FERPA</h2>
 <p>If you use MedGryd through a medical school with a data agreement, certain data (grades, study time, self-assessed competency) may constitute educational records under FERPA. In such cases, we act as a school official with a legitimate educational interest and do not disclose records without consent except as permitted by FERPA.</p>
 <p><strong>Currently (beta period):</strong> MedGryd is used independently — no educational record sharing occurs.</p>
@@ -174,9 +178,10 @@
 <h2>8. Your Rights &amp; Choices</h2>
 <ul><li><strong>Access:</strong> View your data in the app; request a machine-readable export by email.</li>
 <li><strong>Correction:</strong> Edit or delete tasks, notes, goals, etc. at any time through the app.</li>
-<li><strong>Deletion:</strong> Email hello@medgryd.com with subject "Account Deletion Request." We will delete your Firestore documents within 30 days. Your data may also persist in an encrypted backup for up to 30 days after that before it is purged in the normal backup rotation cycle. If you have a paid plan, cancel it in Settings → Account → Manage billing first, or ask us to cancel it as part of your request; Stripe and Link keep the transaction records they are legally required to keep. You can delete your own Peer Board posts yourself, or ask us to remove your posts and replies as part of your deletion request.</li>
+<li><strong>Deletion:</strong> Delete your account at any time in Settings → Account → Delete account. This immediately deletes your MedGryd data, cancels any paid plan so it won't renew, revokes MedGryd's access to Google, and deletes your Peer Board posts along with your replies and upvotes. Shared research projects and Quiz Mastery courses you own pass to another member; shared calendar events and goals you own are deleted for everyone. You can also email hello@medgryd.com with subject "Account Deletion Request," and we will do the same within 30 days. Either way, your data may persist in an encrypted backup for up to 30 days before it is purged in the normal backup rotation cycle. Stripe and Link keep the transaction records they are legally required to keep.</li>
 <li><strong>Opt-out of Leaderboard:</strong> Disable participation or enable anonymous mode in Settings → GrydRank. Leave a study group to stop sharing your stats with it.</li>
 <li><strong>Email:</strong> Turn invitation emails and the weekly summary on or off in Settings → Account.</li>
+<li><strong>Notifications:</strong> In the phone app, Reminders on this phone stay off until you turn them on in Settings → Account. Turn them off there or in your phone's settings.</li>
 <li><strong>Microphone:</strong> Optional, used only in CaseFlow when you press record. You can revoke it in your browser's settings at any time.</li>
 <li><strong>Opt-out of Sentry replay:</strong> No per-user opt-out currently available. Contact us if this is a concern.</li>
 </ul>
@@ -199,7 +204,7 @@
 <p>We may update this policy as the app evolves. Material changes will be announced in the app. Continued use after the notice constitutes acceptance.</p>
 <h2>12. Contact</h2>
 <div class="callout"><p>📧 <strong>hello@medgryd.com</strong> — Subject: "MedGryd Privacy" · PO Box 70385, Rochester Hills, MI 48307</p></div>
-<p>Last reviewed October 1, 2026</p>
+<p>Last reviewed October 5, 2026</p>
       </article>
     </div>
   </section>
