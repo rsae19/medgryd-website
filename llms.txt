@@ -2,7 +2,7 @@
 
 > Mission Control for Medical School — the all-in-one study operating system for medical students.
 
-MedGryd is a web application built by osteopathic medical students during their own pre-clinical years. It unifies weekly planning, clinical skills tracking, quiz mastery, research management, grade calculation, and gamified motivation into a single platform purpose-built for the demands of medical education.
+MedGryd is a web application built by osteopathic medical students during their own pre-clinical years, and operated by MedGryd LLC (founded 2026 by Raayed Saeed and Aaron Smith). It unifies weekly planning, clinical skills tracking, quiz mastery, research management, grade calculation, and gamified motivation into a single platform purpose-built for the demands of medical education.
 
 ## Core Features
 
