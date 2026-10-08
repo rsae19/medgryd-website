@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=3" />
+  <link rel="stylesheet" href="assets/site.css?v=4" />
   <link rel="stylesheet" href="assets/demos.css?v=3" />
   <script src="assets/site.js?v=3" defer></script>
   <script src="assets/planet.js?v=3" defer></script>
@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <a class="scroll-badge fade-up d3" href="#tour" aria-label="Scroll to the tour">
+    <a class="scroll-badge fade-up d3" href="#intro" aria-label="Scroll to the introduction video">
       <svg viewBox="0 0 120 120" aria-hidden="true">
         <defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" /></defs>
         <text><textPath href="#circ">Scroll to explore · Mission control · </textPath></text>
@@ -97,6 +97,30 @@
       <div><span class="live"></span><b>4 days</b>to next exam</div>
       <div><b>18 / 27</b>Tasks today</div>
       <div><b>2h 14m</b>Focus logged</div>
+    </div>
+  </section>
+
+  <!-- ─── INTRODUCTION VIDEO ───────────────────────────────────────── -->
+  <section class="intro-video" id="intro" aria-labelledby="intro-title">
+    <div class="shell intro-video-layout">
+      <div class="intro-video-copy">
+        <span class="idx">— Meet MedGryd</span>
+        <h2 class="h2" id="intro-title">Your mission control.<br /><em>In motion.</em></h2>
+        <p class="lede">Medical school has a lot of moving parts. See how MedGryd brings them together.</p>
+        <a class="link" href="https://youtu.be/sTDwv3WxnwQ" target="_blank" rel="noopener">Watch on YouTube <span class="arr" aria-hidden="true">↗</span></a>
+      </div>
+      <div class="intro-video-frame">
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube-nocookie.com/embed/sTDwv3WxnwQ"
+          title="Introducing MedGryd — Mission Control for Medical School"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
   </section>
 

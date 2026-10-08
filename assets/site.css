@@ -217,6 +217,20 @@ em { font-style: normal; color: var(--accent); }
 }
 @media (prefers-reduced-motion: reduce) { .scroll-badge svg, .scroll-badge .core svg, .telemetry .live::before { animation: none; } }
 
+/* ── Homepage introduction video ──────────────────────────────────────── */
+.intro-video { padding: clamp(56px, 7vw, 100px) 0; scroll-margin-top: 72px; }
+.intro-video-layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
+.intro-video-copy .idx { display: block; margin-bottom: 20px; }
+.intro-video-copy .h2 { font-size: clamp(32px, 3.5vw, 50px); line-height: 1.08; }
+.intro-video-copy .lede { margin-top: 22px; max-width: 34ch; }
+.intro-video-copy .link { margin-top: 24px; }
+.intro-video-frame { border: 1px solid rgba(var(--accent-rgb), 0.24); background: var(--panel); box-shadow: 0 20px 70px -30px rgba(var(--accent-rgb), 0.2); }
+.intro-video-frame iframe { display: block; width: 100%; height: auto; min-height: 200px; aspect-ratio: 16 / 9; border: 0; }
+@media (max-width: 900px) {
+  .intro-video-layout { grid-template-columns: minmax(0, 1fr); }
+  .intro-video-copy .lede { max-width: 52ch; }
+}
+
 /* ── Marquee ──────────────────────────────────────────────────────────── */
 .marquee { border-block: 1px solid var(--hair-2); overflow: hidden; padding: 22px 0; background: rgba(255, 255, 255, 0.012); }
 .marquee-track { display: flex; gap: 0; width: max-content; animation: marquee 60s linear infinite; }
