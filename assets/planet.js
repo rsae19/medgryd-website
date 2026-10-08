@@ -16,7 +16,7 @@ uniform float uTime;
 uniform vec2 uMouse;   // -1..1, eased
 uniform float uScroll; // 0 at top, 1 when the hero has scrolled away
 uniform float uIntro;  // 0 -> 1 on load
-uniform vec3 uBase;    // planet centre (x, y) and radius, in short-side units
+uniform vec3 uBase;    // planet center (x, y) and radius, in short-side units
 
 float h21(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
 float h31(vec3 p){ p=fract(p*0.3183099+0.1); p*=17.0; return fract(p.x*p.y*p.z*(p.x+p.y+p.z)); }
@@ -56,7 +56,7 @@ float ecg(float s){
 void main(){
   vec2 frag = gl_FragCoord.xy;
   float m = min(uRes.x,uRes.y);
-  vec2 uv = (frag - 0.5*uRes)/m;               // centred, short side = 1
+  vec2 uv = (frag - 0.5*uRes)/m;               // centerd, short side = 1
   float T = uTime;
 
   // ── background: deep space, faint mission-control grid, stars ──
@@ -189,7 +189,7 @@ void main(){
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const hero = canvas.closest(".hero, .page-hero") || canvas.parentElement;
-  // "hero": centred behind the headline. "side": parked right of a sub-page title, partly off canvas.
+  // "hero": centerd behind the headline. "side": parked right of a sub-page title, partly off canvas.
   const mode = canvas.dataset.planet || "hero";
   function base() {
     const aspect = W / Math.max(1, H), half = Math.max(aspect, 1) * 0.5;
