@@ -1,4 +1,4 @@
-/* Site-wide behaviour: nav, reveals, the manifesto's word-by-word light-up, counters. */
+/* Site-wide behavior: nav, reveals, the manifesto's word-by-word light-up, counters. */
 (function () {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

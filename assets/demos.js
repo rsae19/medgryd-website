@@ -322,7 +322,7 @@
          <div><div class="eyb">Signals · each source on its own scale</div><div class="sys-list">${SYS.map((s) => `<div class="sys" tabindex="0">
             <div class="sys-head"><span>${s.name}</span>${s.tag === "weak" ? '<span class="chip crit">Weak</span>' : s.tag === "under" ? '<span class="chip warn">Under-weighted</span>' : '<span class="chip ok">Holding</span>'}</div>
             <div class="rulers">${s.rows.map((r) => ruler(r)).join("")}</div></div>`).join("")}</div>
-           <div class="eyb" style="margin-top:14px">Miss tally · 64 misses categorised</div>
+           <div class="eyb" style="margin-top:14px">Miss tally · 64 misses categorized</div>
            <div class="tally" aria-hidden="true"><i style="width:46%;background:var(--accent)"></i><i style="width:18%;background:var(--violet)"></i><i style="width:20%;background:var(--warn)"></i><i style="width:9%;background:#f472b6"></i><i style="width:7%;background:rgba(255,255,255,.3)"></i></div>
            <div class="tally-key"><span style="--c:var(--accent)">Content 46%</span><span style="--c:var(--violet)">Misread 18%</span><span style="--c:var(--warn)">Reasoning 20%</span><span style="--c:#f472b6">Changed 9%</span><span style="--c:rgba(255,255,255,.3)">Timing 7%</span></div>
            <div class="verdict">Mostly <b>content</b>. More review will move this; drilling speed won't.</div>
@@ -561,9 +561,9 @@
       { n: "Anki lessons", c: "#6cb6ff", tag: "Nobody else does this", d: "Reads which cards you keep failing, groups them into concepts, and builds a NotebookLM packet that turns them into one narrated lesson.", b: ["Live card counts from Anki", "Groups by concept, not deck", "Feeds Board Ops retention by system"] },
       { n: "Companion Tracker", c: "#e8b84b", tag: "Resources", d: "Pathoma chapters, SketchyPharm and SketchyMicro videos ticked off as you go — and Board Ops assigns the next ones for you.", b: ["Per-series progress", "Never re-assigns what you've watched", "Earns XP"] },
       { n: "Stats & heatmap", c: "#2dd4bf", tag: "Evidence", d: "Study time, Anki history, task completion and a year heatmap — with a Productivity Score judged against your own baseline, never someone else's.", b: ["30-day trends on every badge", "Personal baselines, fair to any workflow", "Past days frozen, never rewritten"] },
-      { n: "Peer Board", c: "#fb7185", tag: "Community", d: "A struggle board for your class. Post anonymously or by name, upvote what you recognise, and answer what you've been through.", b: ["Truly anonymous posting", "Threaded replies", "XP for helping classmates"] },
+      { n: "Peer Board", c: "#fb7185", tag: "Community", d: "A struggle board for your class. Post anonymously or by name, upvote what you recognize, and answer what you've been through.", b: ["Truly anonymous posting", "Threaded replies", "XP for helping classmates"] },
       { n: "Shared events & goals", c: "#c084fc", tag: "Together", d: "Invite classmates to an event or a goal. Everyone keeps their own copy in their own calendar, and the owner's edits follow.", b: ["See who accepted, declined or is pending", "Recurring shared goals stay linked", "Each person files it in their own calendar"] },
-      { n: "Install anywhere", c: "#94a3b8", tag: "Platform", d: "Installs to your home screen on iPhone and Android with a layout built for the phone, and runs on any laptop browser.", b: ["Light, dark or sunrise-to-sunset", "Any accent colour", "Searchable 19-part setup guide"] },
+      { n: "Install anywhere", c: "#94a3b8", tag: "Platform", d: "Installs to your home screen on iPhone and Android with a layout built for the phone, and runs on any laptop browser.", b: ["Light, dark or sunrise-to-sunset", "Any accent color", "Searchable 19-part setup guide"] },
     ];
     const inner = TOOLS.slice(0, 6), outer = TOOLS.slice(6);
     // Both rings turn together as one system, so the offset between them (and therefore the gap

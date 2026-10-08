@@ -126,7 +126,7 @@ void main(){
     float w1 = fbm(s + vec3(0.0, T*0.03, 0.0));
     float w2 = fbm(s*1.15 + vec3(w1*1.8, -T*0.022, w1*1.3));
     float bands = sin(q.y*3.2 + w2*4.2 + T*0.10)*0.5+0.5;
-    // thin-film shift: colour slides with viewing angle, which is what reads as iridescence
+    // thin-film shift: color slides with viewing angle, which is what reads as iridescence
     float film = (1.0 - z)*0.55;
     float t = w2*0.85 + bands*0.28 + film + T*0.010;
     vec3 surf = iri(t);

@@ -1,4 +1,4 @@
-/* Working miniatures of the app. Colours follow the app's dark theme tokens; motion follows its
+/* Working miniatures of the app. Colors follow the app's dark theme tokens; motion follows its
    rules — transform/opacity only, fast out, a beat slower in. */
 
 .demo-pair { display: grid; gap: 18px; }
