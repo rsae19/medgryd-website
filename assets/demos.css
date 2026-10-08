@@ -14,6 +14,14 @@
 .ai-prompts button:hover { border-color: var(--accent); }
 .ai-result { font-size: 15px; line-height: 1.55; }
 .ai-result p { margin: 8px 0 0; }
+.ai-earlier { padding: 0 0 14px 12px; margin-bottom: 14px; border-left: 2px solid var(--hair); font-size: 13px; color: var(--dim); }
+.ai-teaching { margin: 0 0 16px; font-size: 14px; }
+.ai-teaching > div { padding: 10px 0; border-top: 1px solid var(--hair); }
+.ai-teaching dt { color: var(--ink); font-weight: 700; }
+.ai-teaching dd { margin: 4px 0 0; color: var(--dim); }
+.ai-mnemonic { padding: 14px 16px; margin-bottom: 16px; border-left: 2px solid var(--accent); background: rgba(var(--accent-rgb), 0.06); font-size: 14px; }
+.ai-mnemonic strong { color: var(--ink); font-weight: 700; }
+.ai-guide .ai-guide-topics { font-size: 12px; color: var(--accent); }
 .ai-question { margin-left: 24px; padding: 12px 16px; background: rgba(var(--accent-rgb), 0.08); border: 1px solid rgba(var(--accent-rgb), 0.14); border-radius: 12px 12px 3px 12px; color: var(--ink); }
 .ai-answer { padding: 18px 0 12px; }
 .ai-who { display: flex; align-items: center; gap: 7px; font: 600 12px var(--display); color: var(--accent); }

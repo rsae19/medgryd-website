@@ -461,12 +461,33 @@
      No API calls, account data, or persistence; chatting does not change mastery. */
   function grydai(root) {
     const mark = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1.4" stroke="currentColor" stroke-width="1.4"/><rect x="9" y="1.5" width="5.5" height="5.5" rx="1.4" fill="currentColor" opacity=".85"/><rect x="1.5" y="9" width="5.5" height="5.5" rx="1.4" fill="currentColor" opacity=".5"/><path d="m11.75 9.2.7 1.65 1.65.7-1.65.7-.7 1.65-.7-1.65-1.65-.7 1.65-.7z" fill="currentColor"/></svg>`;
+    // Renal teaching reference: OHSU, Gustafson, Resistant Arterial Hypertension (2026):
+    // https://www.ohsu.edu/sites/default/files/2026-02/pcr26-thu-2-gustafson.pdf
+    // Prior error is explicitly supplied in this chat; the tutor does not fetch past quiz answers.
     const examples = [
       {
+        label: "Connect two missed questions",
+        earlier: "I missed the ibuprofen question. I picked efferent dilation as the reason GFR fell in a dehydrated patient.",
+        question: "I got the losartan question wrong too. I chose afferent constriction. Why would creatinine go up?",
+        answer: "Same mix-up as the last question you shared: you’re swapping the entrance and exit of the glomerulus. Different drugs, same underlying concept — pressure inside the filter.",
+        teaching: [
+          ["Ibuprofen / NSAIDs", "Block prostaglandin production, reducing afferent dilation. The entrance can narrow, especially when renal perfusion is low."],
+          ["Losartan / ARBs", "Block angiotensin II’s AT1 receptor effects, allowing the efferent exit to relax. Filtration pressure can fall, GFR can drop, and creatinine can rise."],
+        ],
+        mnemonic: "NSAIDs Narrow the entrance. ACE inhibitors and ARBs Ease the exit.",
+        memory: "Afferent Arrives. Efferent Exits. Less coming in or an easier way out can both lower pressure inside the filter.",
+        topics: ["Glomerular filtration", "NSAIDs", "RAAS blockers"],
+        follow: "So how would an ACE inhibitor compare?",
+        followAnswer: "Same exit, different target. ACE inhibitors reduce angiotensin II formation; ARBs block its AT1 receptor. Both reduce angiotensin II–mediated efferent constriction, so both fit “Ease the exit.”",
+        followNote: "Also asked how ACE inhibitors connect to the same mechanism.",
+        note: "Swaps afferent and efferent drug effects across NSAID and ARB questions.",
+        guide: "Compare NSAIDs, ACE inhibitors and ARBs using the entrance/exit mnemonic, then check which vessel changes and what happens to filtration pressure.",
+      },
+      {
         label: "Untangle a concept",
-        question: "I recognise the answer, but I can’t explain it without the choices. How should I study?",
+        question: "I recognize the answer, but I can’t explain it without the choices. How should I study?",
         answer: "Try explaining the concept before looking at the options. Then compare your explanation with your lecture and work through what you missed. If you guessed correctly, mark your confidence honestly in Quiz Mastery so the next review reflects that.",
-        note: "Recognises the answer but struggles to explain the concept without prompts.",
+        note: "Recognizes the answer but struggles to explain the concept without prompts.",
         guide: "A short explanation followed by a recall prompt to answer before revealing the key.",
       },
       {
@@ -477,7 +498,8 @@
         guide: "A side-by-side comparison and self-checks that ask you to explain the difference.",
       },
     ];
-    let selected = 0, linked = true, followed = false;
+    const topicsFor = (ex) => ex.topics || ["Glomerular filtration"];
+    let selected = 0, linkedTopics = new Set(topicsFor(examples[0])), followed = false;
     root.classList.add("ai-demo");
     root.innerHTML = frame(`${mark}GrydAI`, "Interactive example",
       `<div class="ai-context"><span class="eyb">Quiz Mastery</span><span>Renal physiology / Glomerular filtration</span></div>
@@ -488,30 +510,37 @@
 
     function paint() {
       const ex = examples[selected];
+      const linked = linkedTopics.size > 0;
       root.querySelectorAll("[data-ai-example]").forEach((button) => button.setAttribute("aria-pressed", String(+button.dataset.aiExample === selected)));
       $("[data-ai-result]", root).innerHTML = `
+        ${ex.earlier ? `<div class="ai-earlier"><span class="eyb">Earlier in this chat · You</span><p>${esc(ex.earlier)}</p></div>` : ""}
         <div class="ai-question"><span class="eyb">You</span><p>${esc(ex.question)}</p></div>
         <div class="ai-answer"><span class="ai-who">${mark}GrydAI</span><p>${esc(ex.answer)}</p></div>
-        ${followed ? `<div class="ai-followup"><span class="eyb">You · How would I check my understanding?</span><p><b>GrydAI</b> · Close your notes and explain the idea in your own words, then try a fresh practice question. Use the explanation to check your reasoning, even when your answer is correct.</p></div>` : ""}
-        <div class="ai-links">${linked ? `<span>Linked to</span><span class="ai-chip">Glomerular filtration<button type="button" data-ai-unlink aria-label="Unlink Glomerular filtration" title="Not about this">×</button></span>` : `<span>Topic unlinked from this example.</span>`}</div>
+        ${ex.teaching ? `<dl class="ai-teaching">${ex.teaching.map(([drug, mechanism]) => `<div><dt>${esc(drug)}</dt><dd>${esc(mechanism)}</dd></div>`).join("")}</dl>` : ""}
+        ${ex.mnemonic ? `<div class="ai-mnemonic"><span class="eyb acc">Make it stick</span><p><strong>${esc(ex.mnemonic)}</strong></p><p>${esc(ex.memory)}</p></div>` : ""}
+        ${followed ? `<div class="ai-followup"><span class="eyb">You · ${esc(ex.follow || "How would I check my understanding?")}</span><p><b>GrydAI</b> · ${esc(ex.followAnswer || "Close your notes and explain the idea in your own words, then try a fresh practice question. Use the explanation to check your reasoning, even when your answer is correct.")}</p></div>` : ""}
+        <div class="ai-links">${linked ? `<span>Linked to</span>${topicsFor(ex).map((topic, i) => linkedTopics.has(topic) ? `<span class="ai-chip">${esc(topic)}<button type="button" data-ai-unlink="${i}" aria-label="Unlink ${esc(topic)}" title="Not about this">×</button></span>` : "").join("")}` : `<span>Topics unlinked from this example.</span>`}</div>
         <div class="ai-guide">
           <div class="ai-guide-heading"><span class="eyb acc">Your next GrydGuide</span><span class="ai-preview">Preview</span></div>
           <h4>${linked ? "The question becomes context." : "You control the connection."}</h4>
-          <p>${linked ? esc(ex.note + (followed ? " Wants a way to check understanding independently." : "")) : "This conversation no longer contributes context for this topic. Your quiz evidence still informs the guide."}</p>
+          <p>${linked ? esc(ex.note + (followed ? " " + (ex.followNote || "Wants a way to check understanding independently.") : "")) : "This conversation no longer contributes context for these topics. Your quiz evidence still informs the guide."}</p>
+          ${linked && ex.topics ? `<p class="ai-guide-topics">Context for: ${esc([...linkedTopics].join(" · "))}</p>` : ""}
           ${linked ? `<div class="ai-guide-example"><span>Example guide focus</span>${esc(ex.guide)}</div>` : ""}
         </div>`;
       $("[data-ai-follow]", root).hidden = followed;
+      $("[data-ai-follow]", root).textContent = ex.follow || "How would I check my understanding?";
     }
     root.addEventListener("click", (event) => {
       const example = event.target.closest("[data-ai-example]");
       if (example) {
-        selected = +example.dataset.aiExample; linked = true; followed = false; paint();
+        selected = +example.dataset.aiExample; linkedTopics = new Set(topicsFor(examples[selected])); followed = false; paint();
       } else if (event.target.closest("[data-ai-unlink]")) {
-        linked = false; paint(); $("[data-ai-reset]", root).focus({ preventScroll: true });
+        const index = +event.target.closest("[data-ai-unlink]").dataset.aiUnlink;
+        linkedTopics.delete(topicsFor(examples[selected])[index]); paint(); $("[data-ai-reset]", root).focus({ preventScroll: true });
       } else if (event.target.closest("[data-ai-follow]")) {
         followed = true; paint(); $("[data-ai-reset]", root).focus({ preventScroll: true });
       } else if (event.target.closest("[data-ai-reset]")) {
-        selected = 0; linked = true; followed = false; paint();
+        selected = 0; linkedTopics = new Set(topicsFor(examples[0])); followed = false; paint();
       }
     });
     paint();
