@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MedGryd — Mission Control for Medical School</title>
-  <meta name="description" content="The study operating system for medical students. A planner already wired to your coursework, a spaced-retrieval engine that separates knowing from guessing, AI question sets from your own slides, simulated patient encounters, a board-prep plan built on your own evidence, 227 OMM protocols and 349 clinical skills tasks." />
+  <meta name="description" content="The study operating system for medical students. A planner already wired to your coursework, a spaced-retrieval engine that separates knowing from guessing, AI question sets from your own slides, GrydAI tutoring linked to your study guides, simulated patient encounters, a board-prep plan built on your own evidence, 227 OMM protocols and 349 clinical skills tasks." />
   <meta name="theme-color" content="#05060d" />
   <link rel="canonical" href="https://medgryd.com/" />
   <link rel="icon" type="image/svg+xml" href="favicon-1.svg" />
@@ -28,11 +28,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/site.css?v=4" />
-  <link rel="stylesheet" href="assets/demos.css?v=3" />
+  <link rel="stylesheet" href="assets/site.css?v=5" />
+  <link rel="stylesheet" href="assets/demos.css?v=4" />
   <script src="assets/site.js?v=3" defer></script>
   <script src="assets/planet.js?v=3" defer></script>
-  <script src="assets/demos.js?v=3" defer></script>
+  <script src="assets/demos.js?v=4" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -126,7 +126,7 @@
 
   <div class="marquee" aria-label="Tools in MedGryd">
     <div class="marquee-track">
-      <span>Weekly Planner</span><span>Quiz Mastery</span><span>CaseFlow</span><span>Board Ops</span><span>GrydGuide</span><span>Skills Vault</span><span>OSCE Tracker</span><span>Score Matrix</span><span>GrydRank</span><span>Research Hub</span><span>Focus Mode</span><span>Companion Tracker</span><span>Quick Jot</span><span>Peer Board</span><span>Stats</span>
+      <span>Weekly Planner</span><span>Quiz Mastery</span><span>GrydAI</span><span>CaseFlow</span><span>Board Ops</span><span>GrydGuide</span><span>Skills Vault</span><span>OSCE Tracker</span><span>Score Matrix</span><span>GrydRank</span><span>Research Hub</span><span>Focus Mode</span><span>Companion Tracker</span><span>Quick Jot</span><span>Peer Board</span><span>Stats</span>
     </div>
   </div>
 
@@ -154,7 +154,7 @@
           <span class="idx">— The tour</span>
           <h2 class="h2">Don't read about it. <em>Click it.</em></h2>
         </div>
-        <p class="lede">Every panel below is a working miniature of the real app — same colours, same rules, same behaviour. Tick the tasks, answer the question, interview the patient.</p>
+        <p class="lede">Explore interactive examples of the tools you’ll use every day. Tick the tasks, try a GrydAI conversation, answer the question, interview the patient. All examples use demo data.</p>
       </div>
 
       <!-- 01 Planner -->
@@ -189,6 +189,27 @@
           <p class="try">Pick an answer, say how sure you are, check it</p>
         </div>
         <div class="reveal" data-delay="120"><div data-demo="quiz"></div></div>
+      </article>
+
+      <!-- GrydAI: from a question to a more personal study guide -->
+      <article class="feature" id="grydai" aria-labelledby="f-ai">
+        <div class="feature-copy reveal">
+          <span class="idx">New — GrydAI</span>
+          <h3 class="h2" id="f-ai">Ask it here.<br /><em>Build on it everywhere.</em></h3>
+          <p class="lede">A study tutor one click away across MedGryd. Ask a question, untangle a concept, follow up. GrydAI connects the conversation to your Quiz Mastery topics, so your next GrydGuide can address what you found hard.</p>
+          <ul class="ticks">
+            <li><b>Starts with your study context.</b> Suggested questions draw on weak concepts; the branch you’re viewing helps match the right topic.</li>
+            <li><b>One tutor, familiar places.</b> GrydAI also powers Quiz Mastery’s deeper explanations and follow-up chat.</li>
+            <li><b>Your next guide picks up the thread.</b> Linked questions and points of confusion help shape GrydGuide. Remove a topic link if it doesn’t fit.</li>
+            <li><b>Practice closes the loop.</b> Return to Quiz Mastery; your quiz results feed scheduled reviews and Board Ops evidence.</li>
+          </ul>
+          <p class="lede" style="margin-top:22px">GrydAI chat is included with Plus and Max. It pauses during active quizzes and CaseFlow encounters so you can practise independently.</p>
+          <p class="try">Choose a question, then see what carries into the guide</p>
+        </div>
+        <div class="reveal" data-delay="120">
+          <div data-demo="grydai"></div>
+          <noscript><p class="lede">GrydAI links study conversations to Quiz Mastery topics and helps your next GrydGuide address your questions. Enable JavaScript to try the interactive example.</p></noscript>
+        </div>
       </article>
 
       <!-- 03 CaseFlow -->

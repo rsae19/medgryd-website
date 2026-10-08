@@ -43,6 +43,16 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+/* Same slim accent scrollbars as the app. Keep standard properties out of WebKit's way. */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(var(--accent-rgb), 0.22); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(var(--accent-rgb), 0.5); }
+::-webkit-scrollbar-thumb:active { background: rgba(var(--accent-rgb), 0.75); }
+::-webkit-scrollbar-corner { background: transparent; }
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: rgba(var(--accent-rgb), 0.5) transparent; }
+}
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
@@ -278,6 +288,7 @@ em { font-style: normal; color: var(--accent); }
 }
 
 /* Feature rows: copy on one side, a live demo on the other, alternating */
+#grydai { scroll-margin-top: 100px; }
 .feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
 /* The demos grow when used (feedback, chat, debrief); the copy stays put beside them. */
 @media (min-width: 961px) { .feature-copy { position: sticky; top: 110px; } }

@@ -457,14 +457,75 @@
     paint(false);
   }
 
+  /* GrydAI: a scripted example of topic linking and the next guide's context.
+     No API calls, account data, or persistence; chatting does not change mastery. */
+  function grydai(root) {
+    const mark = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1.4" stroke="currentColor" stroke-width="1.4"/><rect x="9" y="1.5" width="5.5" height="5.5" rx="1.4" fill="currentColor" opacity=".85"/><rect x="1.5" y="9" width="5.5" height="5.5" rx="1.4" fill="currentColor" opacity=".5"/><path d="m11.75 9.2.7 1.65 1.65.7-1.65.7-.7 1.65-.7-1.65-1.65-.7 1.65-.7z" fill="currentColor"/></svg>`;
+    const examples = [
+      {
+        label: "Untangle a concept",
+        question: "I recognise the answer, but I can’t explain it without the choices. How should I study?",
+        answer: "Try explaining the concept before looking at the options. Then compare your explanation with your lecture and work through what you missed. If you guessed correctly, mark your confidence honestly in Quiz Mastery so the next review reflects that.",
+        note: "Recognises the answer but struggles to explain the concept without prompts.",
+        guide: "A short explanation followed by a recall prompt to answer before revealing the key.",
+      },
+      {
+        label: "Make a study connection",
+        question: "I keep mixing up the ideas in this renal lecture. Where should I start?",
+        answer: "Pick the two ideas you confuse most. For each, write what it means, what changes it, and how it differs from the other. Then explain the difference out loud. Which pair would you like to work through?",
+        note: "Needs help distinguishing related concepts in the renal lecture.",
+        guide: "A side-by-side comparison and self-checks that ask you to explain the difference.",
+      },
+    ];
+    let selected = 0, linked = true, followed = false;
+    root.classList.add("ai-demo");
+    root.innerHTML = frame(`${mark}GrydAI`, "Interactive example",
+      `<div class="ai-context"><span class="eyb">Quiz Mastery</span><span>Renal physiology / Glomerular filtration</span></div>
+       <div class="ai-prompts" role="group" aria-label="Choose an example question">${examples.map((ex, i) => `<button type="button" data-ai-example="${i}" aria-pressed="false">${esc(ex.label)}</button>`).join("")}</div>
+       <div class="ai-result" aria-live="polite" aria-atomic="true" data-ai-result></div>
+       <div class="ai-actions"><button class="qbtn" type="button" data-ai-follow>How would I check my understanding?</button><button class="qbtn" type="button" data-ai-reset>Reset example</button></div>
+       <p class="ai-disclosure">Scripted conversation · No live AI or account required.</p>`);
+
+    function paint() {
+      const ex = examples[selected];
+      root.querySelectorAll("[data-ai-example]").forEach((button) => button.setAttribute("aria-pressed", String(+button.dataset.aiExample === selected)));
+      $("[data-ai-result]", root).innerHTML = `
+        <div class="ai-question"><span class="eyb">You</span><p>${esc(ex.question)}</p></div>
+        <div class="ai-answer"><span class="ai-who">${mark}GrydAI</span><p>${esc(ex.answer)}</p></div>
+        ${followed ? `<div class="ai-followup"><span class="eyb">You · How would I check my understanding?</span><p><b>GrydAI</b> · Close your notes and explain the idea in your own words, then try a fresh practice question. Use the explanation to check your reasoning, even when your answer is correct.</p></div>` : ""}
+        <div class="ai-links">${linked ? `<span>Linked to</span><span class="ai-chip">Glomerular filtration<button type="button" data-ai-unlink aria-label="Unlink Glomerular filtration" title="Not about this">×</button></span>` : `<span>Topic unlinked from this example.</span>`}</div>
+        <div class="ai-guide">
+          <div class="ai-guide-heading"><span class="eyb acc">Your next GrydGuide</span><span class="ai-preview">Preview</span></div>
+          <h4>${linked ? "The question becomes context." : "You control the connection."}</h4>
+          <p>${linked ? esc(ex.note + (followed ? " Wants a way to check understanding independently." : "")) : "This conversation no longer contributes context for this topic. Your quiz evidence still informs the guide."}</p>
+          ${linked ? `<div class="ai-guide-example"><span>Example guide focus</span>${esc(ex.guide)}</div>` : ""}
+        </div>`;
+      $("[data-ai-follow]", root).hidden = followed;
+    }
+    root.addEventListener("click", (event) => {
+      const example = event.target.closest("[data-ai-example]");
+      if (example) {
+        selected = +example.dataset.aiExample; linked = true; followed = false; paint();
+      } else if (event.target.closest("[data-ai-unlink]")) {
+        linked = false; paint(); $("[data-ai-reset]", root).focus({ preventScroll: true });
+      } else if (event.target.closest("[data-ai-follow]")) {
+        followed = true; paint(); $("[data-ai-reset]", root).focus({ preventScroll: true });
+      } else if (event.target.closest("[data-ai-reset]")) {
+        selected = 0; linked = true; followed = false; paint();
+      }
+    });
+    paint();
+  }
+
   /* ─── Orbit of tools ─────────────────────────────────────────────── */
   function orbit(root) {
     const TOOLS = [
+      { n: "GrydAI", c: "#38bdf8", tag: "Connected tutor · Plus & Max", d: "Ask a question, connect it to a Quiz Mastery topic, and let your next GrydGuide pick up what you found confusing. Your practice results continue to drive reviews and Board Ops.", b: ["Suggested questions from weak concepts", "Saved chats with removable topic links", "Paused during quizzes and CaseFlow encounters"] },
       { n: "Calendar & LMS sync", c: "#4fc3f7", tag: "Automatic", d: "Canvas, D2L Brightspace or any iCal feed arrives on its own, and Google Calendar is properly two-way — edit an event in MedGryd and the real one updates.", b: ["Two-way Google Calendar push", "Recurring events with This / Following / All edits", "Import a PDF schedule straight into the grid"] },
       { n: "Today's To-Do", c: "#38bdf8", tag: "Everywhere", d: "Pin today's list to the corner of every page. Tick items and reorder them without going back to the planner.", b: ["Mirrors the real day card", "Drag the banner anywhere on screen", "Shows subtask and quiz counts"] },
       { n: "Quick Jot", c: "#a78bfa", tag: "Capture", d: "A rich-text scratchpad with named sections. Pin any section out as a sticky note that follows you across the app.", b: ["Unlimited named sections", "Resizable, draggable sticky notes", "Checklists and headings"] },
       { n: "Focus Mode", c: "#ffb43c", tag: "Deep work", d: "Timed or Pomodoro sessions that log themselves into your stats, your Productivity Score and your rank — and hand a finished QBank block straight to Board Ops.", b: ["Pomodoro rounds bank time as they finish", "Sessions drawn on Block view", "Live next-event countdown"] },
-      { n: "GrydGuide", c: "#22d3ee", tag: "AI study guide", d: "Turns your top weak concepts — and the questions you actually missed — into one study guide with self-checks, exportable as a MedGryd-branded PDF.", b: ["Built from your own misses", "Maps to your lecture's topics", "Saved per course branch"] },
+      { n: "GrydGuide", c: "#22d3ee", tag: "AI study guide", d: "Turns your top weak concepts — and the questions you actually missed — into one study guide with self-checks, exportable as a MedGryd-branded PDF.", b: ["Built from your own misses", "Maps to your lecture's topics", "Linked GrydAI questions inform your next guide"] },
       { n: "Deeper explanation", c: "#818cf8", tag: "AI tutor", d: "On any question, open a deeper walkthrough of every choice — and a warning when the answer key itself looks wrong.", b: ["Why it's right, why each other choice isn't", "Flags a questionable key", "Cached, so reopening is instant"] },
       { n: "OSCE Tracker", c: "#f472b6", tag: "Clinical", d: "A complete SOAP note: 18 review-of-systems categories, vitals, seven exam areas and 22 labs that flag themselves when out of range.", b: ["22 labs with reference ranges", "Printable patient card", "Same note format CaseFlow uses"] },
       { n: "Research Hub", c: "#4ade80", tag: "Collaborate", d: "Ideas, projects and deadlines on one board. Import literature from Google Sheets, then share the project and split the tasks.", b: ["Seven-stage pipeline to published", "Shared projects with assigned tasks", "Deadline countdowns"] },
@@ -497,7 +558,7 @@
     show(0);
   }
 
-  const DEMOS = { planner, quiz, caseflow, boards, wheel, grades, rank, orbit };
+  const DEMOS = { planner, quiz, caseflow, boards, wheel, grades, rank, grydai, orbit };
   document.querySelectorAll("[data-demo]").forEach((el) => {
     const fn = DEMOS[el.dataset.demo];
     if (fn) { try { fn(el); } catch (err) { console.error("demo", el.dataset.demo, err); } }
