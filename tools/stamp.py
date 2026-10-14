@@ -10,7 +10,7 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PAGES = ["features.html", "schools.html", "pricing.html", "about.html", "contact.html",
-         "privacy.html", "terms.html", "dpa.html"]
+         "privacy.html", "terms.html", "dpa.html", "delete-account.html"]
 
 
 def block(src, name):
