@@ -108,7 +108,7 @@
 <p>Posts show no name or account information to other students. So that you — and only you — can delete your own post, we keep a private record of which account wrote each post, stored separately from the post. Other users cannot read it. Our development team can access it through our database administration tools, and does so only to investigate a serious violation of our Terms or when required by law.</p>
 <p>Replies and upvotes are recorded on the post with your account ID (never shown in the app, but readable by other signed-in users who inspect the app's data). Replies and upvotes are therefore not fully anonymous. Treat anything you post on the Peer Board as public.</p>
 <h3>3.9 Presence Information</h3>
-<p>When active, your online/offline status, display name, and last-seen timestamp are written to Firebase Realtime Database for group features.</p>
+<p>When active, your online/offline status, display name, and last-seen timestamp are written to Firebase Realtime Database for group features. The name of the MedGryd page you have open (for example, Planner or Quiz Mastery) is also written there, readable only by you and the MedGryd team, so we can see where students are when helping them; it is removed when you go offline.</p>
 <h3>3.10 Activation &amp; Plan Records</h3>
 <p>Your activation code, display name, email address, and Firebase UID are sent to our activation service (a Google Apps Script backed by a Google Sheet that only our team can access). The sheet records which account claimed each code, with that account's email and plan, so a code cannot be reused and your plan can be applied.</p>
 <h3>3.11 Payments</h3>
