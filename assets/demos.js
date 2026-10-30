@@ -24,7 +24,7 @@
     const state = {
       tasks: [
         { id: "qm", text: 'Quiz Mastery - 1.01 - Glomerular Filtration', mk: "🧠", q: 7, done: false },
-        { id: "anki", text: "CEPA Anki", subs: [
+        { id: "anki", text: "Clinical Skills Anki", subs: [
           { id: "a1", text: "Cardio deck", n: 120, done: true },
           { id: "a2", text: "Renal deck", n: 86, done: true },
           { id: "a3", text: "Pharm deck", n: 64, done: false },

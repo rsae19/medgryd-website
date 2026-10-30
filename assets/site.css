@@ -431,6 +431,11 @@ em { font-style: normal; color: var(--accent); }
 .closer .lede { margin: 26px auto 0; }
 .closer .hero-actions { margin-top: 36px; }
 
+/* The vanity number leads; the smaller accent line makes dialing easy. */
+.phone-link { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; font-family: var(--display); line-height: 1.5; white-space: nowrap; text-decoration: none; }
+.phone-link small { color: var(--accent); font-family: var(--body); font-size: 0.8em; font-weight: 400; letter-spacing: 0.035em; font-variant-numeric: tabular-nums; }
+.footer .phone-link { transition: color 160ms ease; }
+
 /* ── Footer ───────────────────────────────────────────────────────────── */
 .footer { border-top: 1px solid var(--hair-2); padding: 64px 0 32px; background: #030409; font-size: 14px; }
 .footer-top { display: grid; grid-template-columns: minmax(0, 5fr) repeat(3, minmax(0, 2fr)); gap: 32px; padding-bottom: 44px; border-bottom: 1px solid var(--hair-2); }
